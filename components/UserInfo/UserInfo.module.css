@@ -1,0 +1,14 @@
+.userCard {
+  transition: all 0.5s;
+}
+.info {
+  transition: all 0.3s;
+  overflow: hidden;
+  color: #fff;
+}
+.infoHidden {
+  width: 0;
+}
+.infoShown {
+  width: max-content;
+}

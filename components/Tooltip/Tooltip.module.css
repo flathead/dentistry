@@ -1,0 +1,26 @@
+.tooltip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.tip {
+  position: absolute;
+  white-space: nowrap;
+  background: linear-gradient(to right, #222, #333);
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.tipText {
+  position: absolute;
+  background: #222;
+  height: 14px;
+  width: 14px;
+  z-index: -1;
+}

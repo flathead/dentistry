@@ -1,0 +1,114 @@
+.offer {
+  .layoutGrid {
+    display: grid;
+    grid-template: auto / 1fr max-content;
+    overflow: hidden;
+    .offerContent {
+      padding: 2rem;
+      padding-left: calc((100vw - 1160px) / 2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .inactiveBtn {
+        width: max-content;
+        padding: 0 20px;
+        background: var(--dent-blue);
+        border-radius: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--background);
+      }
+      .subtitle {
+        font-size: 1.6rem;
+      }
+      .cta {
+        height: 60px;
+        border-radius: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        gap: 2rem;
+        width: max-content;
+        border: 2px solid var(--dent-dark);
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+        label {
+          background: var(--background);
+          padding: 0 10px;
+        }
+        div {
+          background: none !important;
+          box-shadow: none !important;
+          height: 35px;
+        }
+        .ctaInput {
+          box-shadow: none !important;
+          filter: none !important;
+        }
+      }
+      .benefits {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        .benefit {
+          p.benefitNumber {
+            color: var(--dent-blue);
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 0;
+          }
+          p.benefitDescription {
+            margin: 0;
+          }
+        }
+      }
+    }
+    @keyframes pictureSlideLeft {
+      0% {
+        transform: translateX(50%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    .offerPicture {
+      animation: 0.5s pictureSlideLeft ease-out forwards;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      max-width: 540px;
+      .offerPictureBackground {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      @keyframes personFadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .offerPicturePerson {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        animation: 0.5s personFadeIn 0.5s ease-in-out forwards;
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: 80%;
+        object-fit: contain;
+        object-position: bottom center;
+        filter: drop-shadow(0 0 100px var(--dent-blue));
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": ["eslint:recommended", "next/core-web-vitals", "prettier"],
+  "plugins": ["prettier"],
+  "parser": "@babel/eslint-parser", // Парсер для обработки jsx кода
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12, // версия стандарта JavaScript. Последний 12 (2021).
+    "sourceType": "module" // Позволяет использовать import/export
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

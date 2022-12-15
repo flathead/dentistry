@@ -1,0 +1,167 @@
+.news {
+  .newsItem {
+    display: grid;
+    width: 100%;
+    grid-template: auto / 1fr 540px;
+    .newsItemContent {
+      background: #f4f4f4;
+      padding: 3rem 2rem;
+      padding-left: calc((100vw - 1160px) / 2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .newsContentText {
+        .newsItemDescr {
+          font-size: 1.4rem;
+          font-weight: 400;
+        }
+        .newsItemDescrSub {
+          font-size: 1rem;
+        }
+      }
+      button {
+        width: max-content;
+      }
+    }
+    .newsItemPreview {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.about {
+  display: grid;
+  grid-template: auto / repeat(2, 1fr);
+  gap: 2rem;
+  .aboutContent {
+    p {
+      font-size: 1.4rem;
+    }
+  }
+  .aboutSliders {
+    display: grid;
+    grid-template: 1fr 80px;
+    gap: 1rem;
+    .aboutMainSlider {
+      width: 100%;
+      max-width: 540px;
+      height: 100%;
+      max-height: 400px;
+      border-radius: 2rem;
+
+      .fancyboxBtn {
+        background: none;
+        padding: 0;
+        margin: 0;
+        border: none;
+        outline: none;
+        cursor: zoom-in;
+        height: 100%;
+        width: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top center;
+        }
+      }
+    }
+    .aboutThumbSlider {
+      width: 100%;
+      max-width: 540px;
+      height: 100%;
+      max-height: 100px;
+      .thumbWrapper {
+        border-radius: 1rem;
+        overflow: hidden;
+        &.swiper-slide-thumb-active {
+          transform: scale(2);
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top center;
+        }
+      }
+      .swiper-slide-thumb-active {
+        border: 2px solid green;
+      }
+    }
+  }
+}
+
+.benefits {
+  display: grid;
+  grid-template: auto / 0.5fr 1fr;
+  .benefitsTitleWrapper {
+    background: var(--dent-dark);
+    padding-left: calc((100vw - 1160px) / 2);
+    border-radius: 0 2rem 2rem 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    .benefitsTitle {
+      font-size: 2.2rem;
+      color: #fff;
+      position: relative;
+      i {
+        position: relative;
+        z-index: 1;
+        &::before {
+          display: none;
+        }
+        &::after {
+          background: #038aa7;
+          z-index: -1;
+          content: '';
+          background: #038aa7;
+          height: 10px;
+          width: 100%;
+          position: absolute;
+          bottom: 4px;
+          left: 0;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+  .benefitsList {
+    display: grid;
+    grid-template: auto / 1fr 1fr;
+    gap: 2rem;
+    padding-left: 2rem;
+    padding-right: calc((100vw - 1160px) / 2);
+    .benefit {
+      border: 1px solid #038aa7;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      .benefitTitle {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 2rem;
+        .benefitName {
+          text-decoration: underline;
+          font-size: 1.4rem;
+          width: min-content;
+          margin: 0;
+        }
+      }
+      .benefitContent {
+        margin: 0;
+        color: gray;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

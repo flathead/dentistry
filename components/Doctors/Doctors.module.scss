@@ -1,0 +1,62 @@
+.docSlider {
+  overflow: visible;
+  .card {
+    border-radius: 1rem;
+    padding: 6px;
+    border: 1px solid #038aa7;
+    transition: all 0.3s;
+    .preview {
+      max-height: 250px;
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 10px 10px #d6d6d6;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: top center;
+        max-width: 100%;
+        max-height: 250px;
+      }
+      .experience {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background: var(--dent-blue);
+        margin: 0;
+        padding: 1rem;
+        border-radius: 0 1rem 0 0;
+        font-weight: 600;
+        color: #fff !important;
+      }
+    }
+    .doctorName {
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .doctorSpec {
+      color: gray;
+    }
+    .docSliderButtons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.2rem;
+      border: 2px solid var(--dent-dark);
+      border-radius: 2rem;
+      padding-left: 0.8rem;
+      .aboutSpec {
+        text-decoration: underline;
+      }
+    }
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 10px #d6d6d6;
+      button {
+        background: var(--dent-blue);
+      }
+    }
+  }
+}

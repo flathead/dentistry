@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  min-width: 1px;
+  max-width: 100%;
+}
+
+.hide {
+  display: none !important;
+}
+
+.fullwidth {
+  width: 100vw;
+}
+
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+}
+
+.offer {
+  height: calc(100vh - 100px) !important;
+}
+
+.column {
+  flex-direction: column;
+}

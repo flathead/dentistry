@@ -1,0 +1,61 @@
+.consultationBlock {
+  background: radial-gradient(
+    154.5% 154.5% at 50% 50%,
+    #038aa7 0%,
+    #193042 100%
+  );
+  .consultationGradient {
+    background: linear-gradient(to bottom, #ffffff 60px, transparent 60px);
+    .consultationWrapper {
+      display: grid;
+      grid-template: auto / 1fr max-content;
+      align-items: end;
+      gap: 2rem;
+      .offer {
+        padding-top: calc(60px + 1rem);
+        padding-bottom: 2rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .title {
+          font-size: 2.6rem;
+          color: #fff;
+          font-weight: 700;
+          margin: 0;
+          span {
+            color: var(--dent-dark);
+          }
+        }
+        .subTitle {
+          margin: 0;
+          margin-bottom: 2rem;
+          color: #fff;
+        }
+        .form {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          input {
+            background: #ffffff;
+            border: 2px solid #193042;
+            border-radius: 20px;
+            height: 40px;
+            padding: 0 1rem;
+          }
+          button {
+            border: 2px solid #fff;
+            &:hover {
+              background: #fff;
+              color: #193042;
+            }
+          }
+        }
+      }
+      img {
+        height: 100%;
+        width: auto;
+      }
+    }
+  }
+}
