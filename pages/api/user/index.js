@@ -11,13 +11,11 @@ import nc from 'next-connect';
 const upload = multer({ dest: '/tmp' });
 const handler = nc(ncOpts);
 
-if (process.env.CLOUDINARY_URL) {
-  cloudinary.config({
-    cloud_name: 'dv3q1dxpi',
-    api_key: '664497938628891',
-    api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
-  });
-}
+cloudinary.config({
+  cloud_name: 'dv3q1dxpi',
+  api_key: '664497938628891',
+  api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
+});
 
 handler.use(...auths);
 

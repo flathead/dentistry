@@ -38,7 +38,7 @@ const SignUp = () => {
         });
         mutate({ user: response.user }, false);
         toast.success('Вы успешно создали аккаунт!');
-        router.replace('/feed');
+        router.replace('/admin/users');
       } catch (e) {
         toast.error(e.message);
       } finally {

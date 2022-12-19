@@ -2,6 +2,7 @@ import { Button } from '@/components/Button';
 import { ButtonLink } from '@/components/Button/Button';
 import { Input } from '@/components/Input';
 import { Spacer, Wrapper } from '@/components/Layout';
+// eslint-disable-next-line no-unused-vars
 import { TextLink } from '@/components/Text';
 import { fetcher } from '@/lib/fetch';
 import { useCurrentUser } from '@/lib/user';
@@ -20,7 +21,7 @@ const Login = () => {
   const router = useRouter();
   useEffect(() => {
     if (isValidating) return;
-    if (user) router.replace('/feed');
+    if (user) router.replace('/admin');
   }, [user, router, isValidating]);
 
   const onSubmit = useCallback(
@@ -95,11 +96,11 @@ const Login = () => {
           </ButtonLink>
         </form>
       </div>
-      <div className={styles.footer}>
+      {/* <div className={styles.footer}>
         <TextLink href='/sign-up' passHref color='link' variant='highlight'>
           Нет аккаунта? Зарегистрируйтесь!
         </TextLink>
-      </div>
+      </div> */}
     </Wrapper>
   );
 };

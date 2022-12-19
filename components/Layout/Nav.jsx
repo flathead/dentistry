@@ -61,34 +61,42 @@ import { ModalWindow } from '../ModalWindow';
 
 export const links = [
   {
+    id: 1,
     url: '/',
     name: 'О клинике',
   },
   /* {
+	id: 2,
     url: '/ulsugi/',
     name: 'Услуги',
   },
   {
+	id: 3,
     url: '/vrachi/',
     name: 'Врачи',
   },
   {
+	id: 4,
     url: '/aktsii/',
     name: 'Акции',
   },
   {
+	id: 5,
     url: '/tekhnologii/',
     name: 'Технологии',
   },
   {
+	id: 6,
     url: '/nashi-raboty/',
     name: 'Наши работы',
   },
   {
+	id: 7,
     url: '/otzyvy/',
     name: 'Отзывы',
   }, */
   {
+    id: 8,
     url: '/kontakty/',
     name: 'Контакты',
   },

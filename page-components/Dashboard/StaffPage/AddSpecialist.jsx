@@ -1,7 +1,8 @@
 import { Button } from '@/components/Button';
+import { Button as NextUIButton } from '@nextui-org/react';
 import { fetcher } from '@/lib/fetch';
 import { usePostPages } from '@/lib/post';
-import { Input } from '@nextui-org/react';
+import { Card, Input } from '@nextui-org/react';
 import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { EditorState, convertToRaw } from 'draft-js';
@@ -14,8 +15,21 @@ const Editor = dynamic(
   { ssr: false }
 );
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import clsx from 'clsx';
+import { ArrowDown, ArrowUp } from 'react-feather';
 
 const AddSpec = () => {
+  const [visibility, setVisibility] = useState(false);
+  const [codeVisibility, setCodeVisibility] = useState(false);
+
+  const codeHandle = () => {
+    setCodeVisibility(codeVisibility === false ? true : false);
+  };
+
+  const formHandle = () => {
+    setVisibility(visibility === false ? true : false);
+  };
+
   const nameRef = useRef();
   const specialityRef = useRef();
   const experienceRef = useRef();
@@ -66,43 +80,91 @@ const AddSpec = () => {
   );
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className={styles.addForm}>
-        <Input ref={nameRef} type={'text'} labelPlaceholder={'Имя врача'} />
-        <Input
-          ref={experienceRef}
-          type={'text'}
-          labelPlaceholder={'Стаж врача, текстом'}
-        />
-        <Input
-          ref={specialityRef}
-          type={'text'}
-          labelPlaceholder={'Специализация'}
-        />
-        <Input ref={photoRef} type={'file'} placeholder={'Фотография'} />
-        <div>
-          <p className={styles.blockTitle}>Образование</p>
-          <Editor
-            editorState={editorState}
-            wrapperClassName={styles.richText}
-            toolbarClassName={styles.toolbar}
-            editorClassName={styles.textfield}
-            onEditorStateChange={setEditorState}
-            toolbar={{
-              options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-            }}
-          />
-          <textarea
-            disabled
-            ref={educationRef}
-            value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-          />
-        </div>
-        <Button type='success' loading={isLoading}>
-          Опубликовать
-        </Button>
+    <Card className={styles.addWrapper}>
+      <div className={styles.buttonContainer}>
+        <NextUIButton
+          color='gradient'
+          iconRight={visibility ? <ArrowUp /> : <ArrowDown />}
+          bordered={visibility ? true : false}
+          onClick={formHandle}
+        >
+          {visibility ? 'Скрыть' : 'Добавить врача'}
+        </NextUIButton>
       </div>
-    </form>
+      <form onSubmit={onSubmit}>
+        <div className={clsx(styles.addForm, visibility && styles.formVisible)}>
+          <div className={styles.inputGroup}>
+            <Input
+              ref={nameRef}
+              type={'text'}
+              label={'Имя врача'}
+              placeholder='ФИО'
+            />
+            <Input
+              ref={experienceRef}
+              type={'text'}
+              label={'Стаж врача, текстом'}
+              placeholder='25 лет'
+            />
+            <Input
+              ref={specialityRef}
+              type={'text'}
+              label={'Специализация'}
+              placeholder='Ортопед'
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <div className={styles.inputColumn}>
+              <label for='photoinput'>Фотография</label>
+              <input
+                id='photoinput'
+                ref={photoRef}
+                type={'file'}
+                placeholder={'Фотография'}
+              />
+            </div>
+          </div>
+          <div>
+            <p className={styles.blockTitle}>Образование</p>
+            <Editor
+              editorState={editorState}
+              wrapperClassName={styles.richText}
+              toolbarClassName={styles.toolbar}
+              editorClassName={styles.textfield}
+              onEditorStateChange={setEditorState}
+              toolbar={{
+                options: ['inline', 'list', 'textAlign', 'remove', 'history'],
+              }}
+            />
+            <NextUIButton
+              color='primary'
+              bordered
+              onClick={codeHandle}
+              disabled={
+                draftToHtml(convertToRaw(editorState.getCurrentContent()))
+                  .length > 8
+                  ? false
+                  : true
+              }
+            >
+              {codeVisibility ? 'Скрыть код' : 'Показать код'}
+            </NextUIButton>
+            <textarea
+              className={clsx(
+                styles.code,
+                codeVisibility && styles.codeVisible
+              )}
+              disabled
+              ref={educationRef}
+              value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+            />
+          </div>
+          <Button type='success' loading={isLoading}>
+            Опубликовать
+          </Button>
+        </div>
+      </form>
+    </Card>
   );
 };
 

@@ -1,12 +1,12 @@
 import { Container } from '@/components/Layout';
-import { Title } from '@/components/Title';
+import AdminMenu from '../AdminMenu';
 import AddSpec from './AddSpecialist';
 import SpecialistList from './SpecialistList';
 
 const Specialists = ({ user }) => {
   return (
     <Container column>
-      <Title size={1}>Персонал клиники</Title>
+      <AdminMenu />
       <AddSpec user={user} />
       <SpecialistList />
     </Container>
