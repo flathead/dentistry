@@ -10,5 +10,6 @@
     "**/node_modules": true,
     "**/package-lock.js": true,
     "**/yarn.lock": false
-  }
+  },
+  "js/ts.implicitProjectConfig.target": "ES6"
 }

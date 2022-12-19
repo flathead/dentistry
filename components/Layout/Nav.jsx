@@ -9,7 +9,8 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import * as Icon from 'react-feather';
 import { useEffect, useState } from 'react';
-
+import clsx from 'clsx';
+import { ModalWindow } from '../ModalWindow';
 /* const UserMenu = ({ user, mutate }) => {
   const menuRef = useRef();
   
@@ -63,7 +64,7 @@ export const links = [
     url: '/',
     name: 'О клинике',
   },
-  {
+  /* {
     url: '/ulsugi/',
     name: 'Услуги',
   },
@@ -86,7 +87,7 @@ export const links = [
   {
     url: '/otzyvy/',
     name: 'Отзывы',
-  },
+  }, */
   {
     url: '/kontakty/',
     name: 'Контакты',
@@ -94,8 +95,18 @@ export const links = [
 ];
 
 const Nav = ({ top }) => {
+  const [open, setOpen] = useState(false);
   const [isLoaded, setIsLoading] = useState(false);
+  const [visible, setVisibility] = useState(false);
   useEffect(() => setIsLoading(true), 6000);
+
+  const menuHandler = () => {
+    setVisibility(visible === false ? true : false);
+  };
+  const modalHandler = () => {
+    setOpen(true);
+    setOpen([]);
+  };
   return (
     <header
       className={styles.mainNavigation}
@@ -107,18 +118,29 @@ const Nav = ({ top }) => {
           alignItems='center'
           justifyContent='space-between'
         >
-          <Link href='/' className={styles.logo}>
-            {isLoaded ? (
-              <Image
-                src='/logo.svg'
-                width={top >= 20 ? 160 : 200}
-                height={top >= 20 ? 40 : 50}
-                alt={'Логотип'}
-              />
-            ) : (
-              <Skeleton height={50} width={200} />
-            )}
-          </Link>
+          <div className={styles.logoWrapper}>
+            <button
+              className={clsx(styles.mobileBtn, visible && styles.btnOpened)}
+              onClick={menuHandler}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <Link href='/' className={styles.logo}>
+              {isLoaded ? (
+                <Image
+                  src='/logo.svg'
+                  width={top >= 20 ? 160 : 200}
+                  height={top >= 20 ? 40 : 50}
+                  alt={'Логотип'}
+                  className={styles.logo}
+                />
+              ) : (
+                <Skeleton height={50} width={200} />
+              )}
+            </Link>
+          </div>
 
           <Container
             column
@@ -130,30 +152,34 @@ const Nav = ({ top }) => {
             {isLoaded ? (
               <>
                 <Container
-                  hide={top >= 20 ? true : false}
+                  hide={top >= 20 && window.innerWidth >= 1080 ? true : false}
                   row
                   alignItems={'center'}
                   gap={'2rem'}
                 >
-                  <Container
-                    className={styles.phones}
-                    gap={'10px'}
-                    alignItems={'center'}
-                  >
-                    <Icon.MapPin color='#193942' size={20} />
-                    <Link
-                      className={styles.contactLink}
-                      href={'https://maps.yandex.ru'}
+                  {window.innerWidth >= 1080 ? (
+                    <Container
+                      className={clsx(styles.phones, styles.address)}
+                      gap={'10px'}
+                      alignItems={'center'}
                     >
-                      г.Тула ул Демонстрации, 38В
-                    </Link>
-                  </Container>
+                      <Icon.MapPin color='#193942' size={20} />
+                      <Link
+                        className={styles.contactLink}
+                        href={'https://maps.yandex.ru'}
+                      >
+                        г.Тула ул Демонстрации, 38В
+                      </Link>
+                    </Container>
+                  ) : null}
                   <Container
                     className={styles.phones}
                     gap={'10px'}
                     alignItems={'center'}
                   >
-                    <Icon.Phone color='#193042' size={20} />
+                    {window.innerWidth >= 1080 ? (
+                      <Icon.Phone color='#193042' size={20} />
+                    ) : null}
                     <Link
                       className={styles.contactLink}
                       href={'tel:84872707117'}
@@ -168,7 +194,12 @@ const Nav = ({ top }) => {
                     </Link>
                   </Container>
                 </Container>
-                <nav className={styles.nav}>
+                <nav
+                  className={clsx(
+                    styles.nav,
+                    links.length <= 4 && styles.navSmall
+                  )}
+                >
                   {links.map((link, key) => (
                     <Link key={key} className={styles.navLink} href={link.url}>
                       {link.name}
@@ -183,13 +214,30 @@ const Nav = ({ top }) => {
 
           <Container column gap='2rem'>
             {isLoaded ? (
-              <ButtonDent color='white'>Записаться</ButtonDent>
+              <ButtonDent onClick={modalHandler} color='white'>
+                Записаться
+              </ButtonDent>
             ) : (
               <Skeleton height={40} width={150} style={{ borderRadius: 40 }} />
             )}
           </Container>
         </Container>
       </Wrapper>
+
+      <Container
+        column
+        className={clsx(styles.mobileMenu, visible && styles.mobileMenuOpened)}
+      >
+        <nav>
+          {links.map((link, key) => (
+            <Link key={key} className={styles.navLink} href={link.url}>
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+      </Container>
+
+      <ModalWindow open={open} />
     </header>
   );
 };

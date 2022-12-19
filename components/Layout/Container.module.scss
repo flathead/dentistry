@@ -21,6 +21,9 @@
 
 .offer {
   height: calc(100vh - 100px) !important;
+  @media (max-width: 1080px) {
+    height: auto !important;
+  }
 }
 
 .column {

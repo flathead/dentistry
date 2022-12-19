@@ -2,7 +2,7 @@ import { sendMsg } from '@/lib/telegram';
 import { Input, useInput } from '@nextui-org/react';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ButtonDent } from '../Button/Button';
 import { Title } from '../Title';
 import styles from './Offer.module.scss';
@@ -37,6 +37,11 @@ const Offer = ({ template, className, title, subtitle }) => {
     );
   };
 
+  const [width, setWidth] = useState(null);
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, [width]);
+
   return (
     <div
       className={clsx(
@@ -68,7 +73,9 @@ const Offer = ({ template, className, title, subtitle }) => {
                 helperText={helper.text}
                 type='tel'
                 className={styles.ctaInput}
-                labelPlaceholder='Ваш номер телефона'
+                labelPlaceholder={
+                  width >= 480 ? 'Ваш номер телефона' : 'Телефон'
+                }
               />
               <ButtonDent
                 disabled={helper.disabled}
@@ -77,27 +84,6 @@ const Offer = ({ template, className, title, subtitle }) => {
               >
                 Получить
               </ButtonDent>
-            </div>
-          </div>
-
-          <div className={styles.benefits}>
-            <div className={styles.benefit}>
-              <p className={styles.benefitNumber}>9000+</p>
-              <p className={styles.benefitDescription}>
-                Довольных пациентов за 5 лет работы
-              </p>
-            </div>
-            <div className={styles.benefit}>
-              <p className={styles.benefitNumber}>99.9%</p>
-              <p className={styles.benefitDescription}>
-                Пациенты рекомендуют нашу стоматологию
-              </p>
-            </div>
-            <div className={styles.benefit}>
-              <p className={styles.benefitNumber}>10 лет</p>
-              <p className={styles.benefitDescription}>
-                Средний стаж наших специалистов
-              </p>
             </div>
           </div>
         </div>
@@ -120,6 +106,26 @@ const Offer = ({ template, className, title, subtitle }) => {
             height={506}
             priority={false}
           />
+        </div>
+        <div className={styles.benefits}>
+          <div className={styles.benefit}>
+            <p className={styles.benefitNumber}>9000+</p>
+            <p className={styles.benefitDescription}>
+              Довольных пациентов за 5 лет работы
+            </p>
+          </div>
+          <div className={styles.benefit}>
+            <p className={styles.benefitNumber}>99.9%</p>
+            <p className={styles.benefitDescription}>
+              Пациенты рекомендуют нашу стоматологию
+            </p>
+          </div>
+          <div className={styles.benefit}>
+            <p className={styles.benefitNumber}>10 лет</p>
+            <p className={styles.benefitDescription}>
+              Средний стаж наших специалистов
+            </p>
+          </div>
         </div>
       </div>
     </div>

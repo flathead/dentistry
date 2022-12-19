@@ -1,14 +1,28 @@
 .offer {
+  @media (max-width: 1080px) {
+    width: 100%;
+  }
   .layoutGrid {
     display: grid;
     grid-template: auto / 1fr max-content;
+    grid-template-areas: 'content picture' 'benefits picture';
     overflow: hidden;
+    @media (max-width: 1080px) {
+      grid-template: auto / 1fr;
+      grid-template-areas: 'content' 'picture' 'benefits';
+      gap: 2rem;
+    }
     .offerContent {
       padding: 2rem;
       padding-left: calc((100vw - 1160px) / 2);
+      padding-bottom: 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      grid-area: content;
+      @media (max-width: 1220px) {
+        padding-left: 2rem;
+      }
       .inactiveBtn {
         width: max-content;
         padding: 0 20px;
@@ -22,6 +36,9 @@
       }
       .subtitle {
         font-size: 1.6rem;
+        @media (max-width: 1080px) {
+          font-size: 1.2rem;
+        }
       }
       .cta {
         height: 60px;
@@ -34,9 +51,14 @@
         width: max-content;
         border: 2px solid var(--dent-dark);
         box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+        @media (max-width: 480px) {
+          width: 100%;
+        }
         label {
           background: var(--background);
           padding: 0 10px;
+          z-index: 0;
+          white-space: nowrap;
         }
         div {
           background: none !important;
@@ -46,22 +68,6 @@
         .ctaInput {
           box-shadow: none !important;
           filter: none !important;
-        }
-      }
-      .benefits {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        .benefit {
-          p.benefitNumber {
-            color: var(--dent-blue);
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin: 0;
-          }
-          p.benefitDescription {
-            margin: 0;
-          }
         }
       }
     }
@@ -74,17 +80,33 @@
       }
     }
     .offerPicture {
+      @media (max-width: 1080px) and (min-width: 560px) {
+        display: none;
+      }
+      @media (max-width: 560px) {
+        margin: 0 auto;
+        width: calc(100% - 4rem);
+      }
       animation: 0.5s pictureSlideLeft ease-out forwards;
       position: relative;
       display: flex;
       align-items: flex-start;
       justify-content: flex-end;
       max-width: 540px;
+      grid-area: picture;
       .offerPictureBackground {
         width: 100%;
         max-width: 100%;
         height: 100%;
         object-fit: cover;
+        @media (max-width: 560px) {
+          border-radius: 1rem;
+          max-height: 400px;
+          width: 100%;
+        }
+        @media (max-width: 400px) {
+          max-height: 280px;
+        }
       }
       @keyframes personFadeIn {
         0% {
@@ -108,6 +130,40 @@
         object-fit: contain;
         object-position: bottom center;
         filter: drop-shadow(0 0 100px var(--dent-blue));
+      }
+    }
+    .benefits {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      grid-area: benefits;
+      padding: 2rem;
+      padding-left: calc((100vw - 1160px) / 2);
+      padding-bottom: 0;
+      width: 100%;
+      @media (max-width: 1220px) {
+        padding-left: 2rem;
+        align-items: flex-start;
+      }
+      @media (max-width: 560px) {
+        flex-direction: column;
+      }
+      .benefit {
+        p.benefitNumber {
+          color: var(--dent-blue);
+          font-size: 2.4rem;
+          font-weight: 700;
+          margin: 0;
+          @media (max-width: 560px) {
+            font-size: 2rem;
+          }
+        }
+        p.benefitDescription {
+          margin: 0;
+          @media (max-width: 560px) {
+            font-size: 0.8rem;
+          }
+        }
       }
     }
   }

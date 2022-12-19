@@ -1,6 +1,7 @@
 import { Popover } from '@nextui-org/react';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import styles from './Advantages.module.scss';
 
 const Advantages = ({
@@ -23,6 +24,11 @@ const Advantages = ({
   adv8_title,
   adv8_descr,
 }) => {
+  const [width, setWidth] = useState(null);
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, [width]);
+
   return (
     <div className={styles.advantages}>
       <div className={styles.imageContainer}>
@@ -45,7 +51,10 @@ const Advantages = ({
           className={clsx(styles.tooth, staticImage && styles.staticImage)}
         />
         {adv1_title && (
-          <Popover placement='left-bottom' disableShadow>
+          <Popover
+            placement={width >= 960 ? 'left-bottom' : 'right'}
+            disableShadow
+          >
             <Popover.Trigger>
               <button id={styles.adv1} className={styles.triggerButton}>
                 <span></span>
@@ -61,7 +70,7 @@ const Advantages = ({
           </Popover>
         )}
         {adv2_title && (
-          <Popover placement='left' disableShadow>
+          <Popover placement={width >= 960 ? 'left' : 'right'} disableShadow>
             <Popover.Trigger>
               <button id={styles.adv2} className={styles.triggerButton}>
                 <span></span>
@@ -80,7 +89,7 @@ const Advantages = ({
           </Popover>
         )}
         {adv3_title && (
-          <Popover placement='left' disableShadow>
+          <Popover placement={width >= 960 ? 'left' : 'right'} disableShadow>
             <Popover.Trigger>
               <button id={styles.adv3} className={styles.triggerButton}>
                 <span></span>
@@ -96,7 +105,10 @@ const Advantages = ({
           </Popover>
         )}
         {adv4_title && (
-          <Popover placement='left-bottom' disableShadow>
+          <Popover
+            placement={width >= 960 ? 'left-bottom' : 'right'}
+            disableShadow
+          >
             <Popover.Trigger>
               <button id={styles.adv4} className={styles.triggerButton}>
                 <span></span>
@@ -113,7 +125,10 @@ const Advantages = ({
         )}
         {/* Right side */}
         {adv5_title && (
-          <Popover placement='right-bottom' disableShadow>
+          <Popover
+            placement={width >= 960 ? 'left-bottom' : 'right'}
+            disableShadow
+          >
             <Popover.Trigger>
               <button id={styles.adv5} className={styles.triggerButton}>
                 <span></span>
@@ -129,7 +144,10 @@ const Advantages = ({
           </Popover>
         )}
         {adv6_title && (
-          <Popover placement='right-bottom' disableShadow>
+          <Popover
+            placement={width >= 960 ? 'right-bottom' : 'right'}
+            disableShadow
+          >
             <Popover.Trigger>
               <button id={styles.adv6} className={styles.triggerButton}>
                 <span></span>
@@ -145,7 +163,10 @@ const Advantages = ({
           </Popover>
         )}
         {adv7_title && (
-          <Popover placement='right-bottom' disableShadow>
+          <Popover
+            placement={width >= 960 ? 'right-bottom' : 'right'}
+            disableShadow
+          >
             <Popover.Trigger>
               <button id={styles.adv7} className={styles.triggerButton}>
                 <span></span>
@@ -161,7 +182,10 @@ const Advantages = ({
           </Popover>
         )}
         {adv8_title && (
-          <Popover placement='right-bottom' disableShadow>
+          <Popover
+            placement={width >= 960 ? 'right-bottom' : 'right'}
+            disableShadow
+          >
             <Popover.Trigger>
               <button id={styles.adv8} className={styles.triggerButton}>
                 <span></span>

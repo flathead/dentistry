@@ -27,7 +27,11 @@ const MapComponent = () => {
         mapboxAccessToken={MAPBOX_TOKEN}
         onClick={mapHandler}
       >
-        <Marker longitude={37.58919450004085} latitude={54.19124657041915}>
+        <Marker
+          aria-label='Маркер карты'
+          longitude={37.58919450004085}
+          latitude={54.19124657041915}
+        >
           <Image
             src={'/marker.png'}
             alt=''

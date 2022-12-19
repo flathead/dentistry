@@ -30,6 +30,13 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  &.navSmall {
+    justify-content: center;
+    gap: 1rem;
+  }
+  @media (max-width: 1080px) {
+    display: none;
+  }
   .navLink {
     font-size: 0.9rem;
     color: var(--dent-accent);
@@ -42,10 +49,81 @@
   }
 }
 
-.logo {
-  font-weight: 800;
-  color: var(--foreground);
-  text-decoration: none;
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  .mobileBtn {
+    height: 40px;
+    width: 40px;
+    margin: 0;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    border: 2px solid #c2c3c6;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px #c2c3c6;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-right: 1rem;
+    @media (min-width: 1080px) {
+      display: none !important;
+    }
+
+    span {
+      height: 5px;
+      width: 90%;
+      background: var(--dent-blue);
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    &:hover {
+      gap: 4px;
+      span {
+        height: 4px;
+        border-radius: 4px;
+      }
+    }
+
+    &.btnOpened {
+      position: relative;
+      span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        &:nth-child(1) {
+          transform: rotate(45deg)
+            translate(calc(-50% + 4px), calc(-50% + 12px));
+        }
+        &:nth-child(2) {
+          transform: scale(0) translate(-50%, -50%);
+        }
+        &:nth-child(3) {
+          transform: rotate(-45deg)
+            translate(calc(-50% + 6px), calc(-50% + -9px));
+        }
+      }
+    }
+  }
+  .logo {
+    @media (max-width: 768px) {
+      max-width: 150px;
+      min-width: 100px;
+      width: 100%;
+    }
+    @media (max-width: 560px) {
+      max-width: 120px;
+    }
+    @media (max-width: 400px) {
+      min-width: unset;
+      width: 35px;
+      height: 40px;
+      object-fit: cover;
+      object-position: left center;
+    }
+  }
 }
 
 .user {
@@ -97,4 +175,51 @@
 .item:hover {
   color: var(--foreground);
   background: var(--accents-1);
+}
+
+.mobileMenu {
+  height: 0vh;
+  transition: all 0.5s;
+  background: #fff;
+  position: fixed;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  width: 100%;
+  @media (min-width: 1080px) {
+    display: none !important;
+  }
+  &.mobileMenuOpened {
+    height: calc(100vh - 100%);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    a {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+@media (max-width: 1080px) {
+  .address {
+    display: none;
+  }
+  .phones {
+    flex-direction: column;
+    @media (max-width: 768px) {
+      a {
+        font-size: 10px;
+      }
+    }
+    @media (max-width: 560px) {
+      display: none;
+    }
+  }
 }

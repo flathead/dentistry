@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import styles from './Container.module.css';
+import styles from './Container.module.scss';
 
 const Container = ({
   fullscreen,

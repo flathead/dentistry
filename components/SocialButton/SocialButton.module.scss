@@ -1,0 +1,24 @@
+.social {
+  transition: all 0.3s;
+  &.vk:hover {
+    fill: #0077ff;
+  }
+  &.telegram:hover {
+    fill: #0088cc;
+  }
+  &.whatsapp:hover {
+    fill: #128c7e;
+  }
+  &.ok:hover {
+    fill: #ed812b;
+  }
+  &.viber:hover {
+    fill: #8f5db7;
+  }
+  &.youtube:hover {
+    fill: #ff0000;
+  }
+  &.instagram:hover {
+    fill: #c13584;
+  }
+}

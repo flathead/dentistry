@@ -6,7 +6,18 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 1080px) {
+      flex-direction: column;
+      //   align-items: flex-start;
+      gap: 2rem;
+    }
     .footerNav {
+      @media (max-width: 1080px) {
+        display: grid;
+        grid-template: auto / 1fr 1fr;
+        row-gap: 1rem !important;
+        column-gap: 2rem !important;
+      }
       .footerLink {
         color: #fff;
         font-size: 0.875rem;
@@ -16,9 +27,74 @@
       }
     }
   }
-  .footerContact {
-    display: grid;
-    grid-template: auto / repeat(2, 1fr);
-    gap: 2rem;
+}
+.footerContact {
+  display: grid;
+  grid-template: auto / repeat(2, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  position: relative;
+  @media (max-width: 768px) {
+    grid-template: auto / 1fr;
+  }
+  p {
+    margin: 0;
+  }
+  div:nth-child(1) {
+    p {
+      margin-bottom: 1rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  div:nth-child(2) {
+    a {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    div {
+      margin-bottom: 1rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      @media (max-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+    .socials {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+  .scrollToTop {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    background: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-appearance: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px #d6d6d6;
+    border-radius: 6px;
+    svg {
+      width: 24px;
+      height: 24px;
+      transition: all 0.3s;
+    }
+    &:hover {
+      background: var(--dent-blue);
+      svg {
+        fill: #fff;
+      }
+    }
   }
 }

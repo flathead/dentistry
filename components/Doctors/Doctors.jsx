@@ -8,7 +8,15 @@ import Image from 'next/image';
 import { useSpecPages } from '@/lib/post';
 import Link from 'next/link';
 import { ButtonDent } from '../Button/Button';
+import { useState } from 'react';
+import { ModalWindow } from '../ModalWindow';
+
 const Doctors = () => {
+  const [open, setOpen] = useState(false);
+  const modalHandler = () => {
+    setOpen(true);
+    setOpen([]);
+  };
   const { data } = useSpecPages();
   const specialists = data
     ? data.reduce((acc, val) => [...acc, ...val.specialists], [])
@@ -16,12 +24,28 @@ const Doctors = () => {
 
   return (
     <div>
+      <ModalWindow open={open} />
       <Swiper
         modules={Pagination}
-        slidesPerView={4}
-        spaceBetween={20}
+        spaceBetween={10}
         pagination={true}
         className={styles.docSlider}
+        breakpoints={{
+          0: {
+            // width: 0,
+            slidesPerView: 1,
+          },
+          480: {
+            // width: 400,
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1080: {
+            slidesPerView: 4,
+          },
+        }}
       >
         {specialists.map((specialist) => (
           <SwiperSlide key={specialist._id}>
@@ -51,7 +75,9 @@ const Doctors = () => {
                 >
                   Подробнее
                 </Link>
-                <ButtonDent color='dark'>Записаться</ButtonDent>
+                <ButtonDent onClick={modalHandler} color='dark'>
+                  Записаться
+                </ButtonDent>
               </div>
             </div>
           </SwiperSlide>

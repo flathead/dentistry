@@ -1,6 +1,10 @@
 /* Inspired by Vercel design */
 @import 'node_modules/modern-normalize/modern-normalize.css';
 :root {
+  --tablet: 768px;
+  --desktop-small: 960px;
+  --desktop-medium: 1080px;
+  --desktop-full: 1200px;
   --background: #fff;
   --foreground: #000;
   --accents-1: #fafafa;
@@ -29,6 +33,43 @@
   --dent-blue: #038aa7;
   --dent-dark: #193042;
   --dent-accent: #193042;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7ac0ce transparent;
+}
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+  width: 8px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #7ac0ce;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #82ccdb;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #8bc2ff;
 }
 
 body {

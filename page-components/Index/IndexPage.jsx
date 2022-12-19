@@ -21,9 +21,15 @@ import { Fancybox } from '@/components/Fancybox';
 import { Doctors } from '@/components/Doctors';
 import MapComponent from '@/components/Map/Map';
 import { Consultation } from '@/components/Consultation';
+import { ModalWindow } from '@/components/ModalWindow';
 
 const Index = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [open, setOpen] = useState(false);
+  const modalHandler = () => {
+    setOpen(true);
+    setOpen([]);
+  };
 
   const aboutPictures = [
     {
@@ -75,6 +81,7 @@ const Index = () => {
 
   return (
     <>
+      <ModalWindow open={open} />
       <Container fullscreen offer justifyContent={'space-between'}>
         <Offer
           template={'homepage'}
@@ -120,7 +127,9 @@ const Index = () => {
                   <br />в день обращения
                 </h4>
               </div>
-              <ButtonDent color={'dark'}>Записаться</ButtonDent>
+              <ButtonDent onClick={modalHandler} color={'dark'}>
+                Записаться
+              </ButtonDent>
             </div>
             <div className={styles.newsItemPreview}>
               <Image
@@ -145,7 +154,9 @@ const Index = () => {
                 </h4>
                 <p className={styles.newsItemDescrSub}>Без записи DVD диска</p>
               </div>
-              <ButtonDent color={'dark'}>Записаться</ButtonDent>
+              <ButtonDent onClick={modalHandler} color={'dark'}>
+                Записаться
+              </ButtonDent>
             </div>
             <div className={styles.newsItemPreview}>
               <Image
@@ -168,7 +179,9 @@ const Index = () => {
                   Качественный осмотр и лечение зубов
                 </h4>
               </div>
-              <ButtonDent color={'dark'}>Записаться</ButtonDent>
+              <ButtonDent onClick={modalHandler} color={'dark'}>
+                Записаться
+              </ButtonDent>
             </div>
             <div className={styles.newsItemPreview}>
               <Image
@@ -191,7 +204,9 @@ const Index = () => {
                   Качественный осмотр и лечение зубов
                 </h4>
               </div>
-              <ButtonDent color={'dark'}>Записаться</ButtonDent>
+              <ButtonDent onClick={modalHandler} color={'dark'}>
+                Записаться
+              </ButtonDent>
             </div>
             <div className={styles.newsItemPreview}>
               <Image
@@ -214,7 +229,9 @@ const Index = () => {
                   Протезирование зубов на 4 имплантах
                 </h4>
               </div>
-              <ButtonDent color={'dark'}>Записаться</ButtonDent>
+              <ButtonDent onClick={modalHandler} color={'dark'}>
+                Записаться
+              </ButtonDent>
             </div>
             <div className={styles.newsItemPreview}>
               <Image
@@ -237,7 +254,9 @@ const Index = () => {
                   Протезирование зубов по демократичным ценам
                 </h4>
               </div>
-              <ButtonDent color={'dark'}>Записаться</ButtonDent>
+              <ButtonDent onClick={modalHandler} color={'dark'}>
+                Записаться
+              </ButtonDent>
             </div>
             <div className={styles.newsItemPreview}>
               <Image
@@ -260,7 +279,9 @@ const Index = () => {
                   Профессиональная чистка зубов
                 </h4>
               </div>
-              <ButtonDent color={'dark'}>Записаться</ButtonDent>
+              <ButtonDent onClick={modalHandler} color={'dark'}>
+                Записаться
+              </ButtonDent>
             </div>
             <div className={styles.newsItemPreview}>
               <Image
@@ -316,7 +337,7 @@ const Index = () => {
         <Wrapper>
           <div className={styles.about}>
             <div className={styles.aboutContent}>
-              <Title size={2} template={'pageTitle'}>
+              <Title size={2} template={'pageTitle'} className={styles.mt0}>
                 О нашей <i>клинике</i>
               </Title>
               <p>
