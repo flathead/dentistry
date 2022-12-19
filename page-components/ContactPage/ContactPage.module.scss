@@ -1,38 +1,46 @@
-.contact {
-  background: var(--dent-blue);
-  padding-bottom: 2rem;
-  .title {
-    font-size: 2.2rem;
-    color: #fff;
-    @media (max-width: 920px) {
-      font-size: 2rem;
+.title {
+  font-size: 2.2rem;
+  color: #fff;
+  &.titleDark {
+    color: var(--dent-dark);
+    span {
+      color: var(--dent-blue);
     }
-    @media (max-width: 768px) {
-      font-size: 1.6rem;
-    }
-    i {
-      position: relative;
-      font-style: normal;
-      z-index: 1;
-      &::before {
-        content: '';
-        position: absolute;
-        bottom: 4px;
-        left: 0;
-        width: 100%;
-        height: 10px;
-        background: var(--dent-dark);
-        border-radius: 8px;
-        z-index: -1;
-        @media (max-width: 376px) {
-          width: 165px;
-          bottom: 2px;
-          right: 0;
-          left: unset;
-        }
+  }
+  @media (max-width: 920px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
+  i {
+    position: relative;
+    font-style: normal;
+    z-index: 1;
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: var(--dent-dark);
+      border-radius: 8px;
+      z-index: -1;
+      @media (max-width: 376px) {
+        width: 165px;
+        bottom: 2px;
+        right: 0;
+        left: unset;
       }
     }
   }
+}
+
+.contact {
+  background: var(--dent-blue);
+  padding-bottom: 2rem;
+
   .contactWrapper {
     display: grid;
     grid-template: auto / 0.8fr 1fr;
@@ -72,4 +80,8 @@
       }
     }
   }
+}
+
+.control {
+  padding-bottom: 2rem;
 }

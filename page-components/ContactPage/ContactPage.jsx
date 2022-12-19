@@ -2,9 +2,12 @@ import { ButtonDent } from '@/components/Button/Button';
 import { Container, Wrapper } from '@/components/Layout';
 import { MapComponent } from '@/components/Map';
 import { ModalWindow } from '@/components/ModalWindow';
+import { Collapse, Grid, Text } from '@nextui-org/react';
+import clsx from 'clsx';
 import siteMetadata from 'data/siteMetadata';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { Shield } from 'react-feather';
 import styles from './ContactPage.module.scss';
 
 const ContactPage = () => {
@@ -62,6 +65,58 @@ const ContactPage = () => {
           </div>
         </div>
       </Container>
+      <Wrapper>
+        <Container className={styles.control} column>
+          <h2 className={clsx(styles.title, styles.titleDark)}>
+            <span>Адреса и телефоны</span>
+            <br /> контроллирующих органов
+          </h2>
+
+          <Grid>
+            <Collapse.Group shadow>
+              <Collapse
+                title='Федеральная служба по надзору в сфере защиты прав потребителей и благополучия человека'
+                arrowIcon={<Shield />}
+              >
+                <Text>
+                  Юр. адрес: г. Тула, ул. Мира 25
+                  <br />
+                  Почтовый адрес: г. Тула, ул. Оборонная 114, тел: 21-64-64
+                </Text>
+              </Collapse>
+              <Collapse
+                title='Управление Федеральной службы по надзору в сфере здравоохранения и социального развития по Тульской области'
+                arrowIcon={<Shield />}
+              >
+                <Text>Адрес: г. Тула, ул. 9 Мая 1, тел: (4872) 25-15-36</Text>
+              </Collapse>
+              <Collapse
+                title='Министерство Здравоохранения Тульской области'
+                arrowIcon={<Shield />}
+              >
+                <Text>
+                  Юр. адрес: г. Тула, Оборонная 114 Г, тел: (4872) 31-20-33
+                </Text>
+              </Collapse>
+              <Collapse
+                title='Областной комитет по защите прав потребителей'
+                arrowIcon={<Shield />}
+              >
+                <Text>Адрес: г. Тула, ул. Свободы 38, тел: 36-50-50</Text>
+              </Collapse>
+              <Collapse
+                title='Департамент здравоохранения Тульской области'
+                arrowIcon={<Shield />}
+              >
+                <Text>
+                  Отдел по лицензированию: г. Тула, Оборонная 114 Г, тел: (4872)
+                  37-08-5
+                </Text>
+              </Collapse>
+            </Collapse.Group>
+          </Grid>
+        </Container>
+      </Wrapper>
     </>
   );
 };
