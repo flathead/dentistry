@@ -1,7 +1,7 @@
 {
   "name": "dentistry",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Стоматология на Демонстрации",
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+URL"
+    "url": "https://github.com/flathead/dentistry"
   },
   "author": "Dmitry Krestovsky",
   "license": "MIT",
   "bugs": {
-    "url": "https://URL/issues"
+    "url": "https://github.com/flathead/dentistry/issues"
   },
-  "homepage": "URL#readme",
+  "homepage": "https://dent-71.ru",
   "dependencies": {
     "@cloudinary/url-gen": "^1.8.7",
     "@fancyapps/ui": "^4.0.31",
