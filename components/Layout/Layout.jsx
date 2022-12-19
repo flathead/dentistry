@@ -41,7 +41,10 @@ const Layout = ({ children }) => {
             'стоматология, тула, зубной, демонстрации, зубы, зуб, болит, лечение'
           }
         />
-        <meta property='og:image' content={'/logo_social.png'} />
+        <meta
+          property='og:image'
+          content='https://res.cloudinary.com/dv3q1dxpi/image/upload/v1671412639/og/logo_social_afbfbo.png'
+        />
       </Head>
       <Nav top={scrollTop} />
       <main top={scrollTop} className={styles.main}>
