@@ -18,7 +18,7 @@ const Footer = () => {
     setOpen([]);
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setIsLoading(true), 6000);
+  useEffect(() => setIsLoading(true), [isLoaded]);
 
   return (
     <>

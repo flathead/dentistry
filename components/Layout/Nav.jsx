@@ -98,7 +98,9 @@ const Nav = ({ top }) => {
   const [open, setOpen] = useState(false);
   const [isLoaded, setIsLoading] = useState(false);
   const [visible, setVisibility] = useState(false);
-  useEffect(() => setIsLoading(true), 6000);
+  useEffect(() => {
+    setIsLoading(true);
+  }, [isLoaded]);
 
   const menuHandler = () => {
     setVisibility(visible === false ? true : false);

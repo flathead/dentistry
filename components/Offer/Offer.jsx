@@ -28,9 +28,7 @@ const Offer = ({ template, className, title, subtitle }) => {
       disabled: isValid ? false : true,
     };
   }, [value]);
-  useEffect(() => {
-    console.log(document.title);
-  });
+
   const getHandler = async () => {
     sendMsg(
       `<b>📞 Заявка на обратный звонок!</b>%0A%0AТелефон: <a href="tel:${value}">${value}</a>%0A%0AЗаявка с главной страницы%0A${window.location.href}`
