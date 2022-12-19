@@ -69,12 +69,16 @@ const Doctors = () => {
               </Link>
               <p className={styles.doctorSpec}>{specialist.speciality}</p>
               <div className={styles.docSliderButtons}>
-                <Link
+                {/* TODO После добавления страницы врачей - вернуть ссылку "Подробнее" */}
+                {/* <Link
                   className={styles.aboutSpec}
                   href={`/vrachi/${specialist._id}`}
                 >
                   Подробнее
-                </Link>
+                </Link> */}
+                <button className={styles.aboutSpecBtn} onClick={modalHandler}>
+                  Подробнее
+                </button>
                 <ButtonDent onClick={modalHandler} color='dark'>
                   Записаться
                 </ButtonDent>

@@ -81,6 +81,13 @@
       .aboutSpec {
         text-decoration: underline;
       }
+      .aboutSpecBtn {
+        text-decoration: underline;
+        background: none;
+        border: none;
+        padding: none;
+        cursor: pointer;
+      }
     }
     &:hover {
       transform: scale(1.05);
