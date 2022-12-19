@@ -1,12 +1,16 @@
+import { HeadSEO } from '@/components/Layout';
 import Index from '@/page-components/Index/IndexPage';
-import Head from 'next/head';
+import siteMetadata from 'data/siteMetadata';
 
 export default function IndexPage() {
   return (
     <>
-      <Head>
-        <title>Стоматология на Демонстрации</title>
-      </Head>
+      <HeadSEO
+        title={`Стоматология на Демонстрации`}
+        canonicalUrl={siteMetadata.siteUrl}
+        ogTwitterImage={siteMetadata.siteLogoSquare}
+        ogType={'website'}
+      />
       <Index />
     </>
   );

@@ -1,3 +1,6 @@
 .mapBox {
-  height: 400px;
+  max-height: 400px;
+  min-height: 250px;
+  height: 100%;
+  width: 100%;
 }

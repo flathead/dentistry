@@ -15,7 +15,7 @@ const MapComponent = () => {
     'pk.eyJ1IjoiZmxhdGhlYWQiLCJhIjoiY2xhd3N1YnEzMDBsdTNxbGtzMzQ0eWhuNiJ9.f9RNXZYQ-fDNhyDbVNzO-w';
 
   return (
-    <Container fullwidth className={styles.mapBox}>
+    <Container className={styles.mapBox}>
       <Map
         initialViewState={{
           latitude: 54.19124657041915,
