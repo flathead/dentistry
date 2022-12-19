@@ -54,9 +54,21 @@ const Footer = () => {
         <div className={styles.footerContact}>
           <div className={styles.lawInfo}>
             <p>Лицензия ЛО-78-01-011139 от 01 октября 2020 года</p>
-            <Link href={'#'} target={'/blank'}>
-              Юридическая информация
-            </Link>
+            <p>
+              <a href={'#'} target={'/blank'}>
+                Юридическая информация
+              </a>
+            </p>
+            <p>
+              Разработано в{' '}
+              <a
+                href='https://lobanov-media.ru'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Lobanov.Media
+              </a>
+            </p>
           </div>
           <div className={styles.contacts}>
             <Container
