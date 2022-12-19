@@ -28,23 +28,6 @@ class MyDocument extends Document {
             href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css'
             rel='stylesheet'
           />
-          <meta property='og:type' content='website' />
-          <meta property='og:title' content={'Стоматология на Демонстрации'} />
-          <meta
-            name='keywords'
-            content={
-              'стоматология, тула, зубной, демонстрации, зубы, зуб, болит, лечение'
-            }
-          />
-          <meta
-            name='description'
-            content={'Лечим зубы без боли и с гарантией на результат'}
-          />
-          <meta
-            property='og:description'
-            content={'Лечим зубы без боли и с гарантией на результат'}
-          />
-          <meta property='og:image' content={'/logo_social.png'} />
           {CssBaseline.flush()}
         </Head>
         <body>

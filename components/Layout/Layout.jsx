@@ -25,19 +25,23 @@ const Layout = ({ children }) => {
           name='viewport'
           content='width=device-width, initial-scale=1, shrink-to-fit=no'
         />
+        <meta property='og:type' content='website' />
         <meta
           name='description'
-          content={`Стоматологическая клиника в городе Тула — «${process.env.NEXT_PUBLIC_SITE_NAME}». Наша миссия – сделать современную стоматологию доступной для всех.`}
+          content={`Стоматологическая клиника в городе Тула — «${process.env.NEXT_PUBLIC_SITE_NAME}». Наша миссия – сделать современную стоматологию доступной для всех. Лечим зубы без боли с гарантией на результат!`}
         />
         <meta property='og:title' content='Стоматология на Демонстрации' />
         <meta
           property='og:description'
-          content={`Стоматологическая клиника в городе Тула — «${process.env.NEXT_PUBLIC_SITE_NAME}». Наша миссия – сделать современную стоматологию доступной для всех.`}
+          content={`Стоматологическая клиника в городе Тула — «${process.env.NEXT_PUBLIC_SITE_NAME}». Наша миссия – сделать современную стоматологию доступной для всех. Лечим зубы без боли с гарантией на результат!`}
         />
         <meta
-          property='og:image'
-          content={`${process.env.NEXT_PUBLIC_WEB_URI}/logo_social.png`}
+          name='keywords'
+          content={
+            'стоматология, тула, зубной, демонстрации, зубы, зуб, болит, лечение'
+          }
         />
+        <meta property='og:image' content={'/logo_social.png'} />
       </Head>
       <Nav top={scrollTop} />
       <main top={scrollTop} className={styles.main}>
