@@ -119,6 +119,7 @@ const Nav = ({ top }) => {
           justifyContent='space-between'
         >
           <div className={styles.logoWrapper}>
+            {/* TODO Сделать нормальную кнопку */}
             <button
               className={clsx(styles.mobileBtn, visible && styles.btnOpened)}
               onClick={menuHandler}

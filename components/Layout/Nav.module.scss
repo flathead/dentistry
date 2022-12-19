@@ -102,7 +102,7 @@
         }
         &:nth-child(3) {
           transform: rotate(-45deg)
-            translate(calc(-50% + 6px), calc(-50% + -9px));
+            translate(calc(-50% + 6px), calc(-50% - 10px));
         }
       }
     }
