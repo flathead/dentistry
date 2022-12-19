@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import styles from './LoadingDots.module.css';
+import styles from './LoadingDots.module.scss';
 
 const LoadingDots = ({ children, className }) => {
   return (

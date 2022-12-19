@@ -230,7 +230,12 @@ const Nav = ({ top }) => {
       >
         <nav>
           {links.map((link, key) => (
-            <Link key={key} className={styles.navLink} href={link.url}>
+            <Link
+              key={key}
+              className={styles.navLink}
+              href={link.url}
+              onClick={() => setVisibility(false)}
+            >
               {link.name}
             </Link>
           ))}
