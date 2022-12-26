@@ -1,6 +1,7 @@
 import { findSpecialistBySlug } from '@/api-lib/db/specialist';
 import { getMongoDb } from '@/api-lib/mongodb';
 import Doctor from '@/components/Doctors/Doctor';
+import { HeadSEO } from '@/components/Layout';
 
 export default function DoctorPage({ doctor }) {
   if (typeof doctor.createdAt !== 'string') {
@@ -8,6 +9,12 @@ export default function DoctorPage({ doctor }) {
   }
   return (
     <>
+      <HeadSEO
+        title={`${doctor.name}: ${doctor.speciality}`}
+        description={`${doctor.name}: ${doctor.speciality} в Стоматологии на Демонстрации со стажем более чем ${doctor.experience}!`}
+        ogImageUrl={doctor.photo}
+        ogTwitterImage={doctor.photo}
+      />
       <Doctor doctor={doctor} />
     </>
   );

@@ -5,7 +5,7 @@ import { useMemo, useRef } from 'react';
 import { Phone, User } from 'react-feather';
 import HtmlParser from 'react-html-parser';
 import { ButtonDent } from '../Button/Button';
-import { Container, HeadSEO, Spacer, Wrapper } from '../Layout';
+import { Container, Spacer, Wrapper } from '../Layout';
 import { MapComponent } from '../Map';
 import { Offer } from '../Offer';
 import { Title } from '../Title';
@@ -64,12 +64,6 @@ const Doctor = ({ doctor }) => {
 
   return (
     <>
-      <HeadSEO
-        title={`${doctor.name}: ${doctor.speciality}`}
-        description={`${doctor.name}: ${doctor.speciality} в Стоматологии на Демонстрации со стажем более чем ${doctor.experience}!`}
-        ogImageUrl={doctor.photo}
-        ogTwitterImage={doctor.photo}
-      />
       <Offer
         template='doctor'
         title={

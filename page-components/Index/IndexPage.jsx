@@ -82,7 +82,7 @@ const Index = () => {
   return (
     <>
       <ModalWindow open={open} />
-      <Container fullscreen offer justifyContent={'space-between'}>
+      <Container fullwidth offer justifyContent={'space-between'}>
         <Offer
           template={'homepage'}
           title={
