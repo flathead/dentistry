@@ -4,7 +4,6 @@ import styles from './Container.module.scss';
 const Container = ({
   fullscreen,
   fullwidth,
-  offer,
   hide,
   justifyContent,
   flex,
@@ -21,7 +20,6 @@ const Container = ({
         column && styles.column,
         fullwidth && styles.fullwidth,
         fullscreen && styles.fullscreen,
-        offer && styles.offer,
         hide && styles.hide,
         className
       )}
