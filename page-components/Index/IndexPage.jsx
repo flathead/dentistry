@@ -524,7 +524,7 @@ const Index = () => {
           Контактная <i>информация</i>
         </Title>
       </Wrapper>
-      <MapComponent />
+      <MapComponent template='homepage' />
     </>
   );
 };

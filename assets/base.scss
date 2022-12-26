@@ -89,6 +89,12 @@ a {
   }
 }
 
+button,
+a[type='button'] {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 .swiper-slide-thumb-active {
   transform: scale(2);
 }

@@ -69,13 +69,13 @@ export const links = [
 	id: 2,
     url: '/ulsugi/',
     name: 'Услуги',
-  },
+  }, */
   {
-	id: 3,
+    id: 3,
     url: '/vrachi/',
     name: 'Врачи',
   },
-  {
+  /* {
 	id: 4,
     url: '/aktsii/',
     name: 'Акции',

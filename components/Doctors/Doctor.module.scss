@@ -1,0 +1,216 @@
+.information {
+  display: block;
+  padding: 2rem;
+  padding-left: calc((100vw - 1160px) / 2);
+  @media (max-width: 1220px) {
+    padding-left: 2rem;
+  }
+  width: calc(100% - 8rem);
+  border-radius: 0 2rem 2rem 0;
+  position: relative;
+  color: #fff;
+  background: var(--dent-blue);
+  @media (max-width: 768px) {
+    width: calc(100% - 2rem);
+  }
+  .teeth {
+    position: absolute;
+    bottom: -2rem;
+    right: -8rem;
+    @media (max-width: 768px) {
+      right: -2rem;
+      height: 140px;
+      width: 100px;
+    }
+  }
+  .name {
+    margin: 2rem 0;
+    margin-top: 0;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: underline;
+    @media (max-width: 768px) {
+      text-align: left;
+    }
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+    }
+  }
+  .informationRow {
+    display: grid;
+    grid-template: auto / max-content 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    @media (max-width: 768px) {
+      grid-template: auto / 1fr;
+      gap: 1rem;
+    }
+    p {
+      margin: 0;
+    }
+    .rowName {
+      min-width: 140px;
+      color: #00e2ec;
+    }
+    .rowContent {
+      .education {
+        p {
+          margin-bottom: 1rem;
+        }
+        br {
+          content: '';
+          display: block;
+          margin: 1rem 0;
+        }
+      }
+    }
+  }
+}
+
+.offer {
+  background: url('/images/pages/doctor/bg.png') no-repeat center bottom;
+  background-size: cover;
+  .offerTitle {
+    text-align: center;
+    max-width: 740px;
+    font-size: 2rem;
+    margin: 0 auto;
+    @media (max-width: 1200px) {
+      font-size: 1.6rem;
+    }
+    span {
+      &.blue {
+        color: var(--dent-blue);
+      }
+      &.underlined {
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 0.25em;
+          width: 100%;
+          border-radius: 0.25em;
+          background: var(--dent-blue);
+          display: block;
+          z-index: -1;
+        }
+      }
+    }
+  }
+  .grid {
+    display: grid;
+    grid-template: auto / repeat(3, 1fr);
+    gap: 4rem;
+    margin-top: 4rem;
+    @media (max-width: 900px) {
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 768px) {
+      grid-template: auto / 1fr;
+    }
+    .benefits {
+      display: block;
+      .benefitsTitle {
+        font-size: 1.4rem;
+        @media (max-width: 900px) {
+          font-size: 1.2rem;
+        }
+      }
+      .benefitsList {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          font-size: 1.2rem;
+          margin-bottom: 1rem;
+          color: var(--dent-blue);
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .specialist {
+      position: relative;
+      @media (max-width: 768px) {
+        margin-bottom: 4rem;
+      }
+      .photo {
+        width: 100%;
+        height: 100%;
+        max-height: 380px;
+        object-fit: cover;
+        object-position: top center;
+        border-radius: 2rem;
+        @media (max-width: 1200px) {
+          border-radius: 1rem;
+        }
+      }
+      p {
+        margin: 0;
+        padding: 0.6rem 1rem;
+        position: absolute;
+        border-radius: 2rem;
+      }
+      .specName {
+        bottom: 0;
+        left: 0;
+        background: var(--dent-blue);
+        color: #fff;
+        z-index: 1;
+        @media (max-width: 1200px) {
+          border-radius: 0;
+          height: 50px;
+          width: 100%;
+          display: flex;
+          align-items: center;
+        }
+      }
+      .specSpec {
+        bottom: -1.8rem;
+        z-index: 0;
+        left: 4rem;
+        background: #fff;
+        color: var(--dent-dark);
+        border: 1px solid var(--dent-dark);
+        @media (max-width: 1200px) {
+          height: 50px;
+          bottom: -50px;
+          left: 0;
+          width: 100%;
+          border-radius: 0 0 1rem 1rem;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+
+    .form {
+      .formTitle {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0;
+        margin-bottom: 0.2rem;
+      }
+      .formSubtitle {
+        margin: 0;
+        margin-bottom: 2rem;
+      }
+      .formBtn {
+        margin: 2rem 0 1rem 0;
+      }
+      .formSmallText {
+        font-size: 0.6rem;
+      }
+    }
+  }
+}

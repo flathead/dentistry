@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { ButtonDent } from '../Button/Button';
 import { useState } from 'react';
 import { ModalWindow } from '../ModalWindow';
+import { Container, HeadSEO } from '../Layout';
 
 const Doctors = () => {
   const [open, setOpen] = useState(false);
@@ -23,71 +24,88 @@ const Doctors = () => {
     : [];
 
   return (
-    <div>
-      <ModalWindow open={open} />
-      <Swiper
-        modules={Pagination}
-        spaceBetween={10}
-        pagination={true}
-        className={styles.docSlider}
-        breakpoints={{
-          0: {
-            // width: 0,
-            slidesPerView: 1,
-          },
-          480: {
-            // width: 400,
-            slidesPerView: 2,
-          },
-          768: {
-            slidesPerView: 3,
-          },
-          1080: {
-            slidesPerView: 4,
-          },
-        }}
-      >
-        {specialists.map((specialist) => (
-          <SwiperSlide key={specialist._id}>
-            <div className={styles.card}>
-              <Link href={`/vrachi/${specialist._id}`}>
-                <div className={styles.preview}>
-                  <Image
-                    src={specialist.photo}
-                    alt={'Фотография специалиста'}
-                    height={400}
-                    width={400}
-                    quality={90}
-                  />
-                  <p className={styles.experience}>
-                    Стаж: {specialist.experience}
-                  </p>
-                </div>
-              </Link>
-              <Link href={`/vrachi/${specialist._id}`}>
-                <p className={styles.doctorName}>{specialist.name}</p>
-              </Link>
-              <p className={styles.doctorSpec}>{specialist.speciality}</p>
-              <div className={styles.docSliderButtons}>
-                {/* TODO После добавления страницы врачей - вернуть ссылку "Подробнее" */}
-                {/* <Link
-                  className={styles.aboutSpec}
-                  href={`/vrachi/${specialist._id}`}
+    <>
+      {/* TODO Добавить в ХЭД пикчу */}
+      <HeadSEO
+        title='Все врачи Стоматологии на Демонстрации'
+        description='Высококлассные специалисты Стоматологии на Демонстрации в городе Тула с большим опытом и стажем работы окажут самую качественную стоматологическую помощь!'
+        ogImageUrl={
+          'https://res.cloudinary.com/dv3q1dxpi/image/upload/ar_1:1,c_fill,g_auto,h_1000,w_1000/v1670692655/about(team)/IMG_2995_kiripv.jpg'
+        }
+        ogTwitterImage={
+          'https://res.cloudinary.com/dv3q1dxpi/image/upload/ar_1:1,c_fill,g_auto,h_1000,w_1000/v1670692655/about(team)/IMG_2995_kiripv.jpg'
+        }
+      />
+      <Container className={styles.wrapper}>
+        <ModalWindow open={open} />
+        <Swiper
+          modules={Pagination}
+          spaceBetween={10}
+          pagination={true}
+          className={styles.docSlider}
+          breakpoints={{
+            0: {
+              // width: 0,
+              slidesPerView: 1,
+            },
+            480: {
+              // width: 400,
+              slidesPerView: 2,
+            },
+            768: {
+              slidesPerView: 3,
+            },
+            1080: {
+              slidesPerView: 4,
+            },
+          }}
+        >
+          {specialists.map((specialist) => (
+            <SwiperSlide key={specialist._id}>
+              <div className={styles.card}>
+                <Link
+                  href='/vrachi/[specialistSlug]'
+                  as={`/vrachi/${specialist.slug}`}
                 >
-                  Подробнее
-                </Link> */}
-                <button className={styles.aboutSpecBtn} onClick={modalHandler}>
-                  Подробнее
-                </button>
-                <ButtonDent onClick={modalHandler} color='dark'>
-                  Записаться
-                </ButtonDent>
+                  <div className={styles.preview}>
+                    <Image
+                      src={specialist.photo}
+                      alt={'Фотография специалиста'}
+                      height={400}
+                      width={400}
+                      quality={90}
+                    />
+                    <p className={styles.experience}>
+                      Стаж: {specialist.experience}
+                    </p>
+                  </div>
+                </Link>
+                <Link
+                  href='/vrachi/[specialistSlug]'
+                  as={`/vrachi/${specialist.slug}`}
+                >
+                  <p className={styles.doctorName}>{specialist.name}</p>
+                </Link>
+                <p className={styles.doctorSpec}>{specialist.speciality}</p>
+                <div className={styles.docSliderButtons}>
+                  <Link
+                    className={styles.aboutSpec}
+                    href='/vrachi/[specialistSlug]'
+                    as={`/vrachi/${specialist.slug}`}
+                  >
+                    Подробнее
+                  </Link>
+
+                  <ButtonDent onClick={modalHandler} color='dark'>
+                    Записаться
+                  </ButtonDent>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Container>
+    </>
   );
 };
 

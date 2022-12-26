@@ -9,6 +9,7 @@ import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import styles from './AddSpecialist.module.scss';
 import dynamic from 'next/dynamic';
+import { transliterate as tr, slugify } from 'transliteration';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
@@ -49,7 +50,11 @@ const AddSpec = () => {
       try {
         setIsLoading(true);
 
+        const translite = tr(nameRef.current.value);
+        const slug = slugify(translite);
+
         let formData = new FormData();
+        formData.append('slug', slug);
         formData.append('name', nameRef.current.value);
         formData.append('speciality', specialityRef.current.value);
         formData.append('experience', experienceRef.current.value);

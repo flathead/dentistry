@@ -1,6 +1,9 @@
 .mapBox {
   max-height: 400px;
   min-height: 250px;
-  height: 100%;
+  height: auto;
   width: 100%;
+  &.homepageMap {
+    height: 400px;
+  }
 }

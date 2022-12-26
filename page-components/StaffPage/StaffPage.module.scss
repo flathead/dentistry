@@ -1,0 +1,29 @@
+.staffBg {
+  background: linear-gradient(to top, var(--background) 0px, transparent 60px),
+    url('/images/allstaff.webp') no-repeat top center;
+  background-size: cover;
+}
+
+.allStaff {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  padding-bottom: 0;
+  .staffTitleTwo {
+    font-size: 2.4rem;
+    text-align: center;
+    color: var(--dent-blue);
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+    @media (max-width: 480px) {
+      font-size: 1.6rem;
+    }
+  }
+  .staffSubtitle {
+    text-align: center;
+    max-width: 85%;
+    margin: 0 auto;
+  }
+}

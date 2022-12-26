@@ -18,6 +18,12 @@ async function createIndexes(client) {
       { key: { email: 1 }, unique: true },
       { key: { username: 1 }, unique: true },
     ]),
+    db
+      .collection('specialists')
+      .createIndexes([
+        { key: { specialistId: -1 } },
+        { key: { slug: 1 }, unique: true },
+      ]),
   ]);
   indexesCreated = true;
   return client;

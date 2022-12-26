@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Grid, Server, Users } from 'react-feather';
 import styles from './AdminMenu.module.scss';
 
@@ -33,6 +34,8 @@ export const adminLinks = [
 ];
 
 const AdminMenu = () => {
+  const router = useRouter();
+
   return (
     <Card className={styles.links}>
       {adminLinks.map((link) => (
@@ -41,7 +44,7 @@ const AdminMenu = () => {
           href={link.url}
           className={clsx(
             styles.link,
-            window.location.pathname == link.url ? styles.current : null
+            router.pathname == link.url ? styles.current : null
           )}
         >
           {link.icon}

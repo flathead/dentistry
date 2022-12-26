@@ -12,6 +12,7 @@
       grid-template-areas: 'content' 'picture' 'benefits';
       gap: 2rem;
     }
+
     .offerContent {
       padding: 2rem;
       padding-left: calc((100vw - 1160px) / 2);
@@ -20,6 +21,7 @@
       flex-direction: column;
       justify-content: space-between;
       grid-area: content;
+      max-width: 960px;
       @media (max-width: 1220px) {
         padding-left: 2rem;
       }
@@ -94,6 +96,15 @@
       justify-content: flex-end;
       max-width: 540px;
       grid-area: picture;
+      &.offerPictureBordered {
+        border-radius: 0 0 0 50%;
+        overflow: hidden;
+        max-height: 650px;
+        height: 100%;
+        @media (max-width: 560px) {
+          border-radius: 1rem;
+        }
+      }
       .offerPictureBackground {
         width: 100%;
         max-width: 100%;
@@ -130,6 +141,27 @@
         object-fit: contain;
         object-position: bottom center;
         filter: drop-shadow(0 0 100px var(--dent-blue));
+      }
+      @keyframes staffSlide {
+        0% {
+          object-position: left center;
+        }
+        50% {
+          object-position: right center;
+        }
+        100% {
+          object-position: left center;
+        }
+      }
+      .offerPictureStaff {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        animation: staffSlide 20s ease-in-out infinite;
+        transition: all 1s;
+        &:hover {
+          transform: scale(1.1);
+        }
       }
     }
     .benefits {

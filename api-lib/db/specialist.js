@@ -23,6 +23,28 @@ export async function findSpecialistById(db, id) {
   return specialists[0];
 }
 
+export async function findSpecialistBySlug(db, slug) {
+  const specialistSlug = await db
+    .collection('specialists')
+    .aggregate([
+      { $match: { slug: String(slug) } },
+      { $limit: 1 },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'creatorId',
+          foreignField: '_id',
+          as: 'creator',
+        },
+      },
+      { $unwind: '$creator' },
+      { $project: dbProjectionUsers('creator.') },
+    ])
+    .toArray();
+  if (!specialistSlug[0]) return null;
+  return specialistSlug[0];
+}
+
 export async function findSpecialists(db, before, by, limit = 10) {
   return db
     .collection('specialists')
@@ -51,9 +73,10 @@ export async function findSpecialists(db, before, by, limit = 10) {
 
 export async function insertSpecialist(
   db,
-  { name, speciality, experience, photo, education, creatorId }
+  { slug, name, speciality, experience, photo, education, creatorId }
 ) {
   const specialist = {
+    slug,
     name,
     speciality,
     experience,

@@ -37,12 +37,13 @@ handler.post(
   validateBody({
     type: 'object',
     properties: {
+      slug: ValidateProps.specialist.slug,
       name: ValidateProps.specialist.name,
       speciality: ValidateProps.specialist.speciality,
       experience: ValidateProps.specialist.experience,
       education: ValidateProps.specialist.education,
     },
-    required: ['name', 'speciality'],
+    required: ['slug', 'name', 'speciality'],
     additionalProperties: true,
   }),
   async (req, res) => {
@@ -59,6 +60,7 @@ handler.post(
     }
 
     const specialist = await insertSpecialist(db, {
+      slug: req.body.slug,
       name: req.body.name,
       speciality: req.body.speciality,
       experience: req.body.experience,

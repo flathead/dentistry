@@ -1,5 +1,10 @@
+.wrapper {
+  width: 100%;
+}
+
 .docSlider {
-  overflow: visible;
+  overflow: visible !important;
+  width: 100%;
   .card {
     border-radius: 1rem;
     padding: 6px;
@@ -7,6 +12,7 @@
     transition: all 0.3s;
     max-width: 300px;
     margin: 0 auto;
+    background: #fff;
     .preview {
       max-height: 250px;
       position: relative;
@@ -85,7 +91,7 @@
         text-decoration: underline;
         background: none;
         border: none;
-        padding: none !important;
+        padding: 0 !important;
         cursor: pointer;
       }
     }

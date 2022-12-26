@@ -11,6 +11,7 @@ export const ValidateProps = {
     content: { type: 'string', minLength: 1, maxLength: 280 },
   },
   specialist: {
+    slug: { type: 'string' },
     name: { type: 'string', minLength: 2, maxLength: 100 },
     speciality: { type: 'string', minLength: 2, maxLength: 100 },
     experience: { type: 'string', minLength: 2, maxLength: 100 },

@@ -30,7 +30,7 @@ const Advantages = ({
   }, [width]);
 
   return (
-    <div className={styles.advantages}>
+    <div className={clsx(styles.advantages, staticImage && styles.centerPar)}>
       <div className={styles.imageContainer}>
         <Image
           src={
@@ -126,7 +126,7 @@ const Advantages = ({
         {/* Right side */}
         {adv5_title && (
           <Popover
-            placement={width >= 960 ? 'left-bottom' : 'right'}
+            placement={width >= 960 ? 'right-bottom' : 'right'}
             disableShadow
           >
             <Popover.Trigger>

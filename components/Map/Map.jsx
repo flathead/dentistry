@@ -3,8 +3,9 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Container } from '../Layout';
 import styles from './Map.module.scss';
+import clsx from 'clsx';
 
-const MapComponent = () => {
+const MapComponent = ({ template }) => {
   const [showMapPopup, setMapPopupState] = useState(false);
 
   const mapHandler = () => {
@@ -15,14 +16,19 @@ const MapComponent = () => {
     'pk.eyJ1IjoiZmxhdGhlYWQiLCJhIjoiY2xhd3N1YnEzMDBsdTNxbGtzMzQ0eWhuNiJ9.f9RNXZYQ-fDNhyDbVNzO-w';
 
   return (
-    <Container className={styles.mapBox}>
+    <Container
+      className={clsx(
+        styles.mapBox,
+        template === 'homepage' && styles.homepageMap
+      )}
+    >
       <Map
         initialViewState={{
           latitude: 54.19124657041915,
           longitude: 37.58919450004085,
           zoom: 15,
         }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: 'auto' }}
         mapStyle='mapbox://styles/mapbox/streets-v12'
         mapboxAccessToken={MAPBOX_TOKEN}
         onClick={mapHandler}
