@@ -90,11 +90,11 @@ const Footer = () => {
               alignItems={'center'}
             >
               <Icon.Phone color='#193042' size={20} />
-              <Link className={styles.contactLink} href={'tel:84872707117'}>
-                +7 (4872) 70-71-17
+              <Link className={styles.contactLink} href={'tel:84872707172'}>
+                +7 (4872) 70-71-72
               </Link>
-              <Link className={styles.contactLink} href={'tel:89534230335'}>
-                +7 (953) 423-03-35
+              <Link className={styles.contactLink} href={'tel:89534301668'}>
+                +7 (953) 430-16-68
               </Link>
             </Container>
             <Container className={styles.socials}>
