@@ -17,6 +17,20 @@ export const ValidateProps = {
     experience: { type: 'string', minLength: 2, maxLength: 100 },
     education: { type: 'string' },
   },
+  review: {
+    name: { type: 'string' },
+    message: { type: 'string' },
+  },
+  service: {
+    name: { type: 'string' },
+    category_name: { type: 'string' },
+    category_slug: { type: 'string' },
+    description: { type: 'string' },
+  },
+  price: {
+    name: { type: 'string' },
+    cost: { type: 'string' },
+  },
   comment: {
     content: { type: 'string', minLength: 1, maxLength: 280 },
   },

@@ -181,6 +181,7 @@ const Doctor = ({ doctor }) => {
                 label='Как к Вам обращаться'
                 placeholder='Ваше имя'
                 fullWidth
+                clearable
                 ref={nameRef}
                 contentLeft={<User />}
               />

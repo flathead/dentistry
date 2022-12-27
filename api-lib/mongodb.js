@@ -24,6 +24,15 @@ async function createIndexes(client) {
         { key: { specialistId: -1 } },
         { key: { slug: 1 }, unique: true },
       ]),
+    db
+      .collection('services')
+      .createIndexes([
+        { key: { serviceId: -1 } },
+        { key: { slug: 1 }, unique: true },
+      ]),
+    db
+      .collection('prices')
+      .createIndexes([{ key: { createdAt: -1 } }, { key: { serviceId: -1 } }]),
   ]);
   indexesCreated = true;
   return client;
