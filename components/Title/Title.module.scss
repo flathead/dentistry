@@ -11,19 +11,22 @@ h4.titleFour {
   color: var(--dent-dark);
   i {
     font-style: normal;
-    position: relative;
-    &::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      bottom: 10px;
-      left: 0;
-      width: 100%;
-      height: 10px;
-      border-radius: 10px;
-      background: var(--dent-blue);
-    }
   }
+  //   i {
+  //     font-style: normal;
+  //     position: relative;
+  //     &::before {
+  //       content: '';
+  //       position: absolute;
+  //       z-index: -1;
+  //       bottom: 10px;
+  //       left: 0;
+  //       width: 100%;
+  //       height: 10px;
+  //       border-radius: 10px;
+  //       background: var(--dent-blue);
+  //     }
+  //   }
   b {
     color: var(--dent-blue);
     font-weight: 600;
@@ -75,22 +78,25 @@ h3.titleThree {
   }
   i {
     font-style: normal;
-    position: relative;
-    &::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      bottom: 8px;
-      left: 0;
-      width: 100%;
-      height: 8px;
-      border-radius: 10px;
-      background: var(--dent-blue);
-      @media (max-width: 480px) {
-        bottom: 4px;
-      }
-    }
   }
+  //   i {
+  //     font-style: normal;
+  //     position: relative;
+  //     &::before {
+  //       content: '';
+  //       position: absolute;
+  //       z-index: -1;
+  //       bottom: 8px;
+  //       left: 0;
+  //       width: 100%;
+  //       height: 8px;
+  //       border-radius: 10px;
+  //       background: var(--dent-blue);
+  //       @media (max-width: 480px) {
+  //         bottom: 4px;
+  //       }
+  //     }
+  //   }
 }
 
 .pageTitle {
@@ -104,22 +110,25 @@ h3.titleThree {
   }
   i {
     font-style: normal;
-    position: relative;
-    &::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      bottom: 8px;
-      left: 0;
-      width: 100%;
-      height: 8px;
-      border-radius: 10px;
-      background: var(--dent-blue);
-      @media (max-width: 480px) {
-        bottom: 4px;
-      }
-    }
   }
+  //   i {
+  //     font-style: normal;
+  //     position: relative;
+  //     &::before {
+  //       content: '';
+  //       position: absolute;
+  //       z-index: -1;
+  //       bottom: 8px;
+  //       left: 0;
+  //       width: 100%;
+  //       height: 8px;
+  //       border-radius: 10px;
+  //       background: var(--dent-blue);
+  //       @media (max-width: 480px) {
+  //         bottom: 4px;
+  //       }
+  //     }
+  //   }
 }
 
 .centered {

@@ -14,27 +14,30 @@
     font-size: 1.6rem;
   }
   i {
-    position: relative;
     font-style: normal;
-    z-index: 1;
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: 4px;
-      left: 0;
-      width: 100%;
-      height: 10px;
-      background: var(--dent-dark);
-      border-radius: 8px;
-      z-index: -1;
-      @media (max-width: 376px) {
-        width: 165px;
-        bottom: 2px;
-        right: 0;
-        left: unset;
-      }
-    }
   }
+  //   i {
+  //     position: relative;
+  //     font-style: normal;
+  //     z-index: 1;
+  //     &::before {
+  //       content: '';
+  //       position: absolute;
+  //       bottom: 4px;
+  //       left: 0;
+  //       width: 100%;
+  //       height: 10px;
+  //       background: var(--dent-dark);
+  //       border-radius: 8px;
+  //       z-index: -1;
+  //       @media (max-width: 376px) {
+  //         width: 165px;
+  //         bottom: 2px;
+  //         right: 0;
+  //         left: unset;
+  //       }
+  //     }
+  //   }
 }
 
 .contact {

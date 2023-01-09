@@ -30,6 +30,15 @@ export const ValidateProps = {
     description: { type: 'string' },
     price: { type: 'string' },
   },
+  promo: {
+    title: { type: 'string' },
+    subtitle: { type: 'string' },
+    date: { type: 'string' },
+    time: { type: 'string' },
+  },
+  portfolio: {
+    title: { type: 'string' },
+  },
   comment: {
     content: { type: 'string', minLength: 1, maxLength: 280 },
   },

@@ -13,57 +13,58 @@ import { ArrowLeft, ArrowRight } from 'react-feather';
 import { Advantages } from '@/components/Advantages';
 import { MapComponent } from '@/components/Map';
 import ReviewList from '../Reviews/ReviewList';
+import { usePortfolioPages } from '@/lib/portfolio';
 
-const results = [
-  {
-    id: 'result-01',
-    title: 'Имплантация all-on-6 и виниры на зубы',
-    before:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927920/portfolio/1before_rbs7gd.webp',
-    after:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927919/portfolio/1after_q1teg6.webp',
-  },
-  {
-    id: 'result-02',
-    title: 'Имплантация all-on-6 и виниры на зубы',
-    before:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2before_dmie9o.webp',
-    after:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2after_psyglx.webp',
-  },
-  {
-    id: 'result-03',
-    title: 'Имплантация all-on-6 и виниры на зубы',
-    before:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927920/portfolio/1before_rbs7gd.webp',
-    after:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927919/portfolio/1after_q1teg6.webp',
-  },
-  {
-    id: 'result-04',
-    title: 'Имплантация all-on-6 и виниры на зубы',
-    before:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2before_dmie9o.webp',
-    after:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2after_psyglx.webp',
-  },
-  {
-    id: 'result-05',
-    title: 'Имплантация all-on-6 и виниры на зубы',
-    before:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927920/portfolio/1before_rbs7gd.webp',
-    after:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927919/portfolio/1after_q1teg6.webp',
-  },
-  {
-    id: 'result-06',
-    title: 'Имплантация all-on-6 и виниры на зубы',
-    before:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2before_dmie9o.webp',
-    after:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2after_psyglx.webp',
-  },
-];
+// const results = [
+//   {
+//     id: 'result-01',
+//     title: 'Имплантация all-on-6 и виниры на зубы',
+//     before:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927920/portfolio/1before_rbs7gd.webp',
+//     after:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927919/portfolio/1after_q1teg6.webp',
+//   },
+//   {
+//     id: 'result-02',
+//     title: 'Имплантация all-on-6 и виниры на зубы',
+//     before:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2before_dmie9o.webp',
+//     after:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2after_psyglx.webp',
+//   },
+//   {
+//     id: 'result-03',
+//     title: 'Имплантация all-on-6 и виниры на зубы',
+//     before:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927920/portfolio/1before_rbs7gd.webp',
+//     after:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927919/portfolio/1after_q1teg6.webp',
+//   },
+//   {
+//     id: 'result-04',
+//     title: 'Имплантация all-on-6 и виниры на зубы',
+//     before:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2before_dmie9o.webp',
+//     after:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2after_psyglx.webp',
+//   },
+//   {
+//     id: 'result-05',
+//     title: 'Имплантация all-on-6 и виниры на зубы',
+//     before:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927920/portfolio/1before_rbs7gd.webp',
+//     after:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672927919/portfolio/1after_q1teg6.webp',
+//   },
+//   {
+//     id: 'result-06',
+//     title: 'Имплантация all-on-6 и виниры на зубы',
+//     before:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2before_dmie9o.webp',
+//     after:
+//       'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672929001/portfolio/2after_psyglx.webp',
+//   },
+// ];
 
 const SlideButton = ({ method }) => {
   const slider = useSwiper();
@@ -92,13 +93,17 @@ const SlideButton = ({ method }) => {
 };
 
 const PortfolioPage = () => {
+  const { data } = usePortfolioPages();
+  const works = data
+    ? data.reduce((acc, val) => [...acc, ...val.works], [])
+    : [];
   return (
     <>
       <Wrapper>
         <Title size={1} template='pageTitle' crop>
           Как преображаются <b>улыбки</b> наших пациентов
         </Title>
-        {results && results.length >= 1 ? (
+        {works && works.length >= 1 ? (
           <Swiper
             className={styles.slider}
             modules={[Autoplay, Navigation, Pagination]}
@@ -129,9 +134,9 @@ const PortfolioPage = () => {
               <SlideButton method='next' />
             </div>
 
-            {results.map((result) => (
-              <SwiperSlide key={result.id} className={styles.slide}>
-                <span className={styles.slideTitle}>{result.title}</span>
+            {works.map((work) => (
+              <SwiperSlide key={work.id} className={styles.slide}>
+                <span className={styles.slideTitle}>{work.title}</span>
                 <ImgComparisonSlider className={styles.compare} hover>
                   <div className={styles.slotBefore} slot='first'>
                     <Image
@@ -139,7 +144,7 @@ const PortfolioPage = () => {
                       title='До'
                       width={400}
                       height={400}
-                      src={result.before}
+                      src={work.before}
                     />
                   </div>
                   <div className={styles.slotAfter} slot='second'>
@@ -148,7 +153,7 @@ const PortfolioPage = () => {
                       title='После'
                       width={400}
                       height={400}
-                      src={result.after}
+                      src={work.after}
                     />
                   </div>
                 </ImgComparisonSlider>

@@ -2,12 +2,13 @@ import { Avatar } from '@/components/Avatar';
 import { Button } from '@/components/Button';
 import { Input, Textarea } from '@/components/Input';
 import { Container, Spacer } from '@/components/Layout';
-import Wrapper from '@/components/Layout/Wrapper';
 import { fetcher } from '@/lib/fetch';
 import { useCurrentUser } from '@/lib/user';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { Wrapper as Wrap } from '@/components/Layout';
+import AdminMenu from '../Dashboard/AdminMenu';
 import styles from './Settings.module.css';
 
 const EmailVerify = ({ user }) => {
@@ -203,15 +204,16 @@ export const Settings = () => {
     }
   }, [router, data, error]);
   return (
-    <Wrapper className={styles.wrapper}>
-      <Spacer size={2} axis='vertical' />
+    <Wrap>
       {data?.user ? (
         <>
+          <AdminMenu />
+          <Spacer size={2} axis='vertical' />
           <EmailVerify user={data.user} />
           <AboutYou user={data.user} mutate={mutate} />
           <Auth user={data.user} />
         </>
       ) : null}
-    </Wrapper>
+    </Wrap>
   );
 };

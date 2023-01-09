@@ -91,3 +91,30 @@ export async function insertSpecialist(
   specialist._id = insertedId;
   return specialist;
 }
+
+export async function deleteSpecialist(db, { itemId }) {
+  return db
+    .collection('specialists')
+    .deleteOne({
+      _id: ObjectId(itemId),
+    })
+    .then(({ value }) => value);
+}
+
+export async function patchSpecialist(
+  db,
+  { id, slug, name, speciality, experience, photo, education }
+) {
+  const specialist = {
+    id,
+    slug,
+    name,
+    speciality,
+    experience,
+    photo,
+    education,
+  };
+  return db
+    .collection('specialists')
+    .updateOne({ _id: ObjectId(id) }, { $set: specialist }, { upsert: false });
+}

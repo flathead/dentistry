@@ -1,8 +1,9 @@
 import { ValidateProps } from '@/api-lib/constants';
-import { findReviews, insertReview } from '@/api-lib/db/review';
-import { auths, validateBody } from '@/api-lib/middlewares';
+import { deleteReview, findReviews, insertReview } from '@/api-lib/db/review';
+import { validateBody } from '@/api-lib/middlewares';
 import { getMongoDb } from '@/api-lib/mongodb';
 import { ncOpts } from '@/api-lib/nc';
+import { ObjectId } from 'mongodb';
 import nc from 'next-connect';
 
 const handler = nc(ncOpts);
@@ -13,7 +14,7 @@ handler.get(async (req, res) => {
   const reviews = await findReviews(
     db,
     req.query.before ? new Date(req.query.before) : undefined,
-    //req.query.by,
+    req.query.by,
     req.query.limit ? parseInt(req.query.limit, 10) : undefined
   );
 
@@ -21,7 +22,6 @@ handler.get(async (req, res) => {
 });
 
 handler.post(
-  ...auths,
   validateBody({
     type: 'object',
     properties: {
@@ -34,10 +34,6 @@ handler.post(
     additionalProperties: true,
   }),
   async (req, res) => {
-    if (!req.user) {
-      return res.status(401).end();
-    }
-
     const db = await getMongoDb();
 
     const review = await insertReview(db, {
@@ -45,11 +41,23 @@ handler.post(
       phone: req.body.phone,
       rating: req.body.rating,
       content: req.body.content,
-      creatorId: req.user._id || Math.random() * (9000000 - 1) + 1,
+      creatorId: ObjectId('63617b02f1fc6116e58b0068'),
     });
 
     return res.json({ review });
   }
 );
+
+handler.delete(async (req, res) => {
+  if (!req.body) {
+    console.log('Отсутствует тело запроса.');
+  }
+  const db = await getMongoDb();
+
+  const del = await deleteReview(db, {
+    itemId: req.body.itemId,
+  });
+  return res.json({ del });
+});
 
 export default handler;

@@ -2,6 +2,21 @@ import bcrypt from 'bcryptjs';
 import { ObjectId } from 'mongodb';
 import normalizeEmail from 'validator/lib/normalizeEmail';
 
+export async function findUsers(db, before, limit = 10) {
+  return db
+    .collection('users')
+    .aggregate([
+      {
+        $match: {
+          ...(before && { createdAt: { $lt: before } }),
+        },
+      },
+      { $sort: { _id: -1 } },
+      { $limit: limit },
+    ])
+    .toArray();
+}
+
 export async function findUserWithEmailAndPassword(db, email, password) {
   email = normalizeEmail(email);
   const user = await db.collection('users').findOne({ email });

@@ -95,7 +95,7 @@ handler.delete(bodyParser.json(), async (req, res) => {
   const db = await getMongoDb();
 
   const del = await deleteService(db, {
-    serviceId: req.body.serviceId,
+    itemId: req.body.itemId,
   });
   console.log('Услуга удалена.');
   return res.json({ del });
@@ -120,7 +120,7 @@ handler.patch(
     }
 
     const service = await patchService(db, {
-      id: req.body.serviceId,
+      id: req.body.itemId,
       slug: req.body.slug,
       name: req.body.name,
       category: req.body.category,

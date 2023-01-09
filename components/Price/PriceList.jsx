@@ -7,7 +7,7 @@ import PriceItem from './Price';
 
 const PriceList = ({ service }) => {
   const { data, size, setSize, isLoadingMore, isReachingEnd } = usePricePages({
-    serviceId: service._id,
+    itemId: service._id,
   });
 
   const prices = data

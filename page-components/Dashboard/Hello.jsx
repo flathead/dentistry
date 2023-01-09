@@ -9,32 +9,42 @@ const Hello = ({ user }) => {
   setInterval(() => {
     setTime(new Date());
   }, 1000);
+
   return (
-    <div className={styles.helloCard}>
-      <div className={styles.timeBox}>
-        <span className={styles.nowSpan}>Сейчас</span>
-        <div className={styles.timeNow}>
-          <span className={styles.timeHours}>{hours}</span>
-          <span className={styles.timeSeparator}> : </span>
-          <span className={styles.timeMinutes}>{minutes}</span>
+    <>
+      <div className={styles.helloCard}>
+        <div className={styles.timeBox}>
+          <span className={styles.nowSpan}>Сейчас</span>
+          <div className={styles.timeNow}>
+            <span className={styles.timeHours}>{hours}</span>
+            <span className={styles.timeSeparator}> : </span>
+            <span className={styles.timeMinutes}>{minutes}</span>
+          </div>
+        </div>
+        <div className={styles.textBox}>
+          <Title size={1}>
+            Добро пожаловать,
+            <br />
+            <span className={styles.name}>
+              {user.name
+                ? user.name
+                : user.username
+                ? user.username
+                : user.email}
+              !
+            </span>
+          </Title>
+          <p>
+            Вы находитесь в Центре - главной странице панели администратора.
+          </p>
+          <p>
+            В Центре вы можете добавить, изменить и удалить любой
+            <br />
+            тип контента на сайте - услуги, врачей, акции, работы, отзывы.
+          </p>
         </div>
       </div>
-      <div className={styles.textBox}>
-        <Title size={1}>
-          Добро пожаловать,
-          <br />
-          <span className={styles.name}>
-            {user.name ? user.name : user.username ? user.username : user.email}
-            !
-          </span>
-        </Title>
-        <p>Вы находитесь в Центре - главной странице панели администратора.</p>
-        <p>
-          Здесь вы можете ознакомиться с краткой статистикой, а так же краткими
-          списками услуг и персонала.
-        </p>
-      </div>
-    </div>
+    </>
   );
 };
 

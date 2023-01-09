@@ -1,7 +1,15 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Grid, Server, Users } from 'react-feather';
+import {
+  Camera,
+  Feather,
+  Grid,
+  Percent,
+  Server,
+  Settings,
+  Users,
+} from 'react-feather';
 import styles from './AdminMenu.module.scss';
 
 const { Card } = require('@nextui-org/react');
@@ -27,9 +35,33 @@ export const adminLinks = [
   },
   {
     id: 'admin-4',
+    url: '/admin/promo',
+    name: 'Акции',
+    icon: <Percent size={18} />,
+  },
+  {
+    id: 'admin-5',
+    url: '/admin/portfolio',
+    name: 'Работы',
+    icon: <Camera size={18} />,
+  },
+  {
+    id: 'admin-6',
+    url: '/admin/reviews',
+    name: 'Отзывы',
+    icon: <Feather size={18} />,
+  },
+  {
+    id: 'admin-6',
     url: '/admin/users',
     name: 'Пользователи',
     icon: <Users size={18} />,
+  },
+  {
+    id: 'admin-7',
+    url: '/admin/settings',
+    name: 'Настройки',
+    icon: <Settings size={18} />,
   },
 ];
 

@@ -1,31 +1,15 @@
+import { usePromoPages } from '@/lib/promo';
 import Image from 'next/image';
 import Countdown from 'react-countdown';
 import { ButtonDent } from '../Button/Button';
 import styles from './Promo.module.scss';
 
-const timers = [
-  {
-    id: 'timer-01',
-    finalDate: '2023-01-08T23:59:59.000Z',
-    title: 'Весь месяц!',
-    subtitle:
-      'Оставь заявку сейчас и получи компьютерную томографию верхней и нижней челюсти всего за 250 рублей',
-    image:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672859419/Group_112_p6dyyy.png',
-    url: 'actsia-01',
-  },
-  {
-    id: 'timer-02',
-    finalDate: '2023-01-08T23:59:59.000Z',
-    title: 'Осмотр ортопеда бесплатно!',
-    subtitle: 'Оставь заявку сейчас и получи скидку 5% на дальнейшее лечение',
-    image:
-      'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672859419/Group_112_p6dyyy.png',
-    url: 'aktsia-02',
-  },
-];
-
 const Promo = () => {
+  const { data } = usePromoPages();
+  const promos = data
+    ? data.reduce((acc, val) => [...acc, ...val.promos], [])
+    : [];
+
   function createLabel(number, titles) {
     const cases = [2, 0, 1, 1, 1, 2];
     return `${
@@ -77,22 +61,27 @@ const Promo = () => {
 
   return (
     <>
-      {timers.length >= 1 ? (
-        timers.map((timer) => (
-          <div key={timer.id} className={styles.promoContainer}>
+      {promos.length >= 1 ? (
+        promos.map((promo) => (
+          <div key={promo._id} className={styles.promoContainer}>
             <span className={styles.tape}>АКЦИЯ</span>
             <div className={styles.promoPicture}>
               <Image
-                src={timer.image}
+                src={promo.preview}
                 alt='Промо-изображение'
                 width={400}
                 height={400}
               />
             </div>
             <div className={styles.promoContent}>
-              <p className={styles.promoTitle}>{timer.title}</p>
-              <p className={styles.promoSubtitle}>{timer.subtitle}</p>
-              <Countdown date={timer.finalDate} renderer={renderer} />
+              <p className={styles.promoTitle}>{promo.title}</p>
+              <p className={styles.promoSubtitle}>{promo.subtitle}</p>
+              <Countdown
+                date={new Date(
+                  String(promo.date + ', ' + promo.time)
+                ).toISOString()}
+                renderer={renderer}
+              />
               <ButtonDent color='blue' modal>
                 Получить скидку
               </ButtonDent>

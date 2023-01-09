@@ -1,5 +1,5 @@
 import { Doctors } from '@/components/Doctors';
-import { Spacer, Wrapper } from '@/components/Layout';
+import { Container, Spacer, Wrapper } from '@/components/Layout';
 import { LoadingDots } from '@/components/LoadingDots';
 import { MapComponent } from '@/components/Map';
 import { Title } from '@/components/Title';
@@ -68,7 +68,7 @@ const ServicePage = ({ services }) => {
 
   return (
     <>
-      <div className={styles.layout}>
+      <Container className={styles.layout}>
         <Button
           className={styles.mobileBtn}
           onPress={buttonHandler}
@@ -167,7 +167,7 @@ const ServicePage = ({ services }) => {
             <ReviewList template={'slider'} count={1} />
           </div>
         </div>
-      </div>
+      </Container>
       <Wrapper>
         {/* <div>
             <Title size={2} template='pageTitle'>

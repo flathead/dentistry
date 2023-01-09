@@ -11,8 +11,8 @@ const DeleteModal = ({ id, name, slug, template, open }) => {
     setVisible(false);
   };
   const deleteOne = async (id) => {
-    const body = {
-      serviceId: id,
+    let body = {
+      itemId: id,
     };
 
     const res = await fetch(
@@ -22,7 +22,7 @@ const DeleteModal = ({ id, name, slug, template, open }) => {
           : template === 'promo'
           ? 'promos'
           : template === 'portfolio'
-          ? 'portfolios'
+          ? 'works'
           : template === 'doctor'
           ? 'doctors'
           : template === 'review'
@@ -47,9 +47,9 @@ const DeleteModal = ({ id, name, slug, template, open }) => {
             : template === 'doctor'
             ? 'Запись о враче'
             : template === 'review'
-            ? 'Запись об отзыве'
+            ? 'Отзыв пользователя'
             : null
-        }${name ? ' "' + name + '" ' : ' '}удалена!`
+        }${name ? ' "' + name + '" ' : ' '}удалён!`
       );
     } else {
       toast.error(

@@ -1,12 +1,13 @@
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Container, Spacer, Wrapper } from '@/components/Layout';
-import { TextLink } from '@/components/Text';
 import { fetcher } from '@/lib/fetch';
 import { useCurrentUser } from '@/lib/user';
+import { Text } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { useCallback, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import AdminMenu from '../Dashboard/AdminMenu';
 import styles from './Auth.module.css';
 
 const SignUp = () => {
@@ -50,9 +51,10 @@ const SignUp = () => {
 
   return (
     <Wrapper className={styles.root}>
+      <AdminMenu />
       <div className={styles.main}>
         <form onSubmit={onSubmit}>
-          <h1 className={styles.title}>Присоединяйтесь</h1>
+          <h1 className={styles.title}>Регистрация пользователя</h1>
           <Container alignItems='center'>
             <p className={styles.subtitle}>Логин</p>
             <div className={styles.seperator} />
@@ -78,7 +80,7 @@ const SignUp = () => {
           />
           <Spacer size={0.75} axis='vertical' />
           <Container alignItems='center'>
-            <p className={styles.subtitle}>О вас</p>
+            <p className={styles.subtitle}>О пользователе</p>
             <div className={styles.seperator} />
           </Container>
           <Input
@@ -93,8 +95,8 @@ const SignUp = () => {
           <Input
             ref={nameRef}
             autoComplete='name'
-            placeholder='Ваше имя'
-            ariaLabel='Ваше имя'
+            placeholder='Имя пользователя'
+            ariaLabel='Имя пользователя'
             size='large'
             required
           />
@@ -106,14 +108,14 @@ const SignUp = () => {
             size='large'
             loading={isLoading}
           >
-            Зарегистрироваться
+            Зарегистрировать
           </Button>
         </form>
       </div>
       <div className={styles.footer}>
-        <TextLink href='/login' passHref color='link' variant='highlight'>
-          Есть аккаунт? Войдите.
-        </TextLink>
+        <Text size={14}>
+          Данный компонент позволяет зарегистрировать нового администратора
+        </Text>
       </div>
     </Wrapper>
   );

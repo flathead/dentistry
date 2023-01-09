@@ -1,7 +1,6 @@
 import { Button } from '@/components/Button';
 import { Button as NextUIButton } from '@nextui-org/react';
 import { fetcher } from '@/lib/fetch';
-import { usePostPages } from '@/lib/post';
 import { Card, Input } from '@nextui-org/react';
 import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -18,13 +17,19 @@ const Editor = dynamic(
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import clsx from 'clsx';
 import { ArrowDown, ArrowUp } from 'react-feather';
+import { useSpecPages } from '@/lib/post';
 
-const AddSpec = () => {
+const AddService = () => {
+  const { data } = useSpecPages();
+  const specialists = data
+    ? data.reduce((acc, val) => [...acc, ...val.specialists], [])
+    : [];
+
   const [visibility, setVisibility] = useState(false);
-  const [codeVisibility, setCodeVisibility] = useState(false);
+  const [descrCodeVisibility, setDescrCodeVisibility] = useState(false);
 
-  const codeHandle = () => {
-    setCodeVisibility(codeVisibility === false ? true : false);
+  const descrCodeHandle = () => {
+    setDescrCodeVisibility(descrCodeVisibility === false ? true : false);
   };
 
   const formHandle = () => {
@@ -32,17 +37,17 @@ const AddSpec = () => {
   };
 
   const nameRef = useRef();
+  const previewRef = useRef(); // Фото врача
   const specialityRef = useRef();
+  const descriptionRef = useRef(); // Образование
   const experienceRef = useRef();
-  const photoRef = useRef();
-  const educationRef = useRef();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [editorState, setEditorState] = useState(() =>
+  const [descriptionState, setDescriptionState] = useState(() =>
     EditorState.createEmpty()
   );
 
-  const { mutate } = usePostPages('staff');
+  const { mutate } = useSpecPages();
 
   const onSubmit = useCallback(
     async (e) => {
@@ -56,24 +61,26 @@ const AddSpec = () => {
         let formData = new FormData();
         formData.append('slug', slug);
         formData.append('name', nameRef.current.value);
-        formData.append('speciality', specialityRef.current.value);
         formData.append('experience', experienceRef.current.value);
-        if (photoRef.current.files && photoRef.current.files[0]) {
-          formData.append('photo', photoRef.current.files[0]);
+        formData.append('speciality', specialityRef.current.value);
+        if (previewRef.current.files && previewRef.current.files[0]) {
+          formData.append('photo', previewRef.current.files[0]);
         }
-        formData.append('education', educationRef.current.value);
+        formData.append('education', descriptionRef.current.value);
 
-        await fetcher('/api/specialists', {
+        await fetcher('/api/doctors', {
           method: 'POST',
           body: formData,
         });
 
         toast.success('Вы успешно добавили врача!');
-        console.log(educationRef.current.value);
-        // nameRef.current.value = '';
-        // specialityRef.current.value = '';
-        // experienceRef.current.value = '';
-        // photoRef.current.value = '';
+
+        nameRef.current.value = '';
+        experienceRef.current.value = '';
+        previewRef.current.value = '';
+        specialityRef.current.value = '';
+        descriptionRef.current.value = '';
+
         mutate();
       } catch (e) {
         toast.error(e.message);
@@ -83,6 +90,17 @@ const AddSpec = () => {
     },
     [mutate]
   );
+
+  function createLabel(number, titles) {
+    const cases = [2, 0, 1, 1, 1, 2];
+    return `${
+      titles[
+        number % 100 > 4 && number % 100 < 20
+          ? 2
+          : cases[number % 10 < 5 ? number % 10 : 5]
+      ]
+    }`;
+  }
 
   return (
     <Card className={styles.addWrapper}>
@@ -95,48 +113,71 @@ const AddSpec = () => {
         >
           {visibility ? 'Скрыть' : 'Добавить врача'}
         </NextUIButton>
+        <p>
+          {specialists && specialists.length >= 1
+            ? `${createLabel(specialists.length, [
+                'Добавлен',
+                'Добавлено',
+                'Добавлено',
+              ])} ${specialists.length} ${createLabel(specialists.length, [
+                'врач',
+                'врача',
+                'врачей',
+              ])}`
+            : 'Пока не добавлено врачей'}
+        </p>
       </div>
       <form onSubmit={onSubmit}>
         <div className={clsx(styles.addForm, visibility && styles.formVisible)}>
           <div className={styles.inputGroup}>
-            <Input
-              ref={nameRef}
-              type={'text'}
-              label={'Имя врача'}
-              placeholder='ФИО'
-            />
-            <Input
-              ref={experienceRef}
-              type={'text'}
-              label={'Стаж врача, текстом'}
-              placeholder='25 лет'
-            />
-            <Input
-              ref={specialityRef}
-              type={'text'}
-              label={'Специализация'}
-              placeholder='Ортопед'
-            />
+            <div className={styles.photoGroup}>
+              <div className={styles.inputColumn}>
+                <Input
+                  ref={nameRef}
+                  type={'text'}
+                  label={'ФИО врача'}
+                  placeholder='Введите имя врача'
+                />
+              </div>
+              <div className={styles.inputColumn}>
+                <label for='previewinput'>Фотография</label>
+                <input
+                  id='previewinput'
+                  ref={previewRef}
+                  type={'file'}
+                  placeholder={'Фото'}
+                />
+              </div>
+            </div>
           </div>
           <div className={styles.inputGroup}>
-            <div className={styles.inputColumn}>
-              <label for='photoinput'>Фотография</label>
-              <input
-                id='photoinput'
-                ref={photoRef}
-                type={'file'}
-                placeholder={'Фотография'}
-              />
+            <div className={styles.photoGroup}>
+              <div className={styles.inputColumn}>
+                <Input
+                  ref={experienceRef}
+                  type={'text'}
+                  label={'Опыт врача'}
+                  placeholder='25 лет'
+                />
+              </div>
+              <div className={styles.inputColumn}>
+                <Input
+                  ref={specialityRef}
+                  type={'text'}
+                  label={'Специальность'}
+                  placeholder='Врач-ортопед'
+                />
+              </div>
             </div>
           </div>
           <div>
-            <p className={styles.blockTitle}>Образование</p>
+            <p className={styles.blockTitle}>Образование врача</p>
             <Editor
-              editorState={editorState}
+              editorState={descriptionState}
               wrapperClassName={styles.richText}
               toolbarClassName={styles.toolbar}
               editorClassName={styles.textfield}
-              onEditorStateChange={setEditorState}
+              onEditorStateChange={setDescriptionState}
               toolbar={{
                 options: ['inline', 'list', 'textAlign', 'remove', 'history'],
               }}
@@ -144,26 +185,29 @@ const AddSpec = () => {
             <NextUIButton
               color='primary'
               bordered
-              onClick={codeHandle}
+              onClick={descrCodeHandle}
               disabled={
-                draftToHtml(convertToRaw(editorState.getCurrentContent()))
+                draftToHtml(convertToRaw(descriptionState.getCurrentContent()))
                   .length > 8
                   ? false
                   : true
               }
             >
-              {codeVisibility ? 'Скрыть код' : 'Показать код'}
+              {descrCodeVisibility ? 'Скрыть код' : 'Показать код'}
             </NextUIButton>
             <textarea
               className={clsx(
                 styles.code,
-                codeVisibility && styles.codeVisible
+                descrCodeVisibility && styles.codeVisible
               )}
               disabled
-              ref={educationRef}
-              value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+              ref={descriptionRef}
+              value={draftToHtml(
+                convertToRaw(descriptionState.getCurrentContent())
+              )}
             />
           </div>
+
           <Button type='success' loading={isLoading}>
             Опубликовать
           </Button>
@@ -173,4 +217,4 @@ const AddSpec = () => {
   );
 };
 
-export default AddSpec;
+export default AddService;

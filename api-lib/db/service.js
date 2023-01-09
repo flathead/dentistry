@@ -90,11 +90,11 @@ export async function insertService(
   return service;
 }
 
-export async function deleteService(db, { serviceId }) {
+export async function deleteService(db, { itemId }) {
   return db
     .collection('services')
     .deleteOne({
-      _id: ObjectId(serviceId),
+      _id: ObjectId(itemId),
     })
     .then(({ value }) => value);
 }

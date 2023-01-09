@@ -146,24 +146,27 @@
         font-size: 1.6rem;
       }
       i {
-        position: relative;
-        z-index: 1;
-        &::before {
-          display: none;
-        }
-        &::after {
-          background: #038aa7;
-          z-index: -1;
-          content: '';
-          background: #038aa7;
-          height: 10px;
-          width: 100%;
-          position: absolute;
-          bottom: 4px;
-          left: 0;
-          border-radius: 10px;
-        }
+        font-style: normal;
       }
+      //   i {
+      //     position: relative;
+      //     z-index: 1;
+      //     &::before {
+      //       display: none;
+      //     }
+      //     &::after {
+      //       background: #038aa7;
+      //       z-index: -1;
+      //       content: '';
+      //       background: #038aa7;
+      //       height: 10px;
+      //       width: 100%;
+      //       position: absolute;
+      //       bottom: 4px;
+      //       left: 0;
+      //       border-radius: 10px;
+      //     }
+      //   }
     }
   }
   .benefitsList {

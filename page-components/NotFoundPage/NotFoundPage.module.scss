@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  h1.errorTitle {
+    margin: 0;
+    font-size: 4.6rem;
+    line-height: 4.6rem;
+    font-weight: 900;
+  }
+  p.errorSubtitle {
+    margin-bottom: 2rem;
+  }
+}

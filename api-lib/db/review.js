@@ -3,7 +3,7 @@ import { dbProjectionUsers } from './user';
 
 export async function findReviewById(db, id) {
   const reviews = await db
-    .collection('reviews')
+    .collection('reveiws')
     .aggregate([
       { $match: { _id: new ObjectId(id) } },
       { $limit: 1 },
@@ -64,4 +64,13 @@ export async function insertReview(
   const { insertedId } = await db.collection('reveiws').insertOne(review);
   review._id = insertedId;
   return review;
+}
+
+export async function deleteReview(db, { itemId }) {
+  return db
+    .collection('reveiws')
+    .deleteOne({
+      _id: ObjectId(itemId),
+    })
+    .then(({ value }) => value);
 }
