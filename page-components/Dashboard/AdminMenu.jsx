@@ -51,12 +51,12 @@ export const adminLinks = [
     name: 'Отзывы',
     icon: <Feather size={18} />,
   },
-  {
+  /* {
     id: 'admin-6',
     url: '/admin/user-settings',
     name: 'Пользователи',
     icon: <Users size={18} />,
-  },
+  }, */
   {
     id: 'admin-7',
     url: '/admin/settings',
