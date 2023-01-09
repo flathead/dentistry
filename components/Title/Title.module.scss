@@ -57,37 +57,75 @@ h2.titleTwo {
   &.mt0 {
     margin-top: 0;
   }
-  &.pageTitle {
-    font-size: 2.4rem;
-    @media (max-width: 768px) {
-      font-size: 2rem;
-    }
-    @media (max-width: 480px) {
-      font-size: 1.6rem;
-    }
-    i {
-      font-style: normal;
-      position: relative;
-      &::before {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        bottom: 8px;
-        left: 0;
-        width: 100%;
-        height: 8px;
-        border-radius: 10px;
-        background: var(--dent-blue);
-        @media (max-width: 480px) {
-          bottom: 4px;
-        }
-      }
-    }
-  }
 }
 h3.titleThree {
   &.newsTitle {
     font-size: 1.8rem;
     color: var(--dent-blue);
   }
+}
+
+.pageTitle {
+  font-size: 2.4rem;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 1.6rem;
+  }
+  i {
+    font-style: normal;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      bottom: 8px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      border-radius: 10px;
+      background: var(--dent-blue);
+      @media (max-width: 480px) {
+        bottom: 4px;
+      }
+    }
+  }
+}
+
+.pageTitle {
+  margin-top: 0 !important;
+  font-size: 2rem;
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 1.6rem;
+  }
+  i {
+    font-style: normal;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      bottom: 8px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      border-radius: 10px;
+      background: var(--dent-blue);
+      @media (max-width: 480px) {
+        bottom: 4px;
+      }
+    }
+  }
+}
+
+.centered {
+  text-align: center;
+}
+
+.cropped {
+  max-width: 800px;
 }

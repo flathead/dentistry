@@ -1,0 +1,46 @@
+.picture {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  object-fit: cover;
+  object-position: left top;
+  border-radius: 2rem;
+}
+.about {
+  column-width: 48%;
+  column-count: 2;
+  column-gap: 4%;
+  margin-top: 2rem;
+  position: relative;
+  padding: 0 1rem;
+  @media (max-width: 768px) {
+    column-count: 1;
+  }
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: var(--dent-blue);
+    border-radius: 2px;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  &::before {
+    left: 0;
+  }
+  &::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  p {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+

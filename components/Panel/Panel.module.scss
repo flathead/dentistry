@@ -22,7 +22,9 @@
   transition: all 0.3s;
   z-index: 100;
   color: #222;
-  //   display: none !important;
+  &.hidden {
+    display: none !important;
+  }
 }
 
 @media screen and (max-width: 1200px) {

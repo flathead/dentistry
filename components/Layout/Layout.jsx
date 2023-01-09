@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Panel from '../Panel';
+import { Panel } from '../Panel';
 import Footer from './Footer';
 import styles from './Layout.module.scss';
 import Nav from './Nav';
@@ -14,12 +14,12 @@ const Layout = ({ children }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   });
-
+  // hidden в Panel скрывает её
   return (
     <>
       <Nav top={scrollTop} />
       <main top={scrollTop} className={styles.main}>
-        <Panel top={scrollTop} />
+        <Panel hidden top={scrollTop} />
         {children}
       </main>
       <Footer />

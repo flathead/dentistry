@@ -4,6 +4,7 @@ import { Container, Spacer, Wrapper } from '@/components/Layout';
 import { MapComponent } from '@/components/Map';
 import { Offer } from '@/components/Offer';
 import { Title } from '@/components/Title';
+import ReviewList from '../Reviews/ReviewList';
 import styles from './StaffPage.module.scss';
 
 const StaffPage = () => {
@@ -40,6 +41,16 @@ const StaffPage = () => {
           <Spacer size={4} />
         </Wrapper>
       </Container>
+
+      <Spacer size={2} />
+      <ReviewList
+        template={'slider'}
+        title={
+          <>
+            <b>Отзывы</b> наших пациентов
+          </>
+        }
+      />
 
       <Spacer size={4} />
 

@@ -19,17 +19,16 @@ export const ValidateProps = {
   },
   review: {
     name: { type: 'string' },
-    message: { type: 'string' },
+    phone: { type: 'string', maxLength: 14 },
+    rating: { type: 'string', maxLength: 1 },
+    content: { type: 'string', maxLength: 400 },
   },
   service: {
+    slug: { type: 'string' },
     name: { type: 'string' },
-    category_name: { type: 'string' },
-    category_slug: { type: 'string' },
+    category: { type: 'string' },
     description: { type: 'string' },
-  },
-  price: {
-    name: { type: 'string' },
-    cost: { type: 'string' },
+    price: { type: 'string' },
   },
   comment: {
     content: { type: 'string', minLength: 1, maxLength: 280 },

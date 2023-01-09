@@ -97,7 +97,7 @@ const Footer = () => {
                 +7 (953) 430-16-68
               </Link>
             </Container>
-            <Container className={styles.socials}>
+            <Container id='socials' className={styles.socials}>
               <SocialButton
                 social={'vk'}
                 size={26}

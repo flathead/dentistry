@@ -1,7 +1,16 @@
 import clsx from 'clsx';
 import styles from './Title.module.scss';
 
-const Title = ({ size, mt0, mb0, className, template, children }) => {
+const Title = ({
+  size,
+  mt0,
+  mb0,
+  className,
+  template,
+  center,
+  crop,
+  children,
+}) => {
   return (
     <>
       {size === 1 ? (
@@ -10,7 +19,11 @@ const Title = ({ size, mt0, mb0, className, template, children }) => {
             styles.titleOne,
             mt0 && styles.mt0,
             mb0 && styles.mb0,
-            className
+            className,
+            template === 'pageTitle' && styles.pageTitle,
+            template === 'serviceTitle' && styles.serviceTitle,
+            center && styles.centered,
+            crop && styles.cropped
           )}
         >
           {children}
@@ -22,7 +35,9 @@ const Title = ({ size, mt0, mb0, className, template, children }) => {
             mt0 && styles.mt0,
             mb0 && styles.mb0,
             className,
-            template === 'pageTitle' && styles.pageTitle
+            template === 'pageTitle' && styles.pageTitle,
+            center && styles.centered,
+            crop && styles.cropped
           )}
         >
           {children}
@@ -34,7 +49,9 @@ const Title = ({ size, mt0, mb0, className, template, children }) => {
             mt0 && styles.mt0,
             mb0 && styles.mb0,
             className,
-            template === 'newsTitle' && styles.newsTitle
+            template === 'newsTitle' && styles.newsTitle,
+            center && styles.centered,
+            crop && styles.cropped
           )}
         >
           {children}
@@ -45,7 +62,9 @@ const Title = ({ size, mt0, mb0, className, template, children }) => {
             styles.titleFour,
             mt0 && styles.mt0,
             mb0 && styles.mb0,
-            className
+            className,
+            center && styles.centered,
+            crop && styles.cropped
           )}
         >
           {children}

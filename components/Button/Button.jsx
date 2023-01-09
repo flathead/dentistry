@@ -1,7 +1,8 @@
 import { LoadingDots } from '@/components/LoadingDots';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
+import { ModalWindow } from '../ModalWindow';
 import styles from './Button.module.scss';
 
 export const Button = forwardRef(function Button(
@@ -70,7 +71,13 @@ export const ButtonDent = ({
   href,
   ref,
   target,
+  modal,
 }) => {
+  const [open, setOpen] = useState(false);
+  const modalHandler = () => {
+    setOpen(true);
+    setOpen([]);
+  };
   return (
     <>
       {href ? (
@@ -99,28 +106,31 @@ export const ButtonDent = ({
           <span>{children}</span>
         </a>
       ) : (
-        <button
-          className={clsx(
-            styles.buttonDent,
-            color == 'white'
-              ? styles.dentWhite
-              : color == 'blue'
-              ? styles.dentBlue
-              : color == 'dark'
-              ? styles.dentDark
-              : '',
-            type && styles[type],
-            size && styles[size],
-            //styles[variant],
-            className
-          )}
-          ref={ref}
-          onClick={onClick}
-          disabled={loading || disabled}
-        >
-          {loading && <LoadingDots className={styles.loading} />}
-          <span>{children}</span>
-        </button>
+        <>
+          {modal ? <ModalWindow open={open} /> : null}
+          <button
+            className={clsx(
+              styles.buttonDent,
+              color == 'white'
+                ? styles.dentWhite
+                : color == 'blue'
+                ? styles.dentBlue
+                : color == 'dark'
+                ? styles.dentDark
+                : '',
+              type && styles[type],
+              size && styles[size],
+              //styles[variant],
+              className
+            )}
+            ref={ref}
+            onClick={modal ? modalHandler : onClick}
+            disabled={loading || disabled}
+          >
+            {loading && <LoadingDots className={styles.loading} />}
+            <span>{children}</span>
+          </button>
+        </>
       )}
     </>
   );

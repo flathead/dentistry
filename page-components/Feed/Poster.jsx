@@ -65,7 +65,7 @@ const Poster = () => {
   return (
     <Wrapper>
       <div className={styles.root}>
-        <h3 className={styles.heading}>Поделитесь мыслями</h3>
+        <h3 className={styles.heading}>Поделитесь отзывом</h3>
         {loading ? (
           <LoadingDots>Loading</LoadingDots>
         ) : data?.user ? (

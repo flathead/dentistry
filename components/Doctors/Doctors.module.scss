@@ -5,6 +5,12 @@
 .docSlider {
   overflow: visible !important;
   width: 100%;
+  @media (max-width: 768px) {
+    max-width: 300px;
+  }
+  @media (max-width: 480px) {
+    max-width: 280px;
+  }
   .card {
     border-radius: 1rem;
     padding: 6px;

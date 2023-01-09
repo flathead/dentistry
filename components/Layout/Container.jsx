@@ -12,6 +12,7 @@ const Container = ({
   gap,
   className,
   children,
+  center,
 }) => {
   return (
     <div
@@ -21,6 +22,7 @@ const Container = ({
         fullwidth && styles.fullwidth,
         fullscreen && styles.fullscreen,
         hide && styles.hide,
+        center && styles.center,
         className
       )}
       style={{

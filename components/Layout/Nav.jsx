@@ -11,6 +11,7 @@ import * as Icon from 'react-feather';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { ModalWindow } from '../ModalWindow';
+import { useRouter } from 'next/router';
 /* const UserMenu = ({ user, mutate }) => {
   const menuRef = useRef();
   
@@ -65,44 +66,46 @@ export const links = [
     url: '/',
     name: 'О клинике',
   },
-  /* {
-	id: 2,
-    url: '/ulsugi/',
+  {
+    id: 2,
+    url: '/uslugi/',
     name: 'Услуги',
-  }, */
+  },
   {
     id: 3,
-    url: '/vrachi/',
+    url: '/vrachi',
     name: 'Врачи',
   },
-  /* {
-	id: 4,
-    url: '/aktsii/',
+  {
+    id: 4,
+    url: '/aktsii',
     name: 'Акции',
   },
   {
-	id: 5,
-    url: '/tekhnologii/',
+    id: 5,
+    url: '/tekhnologii',
     name: 'Технологии',
   },
   {
-	id: 6,
-    url: '/nashi-raboty/',
+    id: 6,
+    url: '/nashi-raboty',
     name: 'Наши работы',
   },
   {
-	id: 7,
-    url: '/otzyvy/',
+    id: 7,
+    url: '/otzyvy',
     name: 'Отзывы',
-  }, */
+  },
   {
     id: 8,
-    url: '/kontakty/',
+    url: '/kontakty',
     name: 'Контакты',
   },
 ];
 
 const Nav = ({ top }) => {
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [isLoaded, setIsLoading] = useState(false);
   const [visible, setVisibility] = useState(false);
@@ -212,7 +215,26 @@ const Nav = ({ top }) => {
                   )}
                 >
                   {links.map((link, key) => (
-                    <Link key={key} className={styles.navLink} href={link.url}>
+                    <Link
+                      key={key}
+                      className={clsx(
+                        styles.navLink,
+                        router.pathname === link.url && styles.navLinkActive
+                      )}
+                      href={link.url}
+                      title={
+                        router.pathname === link.url
+                          ? 'Вы на данной странице'
+                          : null
+                      }
+                      style={{
+                        cursor:
+                          router.pathname === link.url ? 'help' : 'pointer',
+                      }}
+                      onClick={(e) =>
+                        router.pathname === link.url ? e.preventDefault() : null
+                      }
+                    >
                       {link.name}
                     </Link>
                   ))}

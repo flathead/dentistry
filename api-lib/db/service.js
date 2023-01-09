@@ -73,17 +73,45 @@ export async function findServices(db, before, by, limit = 10) {
 
 export async function insertService(
   db,
-  { name, category_name, category_slug, description, creatorId }
+  { name, category, slug, description, price, preview, creatorId }
 ) {
   const service = {
     name,
-    category_name,
-    category_slug,
+    category,
+    slug,
     description,
+    price,
+    preview,
     creatorId,
     createdAt: new Date(),
   };
   const { insertedId } = await db.collection('services').insertOne(service);
   service._id = insertedId;
   return service;
+}
+
+export async function deleteService(db, { serviceId }) {
+  return db
+    .collection('services')
+    .deleteOne({
+      _id: ObjectId(serviceId),
+    })
+    .then(({ value }) => value);
+}
+
+export async function patchService(
+  db,
+  { id, name, category, slug, description, price, preview }
+) {
+  const service = {
+    slug,
+    name,
+    category,
+    description,
+    price,
+    preview,
+  };
+  return db
+    .collection('services')
+    .updateOne({ _id: ObjectId(id) }, { $set: service }, { upsert: false });
 }

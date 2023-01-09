@@ -3,7 +3,7 @@ import AdminMenu from '../AdminMenu';
 import AddService from './AddService';
 import ServiceList from './ServiceList';
 
-const Specialists = ({ user }) => {
+const ServicesComponent = ({ user }) => {
   return (
     <Container column>
       <AdminMenu />
@@ -13,4 +13,4 @@ const Specialists = ({ user }) => {
   );
 };
 
-export default Specialists;
+export default ServicesComponent;

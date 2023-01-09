@@ -1,22 +1,65 @@
 import { Container } from '@/components/Layout';
-import { Button } from '@nextui-org/react';
+import { Dropdown } from '@nextui-org/react';
 import { Table } from '@nextui-org/react';
 import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
-import * as Icon from 'react-feather';
-import styles from './SpecialistList.module.scss';
-import Tooltip from '@/components/Tooltip';
+import styles from './ServiceList.module.scss';
 import { useServicePages } from '@/lib/service';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import DeleteModal from '@/components/ModalWindow/DeleteModal';
+import UpdateModal from '@/components/ModalWindow/UpdateModal';
 
 const ServiceList = () => {
-  const { data, size, setSize, isLoadingMore, isReachingEnd } =
-    useServicePages();
+  const router = useRouter();
+
+  const [visible, setVisible] = useState(false);
+  const [updateVisible, setUpdateVisible] = useState(false);
+  const [serviceId, setId] = useState('');
+  const [serviceName, setName] = useState('');
+  const [serviceSlug, setSlug] = useState('');
+  const [serviceCat, setCat] = useState('');
+  const [servicePhoto, setPhoto] = useState('');
+
+  const modalHandler = (id, name, slug) => {
+    setVisible(true);
+    setVisible([]);
+    setId(id);
+    setName(name);
+    setSlug(slug);
+  };
+
+  const updateModalHandler = (id, name, cat, photo) => {
+    setUpdateVisible(true);
+    setUpdateVisible([]);
+    setId(id);
+    setName(name);
+    setCat(cat);
+    setPhoto(photo);
+  };
+
+  const { data } = useServicePages();
   const services = data
     ? data.reduce((acc, val) => [...acc, ...val.services], [])
     : [];
 
   return (
     <Container column className={styles.specList}>
+      <DeleteModal
+        id={serviceId}
+        name={serviceName}
+        slug={serviceSlug}
+        template={'service'}
+        open={visible}
+      />
+      <UpdateModal
+        id={serviceId}
+        name={serviceName}
+        cat={serviceCat}
+        photo={servicePhoto}
+        template={'service'}
+        open={updateVisible}
+      />
       <Table
         aria-label='Example table with static content'
         css={{
@@ -27,78 +70,91 @@ const ServiceList = () => {
         selectionMode='multiple'
       >
         <Table.Header>
-          <Table.Column>Имя</Table.Column>
-          <Table.Column>Специализация</Table.Column>
-          <Table.Column>Стаж работы</Table.Column>
-          <Table.Column>Образование</Table.Column>
+          <Table.Column>Название</Table.Column>
+          <Table.Column>Категория</Table.Column>
+          <Table.Column>Описание</Table.Column>
+          <Table.Column>Прайс</Table.Column>
           <Table.Column width={2} />
         </Table.Header>
         <Table.Body>
           {services.map((service) => (
             <Table.Row key={service._id}>
               <Table.Cell>
-                <Link href={`uslugi/s?${service._id}`}>{service.name}</Link>
+                <Link href={`/uslugi/${service.slug}`}>{service.name}</Link>
               </Table.Cell>
-              <Table.Cell>{specialist.speciality}</Table.Cell>
-              <Table.Cell>{specialist.experience}</Table.Cell>
-              <Table.Cell>{ReactHtmlParser(specialist.education)}</Table.Cell>
-              <Table.Cell css={{ d: 'flex' }}>
-                <Tooltip
-                  content='Страница врача'
-                  rounded
-                  color='primary'
-                  placement='top'
-                >
-                  <button>
-                    <Icon.Eye />
-                  </button>
-                </Tooltip>
-                <Tooltip
-                  content='Редактировать'
-                  rounded
-                  color='warning'
-                  placement='top'
-                >
-                  <button>
-                    <Icon.PenTool />
-                  </button>
-                </Tooltip>
-                <Tooltip
-                  content='Удалить'
-                  rounded
-                  color='error'
-                  placement='top'
-                >
-                  <button>
-                    <Icon.Delete />
-                  </button>
-                </Tooltip>
+              <Table.Cell>{service.category}</Table.Cell>
+              <Table.Cell>
+                <p className={styles.scrolledPar}>
+                  {ReactHtmlParser(service.description)}
+                </p>
+              </Table.Cell>
+              <Table.Cell>
+                <p className={styles.scrolledPar}>
+                  {ReactHtmlParser(service.price)}
+                </p>
+              </Table.Cell>
+              <Table.Cell>
+                <Dropdown>
+                  <Dropdown.Button flat>Действие</Dropdown.Button>
+                  <Dropdown.Menu aria-label='Динамические действия'>
+                    <Dropdown.Item color={'default'}>
+                      <button
+                        type='button'
+                        onClick={() => router.push(`/uslugi/${service.slug}`)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          padding: '0',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {'👁 Перейти'}
+                      </button>
+                    </Dropdown.Item>
+                    <Dropdown.Item color={'default'}>
+                      <button
+                        type='button'
+                        onClick={() =>
+                          updateModalHandler(
+                            service._id,
+                            service.name,
+                            service.category,
+                            service.preview
+                          )
+                        }
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          padding: '0',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {'✏ Изменить'}
+                      </button>
+                    </Dropdown.Item>
+                    <Dropdown.Item color={'error'}>
+                      <button
+                        type='button'
+                        onClick={() =>
+                          modalHandler(service._id, service.name, service.slug)
+                        }
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          padding: '0',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {'🗙 Удалить'}
+                      </button>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
       </Table>
-      {isReachingEnd ? (
-        <p
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '.6rem',
-          }}
-        >
-          <Icon.Table />
-          Вы просмотрели всех специалистов
-        </p>
-      ) : (
-        <Button
-          variant='ghost'
-          type='success'
-          loading={isLoadingMore}
-          onClick={() => setSize(size + 1)}
-        >
-          Загрузить ещё
-        </Button>
-      )}
     </Container>
   );
 };

@@ -7,8 +7,9 @@ import { UserInfo } from '../UserInfo';
 import { useCallback, useEffect, useState } from 'react';
 import { fetcher } from '@/lib/fetch';
 import toast from 'react-hot-toast';
+import clsx from 'clsx';
 
-const PanelControls = ({ user, mutate, top }) => {
+const PanelControls = ({ user, mutate, top, hidden }) => {
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
@@ -48,7 +49,7 @@ const PanelControls = ({ user, mutate, top }) => {
 
   return (
     <div
-      className={styles.panel}
+      className={clsx(styles.panel, hidden && styles.hidden)}
       style={{
         top: top <= 20 ? '120px' : '80px',
         height: top <= 20 ? 'calc(100vh - 140px)' : 'calc(100vh - 100px)',
@@ -164,14 +165,19 @@ const PanelControls = ({ user, mutate, top }) => {
   );
 };
 
-const Panel = ({ top }) => {
+const Panel = ({ top, hidden }) => {
   const { data: { user } = {}, mutate } = useCurrentUser();
 
   return (
     <>
       {user && user.role == 'admin' ? (
         <>
-          <PanelControls top={top} user={user} mutate={mutate} />
+          <PanelControls
+            top={top}
+            user={user}
+            mutate={mutate}
+            hidden={hidden}
+          />
         </>
       ) : (
         <></>

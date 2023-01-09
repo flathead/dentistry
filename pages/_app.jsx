@@ -2,6 +2,7 @@ import '@/assets/base.scss';
 import { Layout } from '@/components/Layout';
 import { Toaster } from 'react-hot-toast';
 export default function MyApp({ Component, pageProps }) {
+  console.log('Разработчик: https://flathead.ru');
   return (
     <Layout>
       {/* TODO Обернуть всё в <NextUIProvider> и исправить при этом ошибку с отображением */}

@@ -36,7 +36,9 @@ const SpecialistList = () => {
           {specialists.map((specialist) => (
             <Table.Row key={specialist._id}>
               <Table.Cell>
-                <Link href={`vrachi/${specialist._id}`}>{specialist.name}</Link>
+                <Link href={`/vrachi/${specialist.slug}`}>
+                  {specialist.name}
+                </Link>
               </Table.Cell>
               <Table.Cell>{specialist.speciality}</Table.Cell>
               <Table.Cell>{specialist.experience}</Table.Cell>

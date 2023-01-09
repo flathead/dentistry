@@ -42,6 +42,10 @@
     color: var(--dent-accent);
     white-space: nowrap;
     font-weight: 600;
+    &.navLinkActive {
+      text-decoration: underline;
+      color: var(--dent-blue);
+    }
     &:hover {
       text-decoration: underline;
       color: var(--dent-blue);

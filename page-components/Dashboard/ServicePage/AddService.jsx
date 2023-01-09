@@ -1,13 +1,12 @@
 import { Button } from '@/components/Button';
-import { Button as NextUIButton } from '@nextui-org/react';
+import { Button as NextUIButton, Radio } from '@nextui-org/react';
 import { fetcher } from '@/lib/fetch';
-import { usePostPages } from '@/lib/post';
 import { Card, Input } from '@nextui-org/react';
 import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-import styles from './AddSpecialist.module.scss';
+import styles from './AddService.module.scss';
 import dynamic from 'next/dynamic';
 import { transliterate as tr, slugify } from 'transliteration';
 
@@ -18,13 +17,23 @@ const Editor = dynamic(
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import clsx from 'clsx';
 import { ArrowDown, ArrowUp } from 'react-feather';
+import { useServicePages } from '@/lib/service';
 
-const AddSpec = () => {
+const AddService = () => {
+  const { data } = useServicePages();
+  const services = data
+    ? data.reduce((acc, val) => [...acc, ...val.services], [])
+    : [];
+
   const [visibility, setVisibility] = useState(false);
-  const [codeVisibility, setCodeVisibility] = useState(false);
+  const [descrCodeVisibility, setDescrCodeVisibility] = useState(false);
+  const [priceCodeVisibility, setPriceCodeVisibility] = useState(false);
 
-  const codeHandle = () => {
-    setCodeVisibility(codeVisibility === false ? true : false);
+  const descrCodeHandle = () => {
+    setDescrCodeVisibility(descrCodeVisibility === false ? true : false);
+  };
+  const priceCodeHandle = () => {
+    setPriceCodeVisibility(priceCodeVisibility === false ? true : false);
   };
 
   const formHandle = () => {
@@ -32,17 +41,19 @@ const AddSpec = () => {
   };
 
   const nameRef = useRef();
-  const specialityRef = useRef();
-  const experienceRef = useRef();
-  const photoRef = useRef();
-  const educationRef = useRef();
+  const categoryRef = useRef();
+  const previewRef = useRef();
+  const descriptionRef = useRef();
+  const priceRef = useRef();
 
+  const [category, setCategory] = useState('Без категории');
   const [isLoading, setIsLoading] = useState(false);
-  const [editorState, setEditorState] = useState(() =>
+  const [descriptionState, setDescriptionState] = useState(() =>
     EditorState.createEmpty()
   );
+  const [priceState, setPriceState] = useState(() => EditorState.createEmpty());
 
-  const { mutate } = usePostPages('staff');
+  const { mutate } = useServicePages();
 
   const onSubmit = useCallback(
     async (e) => {
@@ -56,24 +67,26 @@ const AddSpec = () => {
         let formData = new FormData();
         formData.append('slug', slug);
         formData.append('name', nameRef.current.value);
-        formData.append('speciality', specialityRef.current.value);
-        formData.append('experience', experienceRef.current.value);
-        if (photoRef.current.files && photoRef.current.files[0]) {
-          formData.append('photo', photoRef.current.files[0]);
+        formData.append('category', categoryRef.current.value);
+        if (previewRef.current.files && previewRef.current.files[0]) {
+          formData.append('preview', previewRef.current.files[0]);
         }
-        formData.append('education', educationRef.current.value);
+        formData.append('description', descriptionRef.current.value);
+        formData.append('price', priceRef.current.value);
 
-        await fetcher('/api/specialists', {
+        await fetcher('/api/services', {
           method: 'POST',
           body: formData,
         });
 
-        toast.success('Вы успешно добавили врача!');
-        console.log(educationRef.current.value);
-        // nameRef.current.value = '';
-        // specialityRef.current.value = '';
-        // experienceRef.current.value = '';
-        // photoRef.current.value = '';
+        toast.success('Вы успешно добавили услугу!');
+
+        nameRef.current.value = '';
+        categoryRef.current.value = '';
+        previewRef.current.value = '';
+        descriptionRef.current.value = '';
+        priceRef.current.value = '';
+
         mutate();
       } catch (e) {
         toast.error(e.message);
@@ -84,6 +97,17 @@ const AddSpec = () => {
     [mutate]
   );
 
+  function createLabel(number, titles) {
+    const cases = [2, 0, 1, 1, 1, 2];
+    return `${
+      titles[
+        number % 100 > 4 && number % 100 < 20
+          ? 2
+          : cases[number % 10 < 5 ? number % 10 : 5]
+      ]
+    }`;
+  }
+
   return (
     <Card className={styles.addWrapper}>
       <div className={styles.buttonContainer}>
@@ -93,50 +117,90 @@ const AddSpec = () => {
           bordered={visibility ? true : false}
           onClick={formHandle}
         >
-          {visibility ? 'Скрыть' : 'Добавить врача'}
+          {visibility ? 'Скрыть' : 'Добавить услугу'}
         </NextUIButton>
+        <p>
+          {services && services.length >= 1
+            ? `${createLabel(services.length, [
+                'Добавлена',
+                'Добавлено',
+                'Добавлено',
+              ])} ${services.length} ${createLabel(services.length, [
+                'услуга',
+                'услуги',
+                'услуг',
+              ])}`
+            : 'Пока не добавлено услуг'}
+        </p>
       </div>
       <form onSubmit={onSubmit}>
         <div className={clsx(styles.addForm, visibility && styles.formVisible)}>
           <div className={styles.inputGroup}>
-            <Input
-              ref={nameRef}
-              type={'text'}
-              label={'Имя врача'}
-              placeholder='ФИО'
-            />
-            <Input
-              ref={experienceRef}
-              type={'text'}
-              label={'Стаж врача, текстом'}
-              placeholder='25 лет'
-            />
-            <Input
-              ref={specialityRef}
-              type={'text'}
-              label={'Специализация'}
-              placeholder='Ортопед'
-            />
-          </div>
-          <div className={styles.inputGroup}>
-            <div className={styles.inputColumn}>
-              <label for='photoinput'>Фотография</label>
-              <input
-                id='photoinput'
-                ref={photoRef}
-                type={'file'}
-                placeholder={'Фотография'}
-              />
+            <div className={styles.photoGroup}>
+              <div className={styles.inputColumn}>
+                <Input
+                  ref={nameRef}
+                  type={'text'}
+                  label={'Название услуги'}
+                  placeholder='Напр., Лечение кариеса'
+                />
+              </div>
+              <div className={styles.inputColumn}>
+                <label for='previewinput'>Изображение услуги</label>
+                <input
+                  id='previewinput'
+                  ref={previewRef}
+                  type={'file'}
+                  placeholder={'Изображение'}
+                />
+              </div>
             </div>
+            <input type='hidden' value={category} ref={categoryRef} />
+            <Radio.Group
+              label='Категория услуги'
+              value={category}
+              onChange={setCategory}
+              defaultValue='Без категории'
+              orientation='vertical'
+            >
+              <Radio
+                size='sm'
+                value='Без категории'
+                description='Для услуг без категории'
+              >
+                Без категории
+              </Radio>
+              <Radio
+                size='sm'
+                value='Лечение зубов'
+                description='Категория с услугами внутри'
+              >
+                Лечение зубов
+              </Radio>
+              <Radio
+                size='sm'
+                value='Удаление зубов'
+                description='Категория с услугами внутри'
+              >
+                Удаление зубов
+              </Radio>
+              <Radio
+                size='sm'
+                value='Чистка зубов'
+                description='Категория с услугами внутри'
+              >
+                Чистка зубов
+              </Radio>
+            </Radio.Group>
           </div>
           <div>
-            <p className={styles.blockTitle}>Образование</p>
+            <p className={styles.blockTitle}>Описание услуги</p>
             <Editor
-              editorState={editorState}
+              editorState={descriptionState}
               wrapperClassName={styles.richText}
               toolbarClassName={styles.toolbar}
               editorClassName={styles.textfield}
-              onEditorStateChange={setEditorState}
+              onEditorStateChange={setDescriptionState}
               toolbar={{
                 options: ['inline', 'list', 'textAlign', 'remove', 'history'],
               }}
@@ -144,24 +208,61 @@ const AddSpec = () => {
             <NextUIButton
               color='primary'
               bordered
-              onClick={codeHandle}
+              onClick={descrCodeHandle}
               disabled={
-                draftToHtml(convertToRaw(editorState.getCurrentContent()))
+                draftToHtml(convertToRaw(descriptionState.getCurrentContent()))
                   .length > 8
                   ? false
                   : true
               }
             >
-              {codeVisibility ? 'Скрыть код' : 'Показать код'}
+              {descrCodeVisibility ? 'Скрыть код' : 'Показать код'}
             </NextUIButton>
             <textarea
               className={clsx(
                 styles.code,
-                codeVisibility && styles.codeVisible
+                descrCodeVisibility && styles.codeVisible
               )}
               disabled
-              ref={educationRef}
-              value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+              ref={descriptionRef}
+              value={draftToHtml(
+                convertToRaw(descriptionState.getCurrentContent())
+              )}
+            />
+          </div>
+          <div>
+            <p className={styles.blockTitle}>Прайс-лист</p>
+            <Editor
+              editorState={priceState}
+              wrapperClassName={styles.richText}
+              toolbarClassName={styles.toolbar}
+              editorClassName={styles.textfield}
+              onEditorStateChange={setPriceState}
+              toolbar={{
+                options: ['inline', 'list', 'textAlign', 'remove', 'history'],
+              }}
+            />
+            <NextUIButton
+              color='primary'
+              bordered
+              onClick={priceCodeHandle}
+              disabled={
+                draftToHtml(convertToRaw(priceState.getCurrentContent()))
+                  .length > 8
+                  ? false
+                  : true
+              }
+            >
+              {priceCodeVisibility ? 'Скрыть код' : 'Показать код'}
+            </NextUIButton>
+            <textarea
+              className={clsx(
+                styles.code,
+                priceCodeVisibility && styles.codeVisible
+              )}
+              disabled
+              ref={priceRef}
+              value={draftToHtml(convertToRaw(priceState.getCurrentContent()))}
             />
           </div>
           <Button type='success' loading={isLoading}>
@@ -173,4 +274,4 @@ const AddSpec = () => {
   );
 };
 
-export default AddSpec;
+export default AddService;

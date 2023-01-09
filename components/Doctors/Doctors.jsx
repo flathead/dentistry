@@ -12,11 +12,18 @@ import { useState } from 'react';
 import { ModalWindow } from '../ModalWindow';
 import { Container } from '../Layout';
 
-const Doctors = () => {
+const Doctors = ({ two }) => {
   const [open, setOpen] = useState(false);
   const modalHandler = () => {
     setOpen(true);
     setOpen([]);
+  };
+  const count = {
+    min: 1,
+    mobile: two ? 1 : 2,
+    tablet: two ? 1 : 3,
+    full: two ? 2 : 4,
+    max: two ? 3 : 4,
   };
   const { data } = useSpecPages();
   const specialists = data
@@ -35,17 +42,20 @@ const Doctors = () => {
           breakpoints={{
             0: {
               // width: 0,
-              slidesPerView: 1,
+              slidesPerView: count.min,
             },
             480: {
               // width: 400,
-              slidesPerView: 2,
+              slidesPerView: count.mobile,
             },
             768: {
-              slidesPerView: 3,
+              slidesPerView: count.tablet,
             },
             1080: {
-              slidesPerView: 4,
+              slidesPerView: count.full,
+            },
+            1400: {
+              slidesPerView: count.max,
             },
           }}
         >
