@@ -70,6 +70,7 @@ const ServicePage = ({ services }) => {
     <>
       <div className={styles.layout}>
         <Button
+          className={styles.mobileBtn}
           onPress={buttonHandler}
           size={'lg'}
           flat

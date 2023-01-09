@@ -4,6 +4,11 @@
   grid-template: auto / max-content 1fr;
   gap: 8vw;
   padding: 2rem;
+  .mobileBtn {
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
   @media (max-width: 1024px) {
     grid-template: auto / 1fr;
     gap: 2rem;
@@ -26,6 +31,9 @@
       top: unset;
       width: 100%;
       max-height: max-content;
+    }
+    @media (min-width: 1024px) {
+      display: block !important;
     }
     &.hidden {
       display: none;
