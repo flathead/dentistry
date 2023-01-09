@@ -1,6 +1,5 @@
 import { Wrapper } from '@/components/Layout';
 import AdminMenu from './AdminMenu';
-import Charts from './Charts';
 import Hello from './Hello';
 
 const Dashboard = ({ user }) => {
@@ -8,7 +7,6 @@ const Dashboard = ({ user }) => {
     <Wrapper>
       <AdminMenu />
       <Hello user={user} />
-      <Charts />
     </Wrapper>
   );
 };

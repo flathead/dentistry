@@ -53,7 +53,7 @@ export const adminLinks = [
   },
   {
     id: 'admin-6',
-    url: '/admin/users',
+    url: '/admin/user-settings',
     name: 'Пользователи',
     icon: <Users size={18} />,
   },

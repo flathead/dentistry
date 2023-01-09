@@ -39,7 +39,7 @@ const SignUp = () => {
         });
         mutate({ user: response.user }, false);
         toast.success('Вы успешно создали аккаунт!');
-        router.replace('/admin/users');
+        router.push('/admin');
       } catch (e) {
         toast.error(e.message);
       } finally {
