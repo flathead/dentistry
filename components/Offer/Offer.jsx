@@ -130,11 +130,11 @@ const Offer = ({
                 />
                 <Image
                   className={styles.offerPicturePerson}
-                  src={'/images/pages/homepage/homepage_headerDoctor.png'}
+                  src={'/images/pages/homepage/family.webp'}
                   quality={100}
                   alt={'Стоматолог'}
-                  width={353}
-                  height={506}
+                  width={1000}
+                  height={1000}
                   priority={false}
                 />
               </>

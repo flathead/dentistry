@@ -144,11 +144,12 @@ const Nav = ({ top }) => {
             <Link href='/' className={styles.logo}>
               {isLoaded ? (
                 <Image
-                  src='/logo.svg'
+                  src='/logo_2x.webp'
                   width={top >= 20 ? 160 : 200}
                   height={top >= 20 ? 40 : 50}
                   alt={'Логотип'}
                   className={styles.logo}
+                  quality={100}
                 />
               ) : (
                 <Skeleton height={50} width={200} />
