@@ -53,7 +53,7 @@ const Footer = () => {
         </div>
         <div className={styles.footerContact}>
           <div className={styles.lawInfo}>
-            <p>Лицензия ЛО-78-01-011139 от 01 октября 2020 года</p>
+            <p>Лицензия Л041-01187-71/00626162</p>
             <p>
               <a href={'#'} target={'/blank'}>
                 Юридическая информация

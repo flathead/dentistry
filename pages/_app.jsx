@@ -1,6 +1,8 @@
 import '@/assets/base.scss';
 import { Layout } from '@/components/Layout';
 import { Toaster } from 'react-hot-toast';
+// import { NextUIProvider } from '@nextui-org/react';
+
 export default function MyApp({ Component, pageProps }) {
   console.log('Разработчик: https://flathead.ru');
   return (

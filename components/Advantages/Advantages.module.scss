@@ -176,6 +176,54 @@
         top: 83%;
         right: 15%;
       }
+      &#adv1,
+      &#adv2,
+      &#adv3,
+      &#adv4 {
+        p {
+          right: calc(100% + 20px);
+        }
+      }
+      &#adv5,
+      &#adv6,
+      &#adv7,
+      &#adv8 {
+        p {
+          left: calc(100% + 20px);
+        }
+      }
+      /* &#adv1 {
+        top: 5%;
+        left: 15%;
+      }
+      &#adv2 {
+        top: 30%;
+        left: -6px;
+      }
+      &#adv3 {
+        left: -6px;
+        top: 60%;
+      }
+      &#adv4 {
+        top: 83%;
+        left: 15%;
+      }
+      &#adv5 {
+        top: 5%;
+        right: 15%;
+      }
+      &#adv6 {
+        top: 30%;
+        right: -6px;
+      }
+      &#adv7 {
+        right: -6px;
+        top: 60%;
+      }
+      &#adv8 {
+        top: 83%;
+        right: 15%;
+      } */
       cursor: pointer;
       width: 40px;
       height: 40px;
@@ -225,7 +273,7 @@
           transform: translateY(-50%);
         }
       }
-      &#adv1,
+      /* &#adv1,
       &#adv2,
       &#adv3,
       &#adv4 {
@@ -240,7 +288,7 @@
         p {
           left: calc(100% + 20px);
         }
-      }
+      } */
       span {
         position: absolute;
         top: 50%;
