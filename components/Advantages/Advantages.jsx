@@ -8,20 +8,20 @@ const Advantages = ({
   imageSrc,
   staticImage,
   adv1_title,
-  adv1_descr,
   adv2_title,
-  adv2_descr,
   adv3_title,
-  adv3_descr,
   adv4_title,
-  adv4_descr,
   adv5_title,
-  adv5_descr,
   adv6_title,
-  adv6_descr,
   adv7_title,
-  adv7_descr,
   adv8_title,
+  adv1_descr,
+  adv2_descr,
+  adv3_descr,
+  adv4_descr,
+  adv5_descr,
+  adv6_descr,
+  adv7_descr,
   adv8_descr,
 }) => {
   const [width, setWidth] = useState(null);
@@ -33,6 +33,14 @@ const Advantages = ({
     <div className={clsx(styles.advantages, staticImage && styles.centerPar)}>
       <div className={styles.imageContainer}>
         <Image
+          src={imageSrc}
+          alt={'Коренной зуб'}
+          priority={false}
+          width={180}
+          height={220}
+          className={clsx(styles.tooth, staticImage && styles.staticImage)}
+        />
+        <Image
           src={
             'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670603179/advantages/Group_29_vpweyg.png'
           }
@@ -42,14 +50,7 @@ const Advantages = ({
           height={400}
           className={styles.bg}
         />
-        <Image
-          src={imageSrc}
-          alt={'Коренной зуб'}
-          priority={false}
-          width={180}
-          height={220}
-          className={clsx(styles.tooth, staticImage && styles.staticImage)}
-        />
+
         {adv1_title && (
           <Popover
             placement={width >= 960 ? 'left-bottom' : 'right'}
@@ -62,11 +63,9 @@ const Advantages = ({
                 <p>{adv1_title}</p>
               </button>
             </Popover.Trigger>
-            {adv1_descr && (
-              <Popover.Content>
-                <p>{adv1_descr}</p>
-              </Popover.Content>
-            )}
+            <Popover.Content>
+              {adv1_descr ? <p>{adv1_descr}</p> : <p> </p>}
+            </Popover.Content>
           </Popover>
         )}
         {adv2_title && (

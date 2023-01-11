@@ -88,8 +88,8 @@ export const links = [
   },
   {
     id: 6,
-    url: '/nashi-raboty',
-    name: 'Наши работы',
+    url: '/raboty',
+    name: 'Работы',
   },
   {
     id: 7,
