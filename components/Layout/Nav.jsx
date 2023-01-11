@@ -12,6 +12,8 @@ import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { ModalWindow } from '../ModalWindow';
 import { useRouter } from 'next/router';
+import { SocialButton } from '../SocialButton';
+
 /* const UserMenu = ({ user, mutate }) => {
   const menuRef = useRef();
   
@@ -121,163 +123,183 @@ const Nav = ({ top }) => {
     setOpen([]);
   };
   return (
-    <header
-      className={styles.mainNavigation}
-      style={{ height: top >= 20 ? 60 + 'px' : 100 + 'px' }}
-    >
-      <Wrapper className={styles.wrapper}>
-        <Container
-          className={styles.content}
-          alignItems='center'
-          justifyContent='space-between'
-        >
-          <div className={styles.logoWrapper}>
-            {/* TODO Сделать нормальную кнопку */}
-            <button
-              className={clsx(styles.mobileBtn, visible && styles.btnOpened)}
-              onClick={menuHandler}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-            <Link href='/' className={styles.logo}>
-              {isLoaded ? (
-                <Image
-                  src='/logo_2x.webp'
-                  width={top >= 20 ? 160 : 200}
-                  height={top >= 20 ? 40 : 50}
-                  alt={'Логотип'}
-                  className={styles.logo}
-                  quality={100}
-                />
-              ) : (
-                <Skeleton height={50} width={200} />
-              )}
-            </Link>
-          </div>
-
+    <>
+      <header
+        className={styles.mainNavigation}
+        style={{ height: top >= 20 ? 60 + 'px' : 100 + 'px' }}
+      >
+        <Wrapper className={styles.wrapper}>
           <Container
-            column
-            alignItems={'center'}
-            justifyContent={'center'}
-            gap={top >= 20 ? 0 : '1rem'}
-            styles={{ transition: 'all .3s' }}
+            className={styles.content}
+            alignItems='center'
+            justifyContent='space-between'
           >
-            {isLoaded ? (
-              <>
-                <Container
-                  hide={top >= 20 && window.innerWidth >= 1080 ? true : false}
-                  row
-                  alignItems={'center'}
-                  gap={'2rem'}
-                >
-                  {window.innerWidth >= 1080 ? (
+            <div className={styles.logoWrapper}>
+              {/* TODO Сделать нормальную кнопку */}
+              <button
+                className={clsx(styles.mobileBtn, visible && styles.btnOpened)}
+                onClick={menuHandler}
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+              <Link href='/' className={styles.logo}>
+                {isLoaded ? (
+                  <Image
+                    src='/logo_2x.webp'
+                    width={top >= 20 ? 160 : 200}
+                    height={top >= 20 ? 40 : 50}
+                    alt={'Логотип'}
+                    className={styles.logo}
+                    quality={100}
+                  />
+                ) : (
+                  <Skeleton height={50} width={200} />
+                )}
+              </Link>
+            </div>
+
+            <Container
+              column
+              alignItems={'center'}
+              justifyContent={'center'}
+              gap={top >= 20 ? 0 : '1rem'}
+              styles={{ transition: 'all .3s' }}
+            >
+              {isLoaded ? (
+                <>
+                  <Container
+                    hide={top >= 20 && window.innerWidth >= 1080 ? true : false}
+                    row
+                    alignItems={'center'}
+                    gap={'2rem'}
+                  >
+                    {window.innerWidth >= 1080 ? (
+                      <Container
+                        className={clsx(styles.phones, styles.address)}
+                        gap={'10px'}
+                        alignItems={'center'}
+                      >
+                        <Icon.MapPin color='#193942' size={20} />
+                        <Link
+                          className={styles.contactLink}
+                          href={'https://maps.yandex.ru'}
+                        >
+                          г.Тула ул Демонстрации, 38В
+                        </Link>
+                      </Container>
+                    ) : null}
                     <Container
-                      className={clsx(styles.phones, styles.address)}
+                      className={styles.phones}
                       gap={'10px'}
                       alignItems={'center'}
                     >
-                      <Icon.MapPin color='#193942' size={20} />
+                      {window.innerWidth >= 1080 ? (
+                        <Icon.Phone color='#193042' size={20} />
+                      ) : null}
                       <Link
                         className={styles.contactLink}
-                        href={'https://maps.yandex.ru'}
+                        href={'tel:84872707172'}
                       >
-                        г.Тула ул Демонстрации, 38В
+                        +7 (4872) 70-71-72
+                      </Link>
+                      <Link
+                        className={styles.contactLink}
+                        href={'tel:89534301668'}
+                      >
+                        +7 (953) 430-16-68
                       </Link>
                     </Container>
-                  ) : null}
-                  <Container
-                    className={styles.phones}
-                    gap={'10px'}
-                    alignItems={'center'}
-                  >
-                    {window.innerWidth >= 1080 ? (
-                      <Icon.Phone color='#193042' size={20} />
-                    ) : null}
-                    <Link
-                      className={styles.contactLink}
-                      href={'tel:84872707172'}
-                    >
-                      +7 (4872) 70-71-72
-                    </Link>
-                    <Link
-                      className={styles.contactLink}
-                      href={'tel:89534301668'}
-                    >
-                      +7 (953) 430-16-68
-                    </Link>
                   </Container>
-                </Container>
-                <nav
-                  className={clsx(
-                    styles.nav,
-                    links.length <= 4 && styles.navSmall
-                  )}
-                >
-                  {links.map((link, key) => (
-                    <Link
-                      key={key}
-                      className={clsx(
-                        styles.navLink,
-                        router.pathname === link.url && styles.navLinkActive
-                      )}
-                      href={link.url}
-                      title={
-                        router.pathname === link.url
-                          ? 'Вы на данной странице'
-                          : null
-                      }
-                      style={{
-                        cursor:
-                          router.pathname === link.url ? 'help' : 'pointer',
-                      }}
-                      onClick={(e) =>
-                        router.pathname === link.url ? e.preventDefault() : null
-                      }
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </nav>
-              </>
-            ) : (
-              <Skeleton width='40vw' style={{ maxWidth: 400 }} count={2} />
-            )}
-          </Container>
+                  <nav
+                    className={clsx(
+                      styles.nav,
+                      links.length <= 4 && styles.navSmall
+                    )}
+                  >
+                    {links.map((link, key) => (
+                      <Link
+                        key={key}
+                        className={clsx(
+                          styles.navLink,
+                          router.pathname === link.url && styles.navLinkActive
+                        )}
+                        href={link.url}
+                        title={
+                          router.pathname === link.url
+                            ? 'Вы на данной странице'
+                            : null
+                        }
+                        style={{
+                          cursor:
+                            router.pathname === link.url ? 'help' : 'pointer',
+                        }}
+                        onClick={(e) =>
+                          router.pathname === link.url
+                            ? e.preventDefault()
+                            : null
+                        }
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </nav>
+                </>
+              ) : (
+                <Skeleton width='40vw' style={{ maxWidth: 400 }} count={2} />
+              )}
+            </Container>
 
-          <Container column gap='2rem'>
-            {isLoaded ? (
-              <ButtonDent onClick={modalHandler} color='white'>
-                Записаться
-              </ButtonDent>
-            ) : (
-              <Skeleton height={40} width={150} style={{ borderRadius: 40 }} />
-            )}
+            <Container column gap='2rem'>
+              {isLoaded ? (
+                <ButtonDent onClick={modalHandler} color='white'>
+                  Записаться
+                </ButtonDent>
+              ) : (
+                <Skeleton
+                  height={40}
+                  width={150}
+                  style={{ borderRadius: 40 }}
+                />
+              )}
+            </Container>
           </Container>
+        </Wrapper>
+
+        <Container
+          column
+          className={clsx(
+            styles.mobileMenu,
+            visible && styles.mobileMenuOpened
+          )}
+        >
+          <nav>
+            {links.map((link, key) => (
+              <Link
+                key={key}
+                className={styles.navLink}
+                href={link.url}
+                onClick={() => setVisibility(false)}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
         </Container>
-      </Wrapper>
 
-      <Container
-        column
-        className={clsx(styles.mobileMenu, visible && styles.mobileMenuOpened)}
-      >
-        <nav>
-          {links.map((link, key) => (
-            <Link
-              key={key}
-              className={styles.navLink}
-              href={link.url}
-              onClick={() => setVisibility(false)}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
-      </Container>
-
-      <ModalWindow open={open} />
-    </header>
+        <ModalWindow open={open} />
+      </header>
+      <div className={styles.socials}>
+        <SocialButton
+          social={'vk'}
+          size={26}
+          src={'https://vk.com/familystomtula'}
+        />
+        <SocialButton social={'telegram'} size={26} />
+        <SocialButton social={'whatsapp'} size={26} />
+      </div>
+    </>
   );
 };
 
