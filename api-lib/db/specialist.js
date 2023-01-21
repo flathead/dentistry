@@ -73,7 +73,7 @@ export async function findSpecialists(db, before, by, limit = 10) {
 
 export async function insertSpecialist(
   db,
-  { slug, name, speciality, experience, photo, education, creatorId }
+  { slug, name, speciality, experience, photo, docs, education, creatorId }
 ) {
   const specialist = {
     slug,
@@ -81,6 +81,7 @@ export async function insertSpecialist(
     speciality,
     experience,
     photo,
+    docs,
     education,
     creatorId,
     createdAt: new Date(),

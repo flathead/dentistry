@@ -32,7 +32,8 @@ const ServiceCatalog = () => {
             key={category._id}
             className={clsx(
               styles.category,
-              open === true && cat === index ? styles.open : null
+              open === true && cat === index ? styles.open : null,
+              category._id === '63cc3a9833d8de5360907776' && styles.hidden
             )}
             onClick={() => subHandler(index)}
           >
@@ -44,7 +45,7 @@ const ServiceCatalog = () => {
                 }
                 title={
                   String(window.location.pathname).includes(category.slug)
-                    ? 'Вы находитесь на этой странице'
+                    ? 'Вы находитесь в данной категории'
                     : null
                 }
                 href={`/uslugi/${category.slug}`}
@@ -80,12 +81,22 @@ const ServiceCatalog = () => {
           </li>
         ))}
       </ul>
-      {services.map((service) => (
-        <p key={service._id}>{service.name}</p>
-      ))}
       <ul className={styles.list}>
         {services.map((service) => (
-          <p key={service._id}>{service.name}</p>
+          <li
+            className={clsx(
+              styles.item,
+              service.categoryId !== '63cc3a9833d8de5360907776' && styles.hidden
+            )}
+            key={service._id}
+          >
+            <Link
+              className={styles.itemLink}
+              href={`/uslugi/${service.categorySlug}/${service.slug}`}
+            >
+              {service.name}
+            </Link>
+          </li>
         ))}
       </ul>
     </nav>

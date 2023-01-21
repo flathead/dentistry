@@ -2,14 +2,11 @@ import { Doctors } from '@/components/Doctors';
 import { Container, Spacer, Wrapper } from '@/components/Layout';
 import { LoadingDots } from '@/components/LoadingDots';
 import { MapComponent } from '@/components/Map';
+import { ServiceCatalog } from '@/components/ServiceCatalog';
 import { Title } from '@/components/Title';
-import { useCategoryPages } from '@/lib/category';
 import { Button } from '@nextui-org/react';
-import clsx from 'clsx';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
-import { ArrowDown, ArrowUp } from 'react-feather';
 import HtmlParser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
 import ReviewList from '../Reviews/ReviewList';
@@ -38,37 +35,9 @@ const ServicePage = ({ services }) => {
     first.description = <LoadingDots />;
     first.price = <LoadingDots />;
   }
-
-  const { data } = useCategoryPages();
-  const categories = data
-    ? data.reduce((acc, val) => [...acc, ...val.categories], [])
-    : [];
-  /* const categories = [
-    {
-      key: 0,
-      name: 'Лечение зубов',
-    },
-    {
-      key: 1,
-      name: 'Удаление зубов',
-    },
-    {
-      key: 2,
-      name: 'Чистка зубов',
-    },
-  ]; */
-
-  const [open, setOpen] = useState(false);
   const [button, setButton] = useState(false);
-  const [cat, setCat] = useState('');
-
   const buttonHandler = () => {
     setButton(button === false ? true : false);
-  };
-
-  const subHandler = (index) => {
-    setCat(index);
-    setOpen(open === false ? true : false);
   };
 
   return (
@@ -83,93 +52,46 @@ const ServicePage = ({ services }) => {
         >
           {button ? 'Скрыть' : 'Показать'} список услуг
         </Button>
-        <nav className={clsx(styles.menu, button === false && styles.hidden)}>
-          <ul className={styles.categories}>
-            {categories.map((category, index) => (
-              <li
-                key={category.key}
-                className={clsx(
-                  styles.category,
-                  open === true && cat === index ? styles.open : null
-                )}
-                onClick={() => subHandler(index)}
-              >
-                <span className={styles.name}>
-                  <Link
-                    href={'/uslugi/[categorySlug]'}
-                    as={`/uslugi/${category.slug}`}
-                  >
-                    {category.title}
-                  </Link>
-                </span>
-                <span className={styles.arrow}>
-                  {open === true && cat === index ? <ArrowUp /> : <ArrowDown />}
-                </span>
-                <ul className={styles.categorySubmenu}>
-                  {services.map((service) => (
-                    <li
-                      className={clsx(
-                        styles.submenuItem,
-                        service.category !== category.name && styles.hidden
-                      )}
-                      key={service._id}
-                    >
-                      <Link
-                        href={`/uslugi/${service.slug}`}
-                        as='[categorySlug]'
-                      >
-                        {service.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-          <ul className={styles.list}>
-            {services.map((service) => (
-              <li
-                key={service._id}
-                className={clsx(
-                  styles.item,
-                  service.category !== 'Без категории' && styles.hidden
-                )}
-              >
-                <Link
-                  className={styles.itemLink}
-                  href={`/uslugi/${service.slug}`}
-                >
-                  {service.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <ServiceCatalog />
         <div className={styles.content}>
           <Title size={1} className={styles.serviceTitle} center>
             {first.name}
           </Title>
-          <div className={styles.offer}>{first.preview}</div>
+          {first.preview &&
+          first.preview !==
+            'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg' ? (
+            <div className={styles.offer}>{first.preview}</div>
+          ) : null}
           <div className={styles.anchors}>
-            <a href='#description'>Услуга</a>
-            <a href='#price'>Цена</a>
+            {first.description && first.description.length > 6 ? (
+              <a href='#description'>Услуга</a>
+            ) : null}
+            {first.price && first.price.length > 6 ? (
+              <a href='#price'>Цена</a>
+            ) : null}
             <a href='#doctors'>Врачи</a>
             <a href='#reviews'>Отзывы</a>
             <a href='#callme'>Записаться на приём</a>
           </div>
-          <div id='description' className={styles.description}>
-            {HtmlParser(first.description)}
-          </div>
+          {first.description && first.description.length > 6 ? (
+            <div id='description' className={styles.description}>
+              {HtmlParser(first.description)}
+            </div>
+          ) : null}
           <Spacer size={2} />
-          <div id='price' className={styles.price}>
-            <p className={styles.subTitle}>Цена</p>
-            {HtmlParser(first.price)}
-            <p className={styles.warning}>
-              *Окончательная цена лечения определяется после консультации с
-              лечащим врачом.
-            </p>
-          </div>
-          <Spacer size={2} />
+          {first.price && first.price.length > 6 ? (
+            <>
+              <div id='price' className={styles.price}>
+                <p className={styles.subTitle}>Цена</p>
+                {HtmlParser(first.price)}
+                <p className={styles.warning}>
+                  *Окончательная цена лечения определяется после консультации с
+                  лечащим врачом.
+                </p>
+              </div>
+              <Spacer size={2} />
+            </>
+          ) : null}
           <div id='doctors'>
             <p className={styles.subTitle}>Наши врачи</p>
             <Doctors two />

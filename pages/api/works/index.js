@@ -68,8 +68,6 @@ handler.post(
     let after;
 
     if (req.files) {
-      console.log(req.files.workbefore[0].originalname);
-      console.log(req.files.workafter[0].originalname);
       const tempBefore = await cloudinary.uploader.upload(
         req.files.workbefore[0].path
       );

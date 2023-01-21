@@ -98,7 +98,7 @@ const UpdateModal = ({
           formData.append('itemId', id);
           formData.append('slug', slug);
           formData.append('name', nameRef.current.value);
-          formData.append('category', categoryRef.current.value);
+          formData.append('categoryId', categoryRef.current.value);
           if (previewRef.current.files && previewRef.current.files[0]) {
             formData.append('preview', previewRef.current.files[0]);
           } else {

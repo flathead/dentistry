@@ -39,7 +39,16 @@ handler.get(async (req, res) => {
 
 handler.post(
   ...auths,
-  upload.single('photo'),
+  upload.fields([
+    {
+      name: 'photo',
+      maxCount: 1,
+    },
+    {
+      name: 'docs',
+      maxCount: 100,
+    },
+  ]),
   validateBody({
     type: 'object',
     properties: {
@@ -60,9 +69,18 @@ handler.post(
     const db = await getMongoDb();
 
     let photo;
-    if (req.file) {
-      const image = await cloudinary.uploader.upload(req.file.path);
-      photo = image.secure_url;
+    let docs = [];
+
+    if (req.files) {
+      const tempPhoto = await cloudinary.uploader.upload(
+        req.files.photo[0].path
+      );
+      const docsImages = req.files.docs;
+      for (let i = 0; i < docsImages.length; i++) {
+        const tempDoc = await cloudinary.uploader.upload(docsImages[i].path);
+        docs.push(tempDoc.secure_url);
+      }
+      photo = tempPhoto.secure_url;
     }
 
     const specialist = await insertSpecialist(db, {
@@ -72,6 +90,7 @@ handler.post(
       speciality: req.body.speciality,
       education: req.body.education || '',
       experience: req.body.experience || '',
+      docs: docs,
       photo:
         photo ||
         'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg',
@@ -80,26 +99,6 @@ handler.post(
     return res.json({ specialist });
   }
 );
-
-/* handler.delete(async (req, res) => {
-  console.log('reached handler delete function');
-  console.log(req.body._id);
-  const deleteResult = await deleteService(req.db, req.body._id);
-  return res.json({ deleteResult });
-}); */
-
-handler.delete(bodyParser.json(), async (req, res) => {
-  if (!req.body) {
-    console.log('Отсутствует тело запроса.');
-  }
-  const db = await getMongoDb();
-
-  const del = await deleteSpecialist(db, {
-    itemId: req.body.itemId,
-  });
-  console.log('Врач удален.');
-  return res.json({ del });
-});
 
 handler.patch(
   upload.single('photo'),
@@ -116,7 +115,6 @@ handler.patch(
     if (req.file) {
       const image = await cloudinary.uploader.upload(req.file.path);
       photo = image.secure_url;
-      console.log(photo);
     }
 
     const service = await patchSpecialist(db, {
@@ -132,6 +130,18 @@ handler.patch(
     return res.json({ service });
   }
 );
+
+handler.delete(bodyParser.json(), async (req, res) => {
+  if (!req.body) {
+    console.log('Отсутствует тело запроса.');
+  }
+  const db = await getMongoDb();
+
+  const del = await deleteSpecialist(db, {
+    itemId: req.body.itemId,
+  });
+  return res.json({ del });
+});
 
 export const config = {
   api: {

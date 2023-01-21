@@ -62,27 +62,44 @@ export default function Service({ category }) {
           <Title size={1} className={styles.serviceTitle} center>
             {categ.title}
           </Title>
-          <div className={styles.offer}>{categ.preview}</div>
+          {categ.short && categ.short.length > 6 ? (
+            <div className={styles.description}>{HtmlParser(categ.short)}</div>
+          ) : null}
+          {categ.preview &&
+          categ.preview !==
+            'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg' ? (
+            <div className={styles.offer}>{categ.preview}</div>
+          ) : null}
           <div className={styles.anchors}>
-            <a href='#description'>Услуга</a>
-            <a href='#price'>Цена</a>
+            {categ.description && categ.description.length > 6 ? (
+              <a href='#description'>Услуга</a>
+            ) : null}
+            {categ.price && categ.price.length > 6 ? (
+              <a href='#price'>Цена</a>
+            ) : null}
             <a href='#doctors'>Врачи</a>
             <a href='#reviews'>Отзывы</a>
             <a href='#callme'>Записаться на приём</a>
           </div>
-          <div id='description' className={styles.description}>
-            {HtmlParser(categ.description)}
-          </div>
+          {categ.description && categ.description.length > 6 ? (
+            <div id='description' className={styles.description}>
+              {HtmlParser(categ.description)}
+            </div>
+          ) : null}
           <Spacer size={2} />
-          <div id='price' className={styles.price}>
-            <p className={styles.subTitle}>Цена</p>
-            {HtmlParser(categ.price)}
-            <p className={styles.warning}>
-              *Окончательная цена лечения определяется после консультации с
-              лечащим врачом.
-            </p>
-          </div>
-          <Spacer size={2} />
+          {categ.price && categ.price.length > 6 ? (
+            <>
+              <div id='price' className={styles.price}>
+                <p className={styles.subTitle}>Цена</p>
+                {HtmlParser(categ.price)}
+                <p className={styles.warning}>
+                  *Окончательная цена лечения определяется после консультации с
+                  лечащим врачом.
+                </p>
+              </div>
+              <Spacer size={2} />
+            </>
+          ) : null}
           <div id='doctors'>
             <p className={styles.subTitle}>Наши врачи</p>
             <Doctors two />

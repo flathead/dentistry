@@ -78,7 +78,7 @@ export async function findAny(db, collection, before, by, limit = 10) {
 
 // SECTION Find Data
 // ANCHOR Category (find)
-export async function findCategories(db, before, by, limit = 10) {
+export async function findCategories(db, before, by, limit = 100) {
   return db
     .collection('categories')
     .aggregate([
@@ -215,7 +215,7 @@ export async function findServiceByCategorySlug(db, categorySlug) {
   return serviceSlug[0];
 }
 
-export async function findServices(db, before, limit = 10) {
+export async function findServices(db, before, limit = 100) {
   return db
     .collection('services')
     .aggregate([

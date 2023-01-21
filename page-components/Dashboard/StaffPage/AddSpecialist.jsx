@@ -36,11 +36,12 @@ const AddService = () => {
     setVisibility(visibility === false ? true : false);
   };
 
-  const nameRef = useRef();
+  const nameRef = useRef(); // Имя
   const previewRef = useRef(); // Фото врача
-  const specialityRef = useRef();
+  const certRef = useRef(); // Сертификаты
+  const specialityRef = useRef(); // Специальность
   const descriptionRef = useRef(); // Образование
-  const experienceRef = useRef();
+  const experienceRef = useRef(); // Опыт
 
   const [isLoading, setIsLoading] = useState(false);
   const [descriptionState, setDescriptionState] = useState(() =>
@@ -65,6 +66,12 @@ const AddService = () => {
         formData.append('speciality', specialityRef.current.value);
         if (previewRef.current.files && previewRef.current.files[0]) {
           formData.append('photo', previewRef.current.files[0]);
+        }
+        if (certRef.current.files) {
+          console.log(`Количество изобр.: ${certRef.current.files.length}`);
+          for (let i = 0; i < certRef.current.files.length; i++) {
+            formData.append('docs', certRef.current.files[i]);
+          }
         }
         formData.append('education', descriptionRef.current.value);
 
@@ -146,6 +153,16 @@ const AddService = () => {
                   ref={previewRef}
                   type={'file'}
                   placeholder={'Фото'}
+                />
+              </div>
+              <div className={styles.inputColumn}>
+                <label for='certinput'>Сертификаты и документы</label>
+                <input
+                  id='certinput'
+                  ref={certRef}
+                  type={'file'}
+                  placeholder={'Документы'}
+                  multiple
                 />
               </div>
             </div>

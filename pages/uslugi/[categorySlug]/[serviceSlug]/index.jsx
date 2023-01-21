@@ -62,27 +62,41 @@ export default function Service({ service }) {
           <Title size={1} className={styles.serviceTitle} center>
             {serv.title}
           </Title>
-          <div className={styles.offer}>{serv.preview}</div>
+          {service.preview &&
+          service.preview !==
+            'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg' ? (
+            <div className={styles.offer}>{serv.preview}</div>
+          ) : null}
           <div className={styles.anchors}>
-            <a href='#description'>Услуга</a>
-            <a href='#price'>Цена</a>
+            {service.description && service.description.length > 6 ? (
+              <a href='#description'>Услуга</a>
+            ) : null}
+            {service.price && service.price.length > 6 ? (
+              <a href='#price'>Цена</a>
+            ) : null}
             <a href='#doctors'>Врачи</a>
             <a href='#reviews'>Отзывы</a>
             <a href='#callme'>Записаться на приём</a>
           </div>
-          <div id='description' className={styles.description}>
-            {HtmlParser(serv.description)}
-          </div>
+          {service.description && String(service.description).length >= 6 ? (
+            <div id='description' className={styles.description}>
+              {HtmlParser(serv.description)}
+            </div>
+          ) : null}
           <Spacer size={2} />
-          <div id='price' className={styles.price}>
-            <p className={styles.subTitle}>Цена</p>
-            {HtmlParser(serv.price)}
-            <p className={styles.warning}>
-              *Окончательная цена лечения определяется после консультации с
-              лечащим врачом.
-            </p>
-          </div>
-          <Spacer size={2} />
+          {service.price && service.price.length > 6 ? (
+            <>
+              <div id='price' className={styles.price}>
+                <p className={styles.subTitle}>Цена</p>
+                {HtmlParser(serv.price)}
+                <p className={styles.warning}>
+                  *Окончательная цена лечения определяется после консультации с
+                  лечащим врачом.
+                </p>
+              </div>
+              <Spacer size={2} />
+            </>
+          ) : null}
           <div id='doctors'>
             <p className={styles.subTitle}>Наши врачи</p>
             <Doctors two />
