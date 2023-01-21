@@ -16,13 +16,13 @@ module.exports = withBundleAnalyzer({
   webpack: (config) => {
     config.resolve = {
       ...config.resolve,
-      fallback: {
-        /* promisify: false,
+      /* fallback: {
+        promisify: false,
         url: false,
         fs: false,
         path: false,
-        os: false, */
-      },
+        os: false,
+      }, */
     };
 
     return config;
