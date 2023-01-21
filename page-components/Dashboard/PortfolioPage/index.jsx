@@ -3,12 +3,12 @@ import AdminMenu from '../AdminMenu';
 import AddWork from './AddWork';
 import WorkList from './WorkList';
 
-const PortfolioComponent = ({ user }) => {
+const PortfolioComponent = () => {
   return (
     <Container column>
       <Wrapper>
         <AdminMenu />
-        <AddWork user={user} />
+        <AddWork />
         <WorkList />
       </Wrapper>
     </Container>
