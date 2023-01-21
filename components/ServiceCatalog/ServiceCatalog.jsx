@@ -2,13 +2,11 @@ import { useCategoryPages } from '@/lib/category';
 import { useServicePages } from '@/lib/service';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { ArrowDown, ArrowUp } from 'react-feather';
 import styles from './ServiceCatalog.module.scss';
 
 const ServiceCatalog = () => {
-  const router = useRouter();
   const categoriesData = useCategoryPages().data;
   const servicesData = useServicePages().data;
   const categories = categoriesData
