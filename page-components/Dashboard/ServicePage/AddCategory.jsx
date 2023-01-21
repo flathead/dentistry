@@ -1,5 +1,5 @@
 import { Button } from '@/components/Button';
-import { Button as NextUIButton, Radio } from '@nextui-org/react';
+import { Button as NextUIButton } from '@nextui-org/react';
 import { fetcher } from '@/lib/fetch';
 import { Card, Input } from '@nextui-org/react';
 import { useCallback, useRef, useState } from 'react';
@@ -17,21 +17,20 @@ const Editor = dynamic(
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import clsx from 'clsx';
 import { ArrowDown, ArrowUp } from 'react-feather';
-import { useServicePages } from '@/lib/service';
-import ServiceLength from './ServiceLength';
 import { useCategoryPages } from '@/lib/category';
+import CategoryLength from './CategoryLength';
 
-const AddService = () => {
-  const { mutate } = useServicePages();
-  const { data } = useCategoryPages();
-  const categories = data
-    ? data.reduce((acc, val) => [...acc, ...val.categories], [])
-    : [];
+const AddCategory = () => {
+  const { mutate } = useCategoryPages();
 
   const [visibility, setVisibility] = useState(false);
+  const [shortCodeVisibility, setShortCodeVisibility] = useState(false);
   const [descrCodeVisibility, setDescrCodeVisibility] = useState(false);
   const [priceCodeVisibility, setPriceCodeVisibility] = useState(false);
 
+  const shortCodeHandle = () => {
+    setShortCodeVisibility(shortCodeVisibility === false ? true : false);
+  };
   const descrCodeHandle = () => {
     setDescrCodeVisibility(descrCodeVisibility === false ? true : false);
   };
@@ -43,14 +42,15 @@ const AddService = () => {
     setVisibility(visibility === false ? true : false);
   };
 
-  const nameRef = useRef();
-  const categoryRef = useRef();
+  const titleRef = useRef();
   const previewRef = useRef();
+  const shortRef = useRef();
   const descriptionRef = useRef();
   const priceRef = useRef();
 
-  const [category, setCategory] = useState('63cc3a9833d8de5360907776');
   const [isLoading, setIsLoading] = useState(false);
+
+  const [shortState, setShortState] = useState(() => EditorState.createEmpty());
   const [descriptionState, setDescriptionState] = useState(() =>
     EditorState.createEmpty()
   );
@@ -62,28 +62,30 @@ const AddService = () => {
       try {
         setIsLoading(true);
 
-        const translite = tr(nameRef.current.value);
+        const translite = tr(titleRef.current.value);
         const slug = slugify(translite);
 
         let formData = new FormData();
         formData.append('slug', slug);
-        formData.append('name', nameRef.current.value);
-        formData.append('categoryId', categoryRef.current.value);
-        if (previewRef.current.files && previewRef.current.files[0]) {
-          formData.append('preview', previewRef.current.files[0]);
-        }
+        formData.append('title', titleRef.current.value);
+        formData.append('short', shortRef.current.value);
         formData.append('description', descriptionRef.current.value);
         formData.append('price', priceRef.current.value);
+        if (previewRef.current.files[0]) {
+          formData.append('preview', previewRef.current.files[0]);
+        }
 
-        await fetcher(`/api/services`, {
+        const res = await fetcher('/api/categories', {
           method: 'POST',
           body: formData,
         });
 
-        toast.success('Вы успешно добавили услугу!');
+        console.log(JSON.stringify(res));
 
-        // nameRef.current.value = '';
-        // categoryRef.current.value = '';
+        toast.success('Вы успешно добавили категорию услуг!');
+
+        // titleRef.current.value = '';
+        // shortRef.current.value = '';
         // previewRef.current.value = '';
         // descriptionRef.current.value = '';
         // priceRef.current.value = '';
@@ -107,9 +109,9 @@ const AddService = () => {
           bordered={visibility ? true : false}
           onClick={formHandle}
         >
-          {visibility ? 'Скрыть' : 'Добавить услугу'}
+          {visibility ? 'Скрыть' : '+ Категория'}
         </NextUIButton>
-        <ServiceLength />
+        <CategoryLength />
       </div>
       <form onSubmit={onSubmit}>
         <div className={clsx(styles.addForm, visibility && styles.formVisible)}>
@@ -117,57 +119,60 @@ const AddService = () => {
             <div className={styles.photoGroup}>
               <div className={styles.inputColumn}>
                 <Input
-                  ref={nameRef}
+                  ref={titleRef}
                   type={'text'}
-                  label={'Название услуги'}
-                  placeholder='Напр., Лечение кариеса'
+                  label={'Название категории'}
+                  placeholder='Напр., Лечение зубов'
                 />
               </div>
               <div className={styles.inputColumn}>
-                <label for='previewinput'>Изображение услуги</label>
+                <label for='preview'>Изображение категории</label>
                 <input
-                  id='previewinput'
+                  id='preview'
                   ref={previewRef}
                   type={'file'}
                   placeholder={'Изображение'}
                 />
               </div>
             </div>
-            <input type='hidden' value={category} ref={categoryRef} />
-            <Radio.Group
-              label='Категория услуги'
-              value={category}
-              onChange={setCategory}
-              defaultValue='63cc3a9833d8de5360907776'
-              orientation='vertical'
-            >
-              <Radio
-                size='sm'
-                value='63cc3a9833d8de5360907776'
-                description='Для услуг без категории'
-                color='error'
-              >
-                Без категории
-              </Radio>
-              {categories.map((category) => (
-                <Radio
-                  className={
-                    category._id === '63cc3a9833d8de5360907776'
-                      ? styles.hiddenRadio
-                      : null
-                  }
-                  key={category._id}
-                  size='sm'
-                  value={category._id}
-                  description={'/' + category.slug}
-                >
-                  {category.title}
-                </Radio>
-              ))}
-            </Radio.Group>
           </div>
           <div>
-            <p className={styles.blockTitle}>Описание услуги</p>
+            <p className={styles.blockTitle}>Краткое описание</p>
+            <Editor
+              editorState={shortState}
+              wrapperClassName={styles.richText}
+              toolbarClassName={styles.toolbar}
+              editorClassName={styles.textfield}
+              onEditorStateChange={setShortState}
+              toolbar={{
+                options: ['inline', 'list', 'textAlign', 'remove', 'history'],
+              }}
+            />
+            <NextUIButton
+              color='primary'
+              bordered
+              onClick={shortCodeHandle}
+              disabled={
+                draftToHtml(convertToRaw(shortState.getCurrentContent()))
+                  .length > 8
+                  ? false
+                  : true
+              }
+            >
+              {shortCodeVisibility ? 'Скрыть код' : 'Показать код'}
+            </NextUIButton>
+            <textarea
+              className={clsx(
+                styles.code,
+                shortCodeVisibility && styles.codeVisible
+              )}
+              disabled
+              ref={shortRef}
+              value={draftToHtml(convertToRaw(shortState.getCurrentContent()))}
+            />
+          </div>
+          <div>
+            <p className={styles.blockTitle}>Полное описание</p>
             <Editor
               editorState={descriptionState}
               wrapperClassName={styles.richText}
@@ -247,4 +252,4 @@ const AddService = () => {
   );
 };
 
-export default AddService;
+export default AddCategory;

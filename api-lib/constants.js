@@ -26,8 +26,15 @@ export const ValidateProps = {
   service: {
     slug: { type: 'string' },
     name: { type: 'string' },
-    category: { type: 'string' },
     description: { type: 'string' },
+    price: { type: 'string' },
+  },
+  category: {
+    slug: { type: 'string' },
+    title: { type: 'string' },
+    short: { type: 'string' },
+    description: { type: 'string' },
+    preview: { type: 'string' },
     price: { type: 'string' },
   },
   promo: {

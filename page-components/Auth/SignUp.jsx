@@ -7,7 +7,6 @@ import { Text } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { useCallback, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import AdminMenu from '../Dashboard/AdminMenu';
 import styles from './Auth.module.css';
 
 const SignUp = () => {
@@ -51,7 +50,6 @@ const SignUp = () => {
 
   return (
     <Wrapper className={styles.root}>
-      <AdminMenu />
       <div className={styles.main}>
         <form onSubmit={onSubmit}>
           <h1 className={styles.title}>Регистрация пользователя</h1>

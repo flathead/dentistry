@@ -27,6 +27,8 @@ const DeleteModal = ({ id, name, slug, template, open }) => {
           ? 'doctors'
           : template === 'review'
           ? 'reviews'
+          : template === 'category'
+          ? 'categories'
           : null
       }`,
       {
@@ -48,6 +50,8 @@ const DeleteModal = ({ id, name, slug, template, open }) => {
             ? 'Запись о враче'
             : template === 'review'
             ? 'Отзыв пользователя'
+            : template === 'category'
+            ? 'Раздел категории услуг'
             : null
         }${name ? ' "' + name + '" ' : ' '}удалён!`
       );
@@ -64,6 +68,8 @@ const DeleteModal = ({ id, name, slug, template, open }) => {
             ? 'врача'
             : template === 'review'
             ? 'отзыва'
+            : template === 'category'
+            ? 'категории'
             : null
         }: ${res.statusText}`
       );
@@ -95,6 +101,8 @@ const DeleteModal = ({ id, name, slug, template, open }) => {
               ? 'врача'
               : template === 'review'
               ? 'отзыва'
+              : template === 'category'
+              ? 'категории'
               : null}
           </Text>
         </Text>
@@ -115,6 +123,8 @@ const DeleteModal = ({ id, name, slug, template, open }) => {
                   ? 'врача'
                   : template === 'review'
                   ? 'отзыв'
+                  : template === 'category'
+                  ? 'категорию'
                   : null}
                 :
                 <br />

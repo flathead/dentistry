@@ -71,25 +71,6 @@ export async function findServices(db, before, by, limit = 10) {
     .toArray();
 }
 
-export async function insertService(
-  db,
-  { name, category, slug, description, price, preview, creatorId }
-) {
-  const service = {
-    name,
-    category,
-    slug,
-    description,
-    price,
-    preview,
-    creatorId,
-    createdAt: new Date(),
-  };
-  const { insertedId } = await db.collection('services').insertOne(service);
-  service._id = insertedId;
-  return service;
-}
-
 export async function deleteService(db, { itemId }) {
   return db
     .collection('services')

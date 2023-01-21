@@ -4,73 +4,45 @@ import { Doctors } from '@/components/Doctors';
 import { Spacer, Wrapper } from '@/components/Layout';
 import { LoadingDots } from '@/components/LoadingDots';
 import { MapComponent } from '@/components/Map';
+import { ServiceCatalog } from '@/components/ServiceCatalog';
 import { Title } from '@/components/Title';
-import { useServicePages } from '@/lib/service';
 import ReviewList from '@/page-components/Reviews/ReviewList';
 import { Button } from '@nextui-org/react';
-import clsx from 'clsx';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
-import { ArrowDown, ArrowUp } from 'react-feather';
 import HtmlParser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
-import styles from './Service.module.scss';
+import styles from '../Service.module.scss';
 
 export default function Service({ service }) {
-  const { data } = useServicePages();
-  const services = data
-    ? data.reduce((acc, val) => [...acc, ...val.services], [])
-    : [];
-
-  let first = {};
+  let serv = {};
   try {
     service;
-    first.name = service.name;
-    first.preview = (
+    serv.title = service.name;
+    serv.short = service.short;
+    serv.preview = (
       <Image
         className={styles.preview}
         src={service.preview}
-        alt={service.name}
+        alt={service.title}
         width={1200}
         height={300}
       />
     );
-    first.description = service.description;
-    first.price = service.price;
+    serv.description = service.description;
+    serv.price = service.price;
   } catch (e) {
-    first.name = <LoadingDots />;
-    first.preview = <Skeleton height={300} />;
-    first.description = <LoadingDots />;
-    first.price = <LoadingDots />;
+    serv.name = <LoadingDots />;
+    serv.preview = <Skeleton height={300} />;
+    serv.short = <LoadingDots />;
+    serv.description = <LoadingDots />;
+    serv.price = <LoadingDots />;
   }
 
-  const categories = [
-    {
-      key: 0,
-      name: 'Лечение зубов',
-    },
-    {
-      key: 1,
-      name: 'Удаление зубов',
-    },
-    {
-      key: 2,
-      name: 'Чистка зубов',
-    },
-  ];
-
-  const [open, setOpen] = useState(false);
   const [button, setButton] = useState(false);
-  const [cat, setCat] = useState('');
 
   const buttonHandler = () => {
     setButton(button === false ? true : false);
-  };
-
-  const subHandler = (index) => {
-    setCat(index);
-    setOpen(open === false ? true : false);
   };
 
   return (
@@ -85,64 +57,12 @@ export default function Service({ service }) {
         >
           {button ? 'Скрыть' : 'Показать'} список услуг
         </Button>
-        <nav className={styles.menu}>
-          <p>{open}</p>
-          <ul className={styles.categories}>
-            {categories.map((category, index) => (
-              <li
-                key={category.key}
-                className={clsx(
-                  styles.category,
-                  open === true && cat === index ? styles.open : null
-                )}
-                onClick={() => subHandler(index)}
-              >
-                <span className={styles.name}>
-                  {category.name}{' '}
-                  {open === true && cat === index ? <ArrowUp /> : <ArrowDown />}
-                </span>
-                <ul className={styles.categorySubmenu}>
-                  {services.map((service) => (
-                    <li
-                      className={clsx(
-                        styles.submenuItem,
-                        service.category !== category.name && styles.hidden
-                      )}
-                      key={service._id}
-                    >
-                      <Link href={`/uslugi/${service.slug}`}>
-                        {service.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-          <ul className={styles.list}>
-            {services.map((service) => (
-              <li
-                key={service._id}
-                className={clsx(
-                  styles.item,
-                  service.category !== 'Без категории' && styles.hidden
-                )}
-              >
-                <Link
-                  className={styles.itemLink}
-                  href={`/uslugi/${service.slug}`}
-                >
-                  {service.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <ServiceCatalog />
         <div className={styles.content}>
           <Title size={1} className={styles.serviceTitle} center>
-            {first.name}
+            {serv.title}
           </Title>
-          <div className={styles.offer}>{first.preview}</div>
+          <div className={styles.offer}>{serv.preview}</div>
           <div className={styles.anchors}>
             <a href='#description'>Услуга</a>
             <a href='#price'>Цена</a>
@@ -151,12 +71,12 @@ export default function Service({ service }) {
             <a href='#callme'>Записаться на приём</a>
           </div>
           <div id='description' className={styles.description}>
-            {HtmlParser(first.description)}
+            {HtmlParser(serv.description)}
           </div>
           <Spacer size={2} />
           <div id='price' className={styles.price}>
             <p className={styles.subTitle}>Цена</p>
-            {HtmlParser(first.price)}
+            {HtmlParser(serv.price)}
             <p className={styles.warning}>
               *Окончательная цена лечения определяется после консультации с
               лечащим врачом.
@@ -211,6 +131,7 @@ export async function getServerSideProps(context) {
   service.price = String(service.price);
   service.creatorId = String(service.creatorId);
   service.creator._id = String(service.creator._id);
+  service.categoryId = String(service.categoryId);
   service.createdAt = service.createdAt.toJSON();
   return { props: { service } };
 }

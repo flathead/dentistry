@@ -4,60 +4,68 @@ import { Table } from '@nextui-org/react';
 import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 import styles from './ServiceList.module.scss';
-import { useServicePages } from '@/lib/service';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import DeleteModal from '@/components/ModalWindow/DeleteModal';
 import UpdateModal from '@/components/ModalWindow/UpdateModal';
+import { useCategoryPages } from '@/lib/category';
 
-const ServiceList = () => {
+const CategoryList = () => {
   const router = useRouter();
 
   const [visible, setVisible] = useState(false);
   const [updateVisible, setUpdateVisible] = useState(false);
-  const [serviceId, setId] = useState('');
-  const [serviceName, setName] = useState('');
-  const [serviceSlug, setSlug] = useState('');
-  const [serviceCat, setCat] = useState('');
-  const [servicePhoto, setPhoto] = useState('');
+  const [categoryId, setId] = useState('');
+  const [categoryName, setName] = useState('');
+  const [categorySlug, setSlug] = useState('');
+  const [categoryShort, setShort] = useState('');
+  const [categoryDescription, setDescription] = useState('');
+  const [categoryPrice, setPrice] = useState('');
+
+  const [categoryPhoto, setPhoto] = useState('');
 
   const modalHandler = (id, name, slug) => {
-    setVisible(true);
-    setVisible([]);
     setId(id);
     setName(name);
     setSlug(slug);
+    setVisible(true);
+    setVisible([]);
+    console.log('ID: ' + id + ', Slug: ' + slug + ', Name: ' + name);
   };
 
-  const updateModalHandler = (id, name, cat, photo) => {
+  const updateModalHandler = (id, title, short, description, price, photo) => {
+    setId(id);
+    setName(title);
+    setShort(short);
+    setDescription(description);
+    setPrice(price);
+    setPhoto(photo);
     setUpdateVisible(true);
     setUpdateVisible([]);
-    setId(id);
-    setName(name);
-    setCat(cat);
-    setPhoto(photo);
   };
 
-  const { data } = useServicePages();
-  const services = data
-    ? data.reduce((acc, val) => [...acc, ...val.services], [])
+  const { data } = useCategoryPages();
+  const categories = data
+    ? data.reduce((acc, val) => [...acc, ...val.categories], [])
     : [];
 
   return (
     <Container column className={styles.specList}>
       <DeleteModal
-        id={serviceId}
-        name={serviceName}
-        slug={serviceSlug}
-        template={'service'}
+        id={categoryId}
+        name={categoryName}
+        slug={categorySlug}
+        template={'category'}
         open={visible}
       />
       <UpdateModal
-        id={serviceId}
-        name={serviceName}
-        cat={serviceCat}
-        photo={servicePhoto}
-        template={'service'}
+        id={categoryId}
+        name={categoryName}
+        photo={categoryPhoto}
+        short={categoryShort}
+        description={categoryDescription}
+        price={categoryPrice}
+        template={'category'}
         open={updateVisible}
       />
       <Table
@@ -67,42 +75,57 @@ const ServiceList = () => {
           minWidth: '100%',
         }}
         color={'primary'}
-        selectionMode='multiple'
       >
         <Table.Header>
           <Table.Column>Название</Table.Column>
-          <Table.Column>Категория</Table.Column>
-          <Table.Column>Описание</Table.Column>
+          <Table.Column>Краткое описание</Table.Column>
+          <Table.Column>Полное описание</Table.Column>
           <Table.Column>Прайс</Table.Column>
           <Table.Column width={2} />
         </Table.Header>
         <Table.Body>
-          {services.map((service) => (
-            <Table.Row key={service._id}>
+          {categories.map((category) => (
+            <Table.Row key={category._id}>
               <Table.Cell>
-                <Link href={`/uslugi/${service.slug}`}>{service.name}</Link>
-              </Table.Cell>
-              <Table.Cell data-category={service.categoryId}>
-                {service.categoryId}
+                <Link href={`/uslugi/${category.slug}`}>{category.title}</Link>
               </Table.Cell>
               <Table.Cell>
-                <p className={styles.scrolledPar}>
-                  {ReactHtmlParser(service.description)}
-                </p>
+                {category._id !== '63cc3a9833d8de5360907776' ?? (
+                  <p className={styles.scrolledPar}>
+                    {ReactHtmlParser(category.short)}
+                  </p>
+                )}
               </Table.Cell>
               <Table.Cell>
-                <p className={styles.scrolledPar}>
-                  {ReactHtmlParser(service.price)}
-                </p>
+                {category._id !== '63cc3a9833d8de5360907776' ?? (
+                  <p className={styles.scrolledPar}>
+                    {ReactHtmlParser(category.description)}
+                  </p>
+                )}
               </Table.Cell>
+              <Table.Cell>
+                {category._id !== '63cc3a9833d8de5360907776' ?? (
+                  <p className={styles.scrolledPar}>
+                    {ReactHtmlParser(category.price)}
+                  </p>
+                )}
+              </Table.Cell>
+
               <Table.Cell>
                 <Dropdown>
-                  <Dropdown.Button flat>Действие</Dropdown.Button>
+                  <Dropdown.Button
+                    flat
+                    disabled={
+                      category._id === '63cc3a9833d8de5360907776' ?? true
+                    }
+                  >
+                    Действие
+                  </Dropdown.Button>
                   <Dropdown.Menu aria-label='Динамические действия'>
                     <Dropdown.Item color={'default'}>
                       <button
                         type='button'
-                        onClick={() => router.push(`/uslugi/${service.slug}`)}
+                        onClick={() => router.push(`/uslugi/${category.slug}`)}
                         style={{
                           background: 'none',
                           border: 'none',
@@ -118,10 +141,12 @@ const ServiceList = () => {
                         type='button'
                         onClick={() =>
                           updateModalHandler(
-                            service._id,
-                            service.name,
-                            service.category,
-                            service.preview
+                            category._id,
+                            category.title,
+                            category.short,
+                            category.description,
+                            category.price,
+                            category.preview
                           )
                         }
                         style={{
@@ -138,7 +163,11 @@ const ServiceList = () => {
                       <button
                         type='button'
                         onClick={() =>
-                          modalHandler(service._id, service.name, service.slug)
+                          modalHandler(
+                            category._id,
+                            category.title,
+                            category.slug
+                          )
                         }
                         style={{
                           background: 'none',
@@ -168,4 +197,4 @@ const ServiceList = () => {
   );
 };
 
-export default ServiceList;
+export default CategoryList;

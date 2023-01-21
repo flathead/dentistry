@@ -1,5 +1,6 @@
 import { Wrapper } from '@/components/Layout';
 import { useCurrentUser } from '@/lib/user';
+import { Login } from '@/page-components/Auth';
 import ServicesComponent from '@/page-components/Dashboard/ServicePage';
 
 const AdminServicePage = ({ user }) => {
@@ -13,7 +14,7 @@ const AdminServicePage = ({ user }) => {
             <ServicesComponent />
           </Wrapper>
         ) : (
-          <p>Not admin</p>
+          <Login />
         )}
       </noindex>
     </>

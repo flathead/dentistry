@@ -3,6 +3,7 @@ import { Container, Spacer, Wrapper } from '@/components/Layout';
 import { LoadingDots } from '@/components/LoadingDots';
 import { MapComponent } from '@/components/Map';
 import { Title } from '@/components/Title';
+import { useCategoryPages } from '@/lib/category';
 import { Button } from '@nextui-org/react';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -38,7 +39,11 @@ const ServicePage = ({ services }) => {
     first.price = <LoadingDots />;
   }
 
-  const categories = [
+  const { data } = useCategoryPages();
+  const categories = data
+    ? data.reduce((acc, val) => [...acc, ...val.categories], [])
+    : [];
+  /* const categories = [
     {
       key: 0,
       name: 'Лечение зубов',
@@ -51,7 +56,7 @@ const ServicePage = ({ services }) => {
       key: 2,
       name: 'Чистка зубов',
     },
-  ];
+  ]; */
 
   const [open, setOpen] = useState(false);
   const [button, setButton] = useState(false);
@@ -90,7 +95,14 @@ const ServicePage = ({ services }) => {
                 onClick={() => subHandler(index)}
               >
                 <span className={styles.name}>
-                  {category.name}{' '}
+                  <Link
+                    href={'/uslugi/[categorySlug]'}
+                    as={`/uslugi/${category.slug}`}
+                  >
+                    {category.title}
+                  </Link>
+                </span>
+                <span className={styles.arrow}>
                   {open === true && cat === index ? <ArrowUp /> : <ArrowDown />}
                 </span>
                 <ul className={styles.categorySubmenu}>
@@ -102,7 +114,10 @@ const ServicePage = ({ services }) => {
                       )}
                       key={service._id}
                     >
-                      <Link href={`/uslugi/${service.slug}`}>
+                      <Link
+                        href={`/uslugi/${service.slug}`}
+                        as='[categorySlug]'
+                      >
                         {service.name}
                       </Link>
                     </li>

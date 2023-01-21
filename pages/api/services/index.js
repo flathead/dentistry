@@ -1,28 +1,18 @@
 import { ValidateProps } from '@/api-lib/constants';
 import {
-  deleteService,
+  findCategoryById,
   findServices,
   insertService,
-  patchService,
-} from '@/api-lib/db/service';
+} from '@/api-lib/db/any';
 import { auths, validateBody } from '@/api-lib/middlewares';
 import { getMongoDb } from '@/api-lib/mongodb';
 import { ncOpts } from '@/api-lib/nc';
-import bodyParser from 'body-parser';
-import { v2 as cloudinary } from 'cloudinary';
-import multer from 'multer';
 import nc from 'next-connect';
+import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
 
-const upload = multer({ dest: '/tmp' });
 const handler = nc(ncOpts);
-
-if (process.env.CLOUDINARY_URL) {
-  cloudinary.config({
-    cloud_name: 'dv3q1dxpi',
-    api_key: '664497938628891',
-    api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
-  });
-}
+const upload = multer({ dest: '/tmp' });
 
 handler.get(async (req, res) => {
   const db = await getMongoDb();
@@ -45,11 +35,10 @@ handler.post(
     properties: {
       slug: ValidateProps.service.slug,
       name: ValidateProps.service.name,
-      category: ValidateProps.service.category,
       description: ValidateProps.service.description,
       price: ValidateProps.service.price,
     },
-    required: ['slug', 'name', 'description', 'category'],
+    required: ['slug', 'name', 'description'],
     additionalProperties: true,
   }),
   async (req, res) => {
@@ -59,13 +48,22 @@ handler.post(
 
     const db = await getMongoDb();
 
+    const category = await findCategoryById(db, req.body.categoryId);
+
+    if (!category) {
+      return res.status(404).json({
+        error: { message: 'Категория не найдена, задайте услуге категорию.' },
+      });
+    }
+
     let photo;
     if (req.file) {
+      console.log('Изображение найдено!');
       const image = await cloudinary.uploader.upload(req.file.path);
       photo = image.secure_url;
     }
 
-    const service = await insertService(db, {
+    const service = await insertService(db, category._id, {
       creatorId: req.user._id,
       slug: req.body.slug,
       name: req.body.name,
@@ -75,58 +73,6 @@ handler.post(
       preview:
         photo ||
         'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg',
-    });
-
-    return res.json({ service });
-  }
-);
-
-/* handler.delete(async (req, res) => {
-  console.log('reached handler delete function');
-  console.log(req.body._id);
-  const deleteResult = await deleteService(req.db, req.body._id);
-  return res.json({ deleteResult });
-}); */
-
-handler.delete(bodyParser.json(), async (req, res) => {
-  if (!req.body) {
-    console.log('Отсутствует тело запроса.');
-  }
-  const db = await getMongoDb();
-
-  const del = await deleteService(db, {
-    itemId: req.body.itemId,
-  });
-  console.log('Услуга удалена.');
-  return res.json({ del });
-});
-
-handler.patch(
-  upload.single('servicepreview'),
-
-  async (req, res) => {
-    if (!req.body) {
-      console.log('Отсутствует тело запроса.');
-      res.status(500);
-      return;
-    }
-    const db = await getMongoDb();
-
-    let photo;
-    if (req.file) {
-      const image = await cloudinary.uploader.upload(req.file.path);
-      photo = image.secure_url;
-      console.log(photo);
-    }
-
-    const service = await patchService(db, {
-      id: req.body.itemId,
-      slug: req.body.slug,
-      name: req.body.name,
-      category: req.body.category,
-      description: req.body.description || '',
-      price: req.body.price || '',
-      preview: photo || req.body.oldimage,
     });
 
     return res.json({ service });
