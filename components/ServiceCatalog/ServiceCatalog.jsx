@@ -2,7 +2,7 @@ import { useCategoryPages } from '@/lib/category';
 import { useServicePages } from '@/lib/service';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowDown, ArrowUp } from 'react-feather';
 import styles from './ServiceCatalog.module.scss';
 
@@ -15,6 +15,11 @@ const ServiceCatalog = () => {
   const services = servicesData
     ? servicesData.reduce((acc, val) => [...acc, ...val.services], [])
     : [];
+
+  const [location, setLocation] = useState();
+  useEffect(() => {
+    setLocation(window.location.pathname);
+  }, [location]);
 
   const [open, setOpen] = useState(false);
 
@@ -40,11 +45,11 @@ const ServiceCatalog = () => {
             <span className={styles.name}>
               <Link
                 className={
-                  String(window.location.pathname).includes(category.slug) &&
+                  String(location).includes(category.slug) &&
                   styles.activeCategory
                 }
                 title={
-                  String(window.location.pathname).includes(category.slug)
+                  String(location).includes(category.slug)
                     ? 'Вы находитесь в данной категории'
                     : null
                 }
@@ -60,14 +65,14 @@ const ServiceCatalog = () => {
                   className={clsx(
                     styles.submenuItem,
                     service.categoryId !== category._id && styles.hidden,
-                    String(window.location.pathname).includes(service.slug) &&
+                    String(location).includes(service.slug) &&
                       styles.activeService
                   )}
                   key={service._id}
                 >
                   <Link
                     title={
-                      String(window.location.pathname).includes(service.slug)
+                      String(location).includes(service.slug)
                         ? 'Вы просматриваете эту услугу'
                         : null
                     }
