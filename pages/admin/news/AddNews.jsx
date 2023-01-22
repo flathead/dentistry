@@ -50,6 +50,10 @@ const AddNews = () => {
         formData.append('title', nameRef.current.value);
         formData.append('content', contentRef.current.value);
 
+        console.log(
+          `${nameRef.current.value}, ${contentRef.current.value}, ${slug}`
+        );
+
         await fetcher(`/api/news`, {
           method: 'POST',
           body: formData,

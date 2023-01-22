@@ -333,17 +333,11 @@ export async function insertCategory(
 }
 
 // ANCHOR News (insert)
-export async function insertNews(
-  db,
-  { slug, title, short, description, preview, price, creatorId }
-) {
+export async function insertNews(db, { slug, title, content, creatorId }) {
   const news = {
     slug,
     title,
-    short,
-    description,
-    preview,
-    price,
+    content,
     creatorId,
     createdAt: new Date(),
   };

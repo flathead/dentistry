@@ -23,6 +23,7 @@ handler.get(async (req, res) => {
 
 handler.post(
   ...auths,
+  bodyParser.json(),
   validateBody({
     type: 'object',
     properties: {
@@ -31,7 +32,7 @@ handler.post(
       content: ValidateProps.news.content,
     },
     required: ['title', 'content'],
-    additionalProperties: true,
+    additionalProperties: false,
   }),
   async (req, res) => {
     if (!req.user) {
