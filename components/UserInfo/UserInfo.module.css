@@ -4,7 +4,9 @@
 .info {
   transition: all 0.3s;
   overflow: hidden;
-  color: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
 }
 .infoHidden {
   width: 0;

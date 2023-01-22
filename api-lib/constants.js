@@ -29,6 +29,11 @@ export const ValidateProps = {
     description: { type: 'string' },
     price: { type: 'string' },
   },
+  news: {
+    slug: { type: 'string' },
+    title: { type: 'string' },
+    content: { type: 'string' },
+  },
   category: {
     slug: { type: 'string' },
     title: { type: 'string' },

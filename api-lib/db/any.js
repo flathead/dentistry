@@ -148,6 +148,77 @@ export async function findCategoryBySlug(db, slug) {
   return categorySlug[0];
 }
 
+// ANCHOR News (find)
+export async function findNews(db, before, by, limit = 100) {
+  return db
+    .collection('news')
+    .aggregate([
+      {
+        $match: {
+          ...(by && { creatorId: new ObjectId(by) }),
+          ...(before && { createdAt: { $lt: before } }),
+        },
+      },
+      { $sort: { _id: -1 } },
+      { $limit: limit },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'creatorId',
+          foreignField: '_id',
+          as: 'creator',
+        },
+      },
+      { $unwind: '$creator' },
+      { $project: dbProjectionUsers('creator.') },
+    ])
+    .toArray();
+}
+
+export async function findNewsById(db, id) {
+  const news = await db
+    .collection('news')
+    .aggregate([
+      { $match: { _id: new ObjectId(id) } },
+      { $limit: 1 },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'creatorId',
+          foreignField: '_id',
+          as: 'creator',
+        },
+      },
+      { $unwind: '$creator' },
+      { $project: dbProjectionUsers('creator.') },
+    ])
+    .toArray();
+  if (!news[0]) return null;
+  return news[0];
+}
+
+export async function findNewsBySlug(db, slug) {
+  const newsSlug = await db
+    .collection('news')
+    .aggregate([
+      { $match: { slug: String(slug) } },
+      { $limit: 1 },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'creatorId',
+          foreignField: '_id',
+          as: 'creator',
+        },
+      },
+      { $unwind: '$creator' },
+      { $project: dbProjectionUsers('creator.') },
+    ])
+    .toArray();
+  if (!newsSlug[0]) return null;
+  return newsSlug[0];
+}
+
 // ANCHOR Service (find)
 export async function findServiceById(db, id) {
   const services = await db
@@ -261,6 +332,26 @@ export async function insertCategory(
   return category;
 }
 
+// ANCHOR News (insert)
+export async function insertNews(
+  db,
+  { slug, title, short, description, preview, price, creatorId }
+) {
+  const news = {
+    slug,
+    title,
+    short,
+    description,
+    preview,
+    price,
+    creatorId,
+    createdAt: new Date(),
+  };
+  const { insertedId } = await db.collection('news').insertOne(news);
+  news._id = insertedId;
+  return news;
+}
+
 // ANCHOR Service (insert)
 export async function insertService(
   db,
@@ -294,6 +385,15 @@ export async function deleteCategory(db, { itemId }) {
     })
     .then(({ value }) => value);
 }
+// ANCHOR News (delete)
+export async function deleteNews(db, { itemId }) {
+  return db
+    .collection('news')
+    .deleteOne({
+      _id: ObjectId(itemId),
+    })
+    .then(({ value }) => value);
+}
 
 // SECTION Patch
 // ANCHOR Category (patch)
@@ -312,4 +412,15 @@ export async function patchCategory(
   return db
     .collection('categories')
     .updateOne({ _id: ObjectId(id) }, { $set: category }, { upsert: false });
+}
+// ANCHOR News (patch)
+export async function patchNews(db, { id, title, slug, content }) {
+  const news = {
+    slug,
+    title,
+    content,
+  };
+  return db
+    .collection('news')
+    .updateOne({ _id: ObjectId(id) }, { $set: news }, { upsert: false });
 }

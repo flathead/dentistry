@@ -1,4 +1,5 @@
 import { User } from '@nextui-org/react';
+import clsx from 'clsx';
 import styles from './UserInfo.module.css';
 
 const UserInfo = ({ size, name, username, url, isPanelOpen }) => {
@@ -18,18 +19,17 @@ const UserInfo = ({ size, name, username, url, isPanelOpen }) => {
   return (
     <User
       className={styles.userCard}
-      style={isPanelOpen ? { display: 'inline-flex' } : { display: 'contents' }}
+      style={{ display: isPanelOpen ? 'inline-flex' : 'contents' }}
       src={url || '/images/default_user.jpg'}
       name={isPanelOpen ? name + ',' : ''}
       bordered
       size={size}
     >
       <div
-        className={
-          isPanelOpen
-            ? [styles.info, styles.infoShown]
-            : [styles.info, styles.infoHidden]
-        }
+        className={clsx(
+          styles.info,
+          isPanelOpen ? styles.infoShown : styles.infoHidden
+        )}
       >
         {isPanelOpen ? dayzone : ''}
         {isPanelOpen ? (

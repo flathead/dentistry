@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
     <>
       <Nav top={scrollTop} />
       <main top={scrollTop} className={styles.main}>
-        <Panel hidden top={scrollTop} />
+        <Panel top={scrollTop} />
         {children}
       </main>
       <Footer />
