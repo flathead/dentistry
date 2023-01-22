@@ -13,18 +13,13 @@ import { toast } from 'react-hot-toast';
 import { transliterate as tr, slugify } from 'transliteration';
 import styles from './UpdateModal.module.scss';
 
-const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
-  { ssr: false }
-);
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import dynamic from 'next/dynamic';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { useServicePages } from '@/lib/service';
 import { usePromoPages } from '@/lib/promo';
 import { usePortfolioPages } from '@/lib/portfolio';
 import { useSpecPages } from '@/lib/post';
+import { Wysiwyg } from '../Wysiwyg';
 
 const UpdateModal = ({
   id,
@@ -447,21 +442,9 @@ const UpdateModal = ({
                             ? 'Образование врача'
                             : null}
                         </p>
-                        <Editor
-                          editorState={descriptionState}
-                          wrapperClassName={styles.richText}
-                          toolbarClassName={styles.toolbar}
-                          editorClassName={styles.textfield}
-                          onEditorStateChange={setDescriptionState}
-                          toolbar={{
-                            options: [
-                              'inline',
-                              'list',
-                              'textAlign',
-                              'remove',
-                              'history',
-                            ],
-                          }}
+                        <Wysiwyg
+                          state={descriptionState}
+                          setState={setDescriptionState}
                         />
 
                         <textarea
@@ -476,21 +459,9 @@ const UpdateModal = ({
                       {template === 'service' ? (
                         <div>
                           <p className={styles.blockTitle}>Прайс-лист</p>
-                          <Editor
-                            editorState={priceState}
-                            wrapperClassName={styles.richText}
-                            toolbarClassName={styles.toolbar}
-                            editorClassName={styles.textfield}
-                            onEditorStateChange={setPriceState}
-                            toolbar={{
-                              options: [
-                                'inline',
-                                'list',
-                                'textAlign',
-                                'remove',
-                                'history',
-                              ],
-                            }}
+                          <Wysiwyg
+                            state={priceState}
+                            setState={setPriceState}
                           />
 
                           <textarea

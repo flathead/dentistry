@@ -7,18 +7,12 @@ import { toast } from 'react-hot-toast';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import styles from './AddService.module.scss';
-import dynamic from 'next/dynamic';
 import { transliterate as tr, slugify } from 'transliteration';
-
-const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
-  { ssr: false }
-);
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import clsx from 'clsx';
 import { ArrowDown, ArrowUp } from 'react-feather';
 import { useCategoryPages } from '@/lib/category';
 import CategoryLength from './CategoryLength';
+import { Wysiwyg } from '@/components/Wysiwyg';
 
 const AddCategory = () => {
   const { mutate } = useCategoryPages();
@@ -138,16 +132,7 @@ const AddCategory = () => {
           </div>
           <div>
             <p className={styles.blockTitle}>Краткое описание</p>
-            <Editor
-              editorState={shortState}
-              wrapperClassName={styles.richText}
-              toolbarClassName={styles.toolbar}
-              editorClassName={styles.textfield}
-              onEditorStateChange={setShortState}
-              toolbar={{
-                options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-              }}
-            />
+            <Wysiwyg state={shortState} setState={setShortState} />
             <NextUIButton
               color='primary'
               bordered
@@ -173,16 +158,7 @@ const AddCategory = () => {
           </div>
           <div>
             <p className={styles.blockTitle}>Полное описание</p>
-            <Editor
-              editorState={descriptionState}
-              wrapperClassName={styles.richText}
-              toolbarClassName={styles.toolbar}
-              editorClassName={styles.textfield}
-              onEditorStateChange={setDescriptionState}
-              toolbar={{
-                options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-              }}
-            />
+            <Wysiwyg state={descriptionState} setState={setDescriptionState} />
             <NextUIButton
               color='primary'
               bordered
@@ -210,16 +186,7 @@ const AddCategory = () => {
           </div>
           <div>
             <p className={styles.blockTitle}>Прайс-лист</p>
-            <Editor
-              editorState={priceState}
-              wrapperClassName={styles.richText}
-              toolbarClassName={styles.toolbar}
-              editorClassName={styles.textfield}
-              onEditorStateChange={setPriceState}
-              toolbar={{
-                options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-              }}
-            />
+            <Wysiwyg state={priceState} setState={setPriceState} />
             <NextUIButton
               color='primary'
               bordered

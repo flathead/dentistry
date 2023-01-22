@@ -2,25 +2,18 @@ import { Button } from '@/components/Button';
 import { Button as NextUIButton, Radio } from '@nextui-org/react';
 import { fetcher } from '@/lib/fetch';
 import { Card, Input } from '@nextui-org/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import styles from './AddService.module.scss';
-import dynamic from 'next/dynamic';
 import { transliterate as tr, slugify } from 'transliteration';
-
-const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
-  { ssr: false }
-);
-
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import clsx from 'clsx';
 import { ArrowDown, ArrowUp } from 'react-feather';
 import { useServicePages } from '@/lib/service';
 import ServiceLength from './ServiceLength';
 import { useCategoryPages } from '@/lib/category';
+import { Wysiwyg } from '@/components/Wysiwyg';
 
 const AddService = () => {
   const { mutate } = useServicePages();
@@ -56,35 +49,6 @@ const AddService = () => {
     EditorState.createEmpty()
   );
   const [priceState, setPriceState] = useState(() => EditorState.createEmpty());
-
-  const [editor1, setEditor1] = useState(null);
-  const [editor2, setEditor2] = useState(null);
-  useEffect(() => {
-    setEditor1(
-      <Editor
-        editorState={descriptionState}
-        wrapperClassName={styles.richText}
-        toolbarClassName={styles.toolbar}
-        editorClassName={styles.textfield}
-        onEditorStateChange={setDescriptionState}
-        toolbar={{
-          options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-        }}
-      />
-    );
-    setEditor2(
-      <Editor
-        editorState={priceState}
-        wrapperClassName={styles.richText}
-        toolbarClassName={styles.toolbar}
-        editorClassName={styles.textfield}
-        onEditorStateChange={setPriceState}
-        toolbar={{
-          options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-        }}
-      />
-    );
-  }, [editor1, editor2, descriptionState, priceState]);
 
   const onSubmit = useCallback(
     async (e) => {
@@ -198,7 +162,7 @@ const AddService = () => {
           </div>
           <div>
             <p className={styles.blockTitle}>Описание услуги</p>
-            {editor1}
+            <Wysiwyg state={descriptionState} setState={setDescriptionState} />
             <NextUIButton
               color='primary'
               bordered
@@ -226,7 +190,7 @@ const AddService = () => {
           </div>
           <div>
             <p className={styles.blockTitle}>Прайс-лист</p>
-            {editor2}
+            <Wysiwyg state={priceState} setState={setPriceState} />
             <NextUIButton
               color='primary'
               bordered

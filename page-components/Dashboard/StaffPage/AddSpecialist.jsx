@@ -2,25 +2,16 @@ import { Button } from '@/components/Button';
 import { Button as NextUIButton } from '@nextui-org/react';
 import { fetcher } from '@/lib/fetch';
 import { Card, Input } from '@nextui-org/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import styles from './AddSpecialist.module.scss';
-import dynamic from 'next/dynamic';
 import { transliterate as tr, slugify } from 'transliteration';
-
-const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
-  {
-    ssr: false,
-  }
-);
-
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import clsx from 'clsx';
 import { ArrowDown, ArrowUp } from 'react-feather';
 import { useSpecPages } from '@/lib/post';
+import { Wysiwyg } from '@/components/Wysiwyg';
 
 const AddService = () => {
   const { data } = useSpecPages();
@@ -50,22 +41,6 @@ const AddService = () => {
   const [descriptionState, setDescriptionState] = useState(() =>
     EditorState.createEmpty()
   );
-  const [editor, setEditor] = useState(null);
-
-  useEffect(() => {
-    setEditor(
-      <Editor
-        editorState={descriptionState}
-        wrapperClassName={styles.richText}
-        toolbarClassName={styles.toolbar}
-        editorClassName={styles.textfield}
-        onEditorStateChange={setDescriptionState}
-        toolbar={{
-          options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-        }}
-      />
-    );
-  }, [editor, descriptionState]);
 
   const { mutate } = useSpecPages();
 
@@ -208,7 +183,7 @@ const AddService = () => {
           </div>
           <div>
             <p className={styles.blockTitle}>Образование врача</p>
-            {editor}
+            <Wysiwyg state={descriptionState} setState={setDescriptionState} />
             <NextUIButton
               color='primary'
               bordered
