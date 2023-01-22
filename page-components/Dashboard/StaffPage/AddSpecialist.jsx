@@ -2,7 +2,7 @@ import { Button } from '@/components/Button';
 import { Button as NextUIButton } from '@nextui-org/react';
 import { fetcher } from '@/lib/fetch';
 import { Card, Input } from '@nextui-org/react';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -12,8 +12,11 @@ import { transliterate as tr, slugify } from 'transliteration';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
-  { ssr: false }
+  {
+    ssr: false,
+  }
 );
+
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import clsx from 'clsx';
 import { ArrowDown, ArrowUp } from 'react-feather';
@@ -47,6 +50,22 @@ const AddService = () => {
   const [descriptionState, setDescriptionState] = useState(() =>
     EditorState.createEmpty()
   );
+  const [editor, setEditor] = useState(null);
+
+  useEffect(() => {
+    setEditor(
+      <Editor
+        editorState={descriptionState}
+        wrapperClassName={styles.richText}
+        toolbarClassName={styles.toolbar}
+        editorClassName={styles.textfield}
+        onEditorStateChange={setDescriptionState}
+        toolbar={{
+          options: ['inline', 'list', 'textAlign', 'remove', 'history'],
+        }}
+      />
+    );
+  }, [editor, descriptionState]);
 
   const { mutate } = useSpecPages();
 
@@ -189,16 +208,7 @@ const AddService = () => {
           </div>
           <div>
             <p className={styles.blockTitle}>Образование врача</p>
-            <Editor
-              editorState={descriptionState}
-              wrapperClassName={styles.richText}
-              toolbarClassName={styles.toolbar}
-              editorClassName={styles.textfield}
-              onEditorStateChange={setDescriptionState}
-              toolbar={{
-                options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-              }}
-            />
+            {editor}
             <NextUIButton
               color='primary'
               bordered

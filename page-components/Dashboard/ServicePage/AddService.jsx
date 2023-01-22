@@ -2,7 +2,7 @@ import { Button } from '@/components/Button';
 import { Button as NextUIButton, Radio } from '@nextui-org/react';
 import { fetcher } from '@/lib/fetch';
 import { Card, Input } from '@nextui-org/react';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -14,6 +14,7 @@ const Editor = dynamic(
   () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
   { ssr: false }
 );
+
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import clsx from 'clsx';
 import { ArrowDown, ArrowUp } from 'react-feather';
@@ -55,6 +56,35 @@ const AddService = () => {
     EditorState.createEmpty()
   );
   const [priceState, setPriceState] = useState(() => EditorState.createEmpty());
+
+  const [editor1, setEditor1] = useState(null);
+  const [editor2, setEditor2] = useState(null);
+  useEffect(() => {
+    setEditor1(
+      <Editor
+        editorState={descriptionState}
+        wrapperClassName={styles.richText}
+        toolbarClassName={styles.toolbar}
+        editorClassName={styles.textfield}
+        onEditorStateChange={setDescriptionState}
+        toolbar={{
+          options: ['inline', 'list', 'textAlign', 'remove', 'history'],
+        }}
+      />
+    );
+    setEditor2(
+      <Editor
+        editorState={priceState}
+        wrapperClassName={styles.richText}
+        toolbarClassName={styles.toolbar}
+        editorClassName={styles.textfield}
+        onEditorStateChange={setPriceState}
+        toolbar={{
+          options: ['inline', 'list', 'textAlign', 'remove', 'history'],
+        }}
+      />
+    );
+  }, [editor1, editor2, descriptionState, priceState]);
 
   const onSubmit = useCallback(
     async (e) => {
@@ -168,16 +198,7 @@ const AddService = () => {
           </div>
           <div>
             <p className={styles.blockTitle}>Описание услуги</p>
-            <Editor
-              editorState={descriptionState}
-              wrapperClassName={styles.richText}
-              toolbarClassName={styles.toolbar}
-              editorClassName={styles.textfield}
-              onEditorStateChange={setDescriptionState}
-              toolbar={{
-                options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-              }}
-            />
+            {editor1}
             <NextUIButton
               color='primary'
               bordered
@@ -205,16 +226,7 @@ const AddService = () => {
           </div>
           <div>
             <p className={styles.blockTitle}>Прайс-лист</p>
-            <Editor
-              editorState={priceState}
-              wrapperClassName={styles.richText}
-              toolbarClassName={styles.toolbar}
-              editorClassName={styles.textfield}
-              onEditorStateChange={setPriceState}
-              toolbar={{
-                options: ['inline', 'list', 'textAlign', 'remove', 'history'],
-              }}
-            />
+            {editor2}
             <NextUIButton
               color='primary'
               bordered
