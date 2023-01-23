@@ -41,7 +41,6 @@ export default function Service({ service }) {
     <>
       <HeadSEO
         title={service.title}
-        description={service.description}
         ogImageUrl={service.preview ? service.preview : null}
         ogTwitterImage={service.preview ? service.preview : null}
         canonicalUrl={`https://dent-71.ru/uslugi/${service.categorySlug}/${service.slug}`}
