@@ -65,9 +65,7 @@ const AddCategory = () => {
         formData.append('short', shortRef.current.value);
         formData.append('description', descriptionRef.current.value);
         formData.append('price', priceRef.current.value);
-        if (previewRef.current.files[0]) {
-          formData.append('preview', previewRef.current.files[0]);
-        }
+        formData.append('preview', previewRef.current.files[0]);
 
         const res = await fetcher('/api/categories', {
           method: 'POST',
