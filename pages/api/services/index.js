@@ -14,6 +14,12 @@ import { v2 as cloudinary } from 'cloudinary';
 const handler = nc(ncOpts);
 const upload = multer({ dest: '/tmp' });
 
+cloudinary.config({
+  cloud_name: 'dv3q1dxpi',
+  api_key: '664497938628891',
+  api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
+});
+
 handler.get(async (req, res) => {
   const db = await getMongoDb();
 

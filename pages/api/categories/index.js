@@ -1,21 +1,20 @@
 import { ValidateProps } from '@/api-lib/constants';
-import {
-  deleteCategory,
-  findCategories,
-  insertCategory,
-  patchCategory,
-} from '@/api-lib/db/any';
+import { findCategories, insertCategory } from '@/api-lib/db/any';
 import { auths, validateBody } from '@/api-lib/middlewares';
 import { getMongoDb } from '@/api-lib/mongodb';
 import { ncOpts } from '@/api-lib/nc';
-import bodyParser from 'body-parser';
-import { v2 as cloudinary } from 'cloudinary';
-import { ObjectId } from 'mongodb';
-import multer from 'multer';
 import nc from 'next-connect';
+import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
 
-const upload = multer({ dest: '/temp' });
 const handler = nc(ncOpts);
+const upload = multer({ dest: '/tmp' });
+
+cloudinary.config({
+  cloud_name: 'dv3q1dxpi',
+  api_key: '664497938628891',
+  api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
+});
 
 handler.get(async (req, res) => {
   const db = await getMongoDb();
@@ -24,7 +23,7 @@ handler.get(async (req, res) => {
     db,
     req.query.before ? new Date(req.query.before) : undefined,
     req.query.by,
-    req.query.limit ? parseInt(req.query.limit, 100) : undefined
+    req.query.limit ? parseInt(req.query.limit, 10) : undefined
   );
 
   res.json({ categories });
@@ -55,6 +54,7 @@ handler.post(
 
     let photo;
     if (req.file) {
+      console.log('Изображение найдено!');
       const image = await cloudinary.uploader.upload(req.file.path);
       photo = image.secure_url;
     }
@@ -72,53 +72,6 @@ handler.post(
     });
 
     return res.json({ category });
-  }
-);
-
-handler.delete(bodyParser.json(), async (req, res) => {
-  if (!req.body) {
-    console.log('Отсутствует тело запроса.');
-  }
-  const db = await getMongoDb();
-
-  const del = await deleteCategory(db, {
-    itemId: req.body.itemId,
-  });
-  console.log('Категория удалена.');
-  return res.json({ del });
-});
-
-handler.patch(
-  upload.single('preview'),
-
-  async (req, res) => {
-    if (!req.body) {
-      console.log('Отсутствует тело запроса.');
-      res.status(500);
-      return;
-    }
-    const db = await getMongoDb();
-
-    let photo;
-    if (req.file) {
-      const image = await cloudinary.uploader.upload(req.file.path);
-      photo = image.secure_url;
-      console.log(photo);
-    }
-
-    const service = await patchCategory(db, {
-      id: req.body.itemId,
-      slug: req.body.slug,
-      title: req.body.title || req.body.oldtitle,
-      short: req.body.short || req.body.oldshort,
-      categoryId:
-        ObjectId(req.body.categoryId) || ObjectId(req.body.oldcategoryID),
-      description: req.body.description || req.body.olddescription,
-      price: req.body.price || req.body.oldprice,
-      preview: photo || req.body.oldimage,
-    });
-
-    return res.json({ service });
   }
 );
 
