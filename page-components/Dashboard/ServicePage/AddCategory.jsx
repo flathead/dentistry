@@ -1,6 +1,6 @@
 import { Button } from '@/components/Button';
 import { Button as NextUIButton } from '@nextui-org/react';
-// import { fetcher } from '@/lib/fetch';
+import { fetcher } from '@/lib/fetch';
 import { Card, Input } from '@nextui-org/react';
 import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -69,7 +69,7 @@ const AddCategory = () => {
           formData.append('preview', previewRef.current.files[0]);
         }
 
-        const res = await fetch('/api/categories', {
+        const res = await fetcher('/api/categories', {
           method: 'POST',
           body: formData,
         });

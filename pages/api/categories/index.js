@@ -14,7 +14,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import bodyParser from 'body-parser';
 
 const handler = nc(ncOpts);
-const upload = multer({ dest: '/temp' });
+const upload = multer({ dest: '/tmp' });
 
 cloudinary.config({
   cloud_name: 'dv3q1dxpi',
@@ -58,7 +58,7 @@ handler.post(
     const db = await getMongoDb();
 
     let photo;
-    if (req.file || req.files) {
+    if (req.file) {
       console.log('Изображение найдено!');
       const image = await cloudinary.uploader.upload(req.file.path);
       photo = image.secure_url;
