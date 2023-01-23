@@ -16,12 +16,12 @@ import bodyParser from 'body-parser';
 const upload = multer({ dest: '/tmp' });
 const handler = nc(ncOpts);
 
-if (process.env.NEXT_PUBLIC_CLOUDINARY_URL) {
+if (process.env.CLOUDINARY_URL) {
   const {
     hostname: cloud_name,
     username: api_key,
     password: api_secret,
-  } = new URL(process.env.NEXT_PUBLIC_CLOUDINARY_URL);
+  } = new URL(process.env.CLOUDINARY_URL);
 
   cloudinary.config({
     cloud_name,
@@ -29,11 +29,6 @@ if (process.env.NEXT_PUBLIC_CLOUDINARY_URL) {
     api_secret,
   });
 }
-// cloudinary.config({
-//   cloud_name: process.env.CLOUDINARY_CLOUD || 'dv3q1dxpi',
-//   api_key: process.env.CLOUDINARY_KEY || '664497938628891',
-//   api_secret: process.env.CLOUDINARY_SECRET || 's-T0UNfzEnXRt8THXuGxM6vHHnU',
-// });
 
 handler.get(async (req, res) => {
   const db = await getMongoDb();

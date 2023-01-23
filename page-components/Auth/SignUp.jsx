@@ -52,9 +52,9 @@ const SignUp = () => {
     <Wrapper className={styles.root}>
       <div className={styles.main}>
         <form onSubmit={onSubmit}>
-          <h1 className={styles.title}>Регистрация пользователя</h1>
+          <p className={styles.title}>Регистрация администратора</p>
           <Container alignItems='center'>
-            <p className={styles.subtitle}>Логин</p>
+            <p className={styles.subtitle}>Email и пароль для входа</p>
             <div className={styles.seperator} />
           </Container>
           <Input
@@ -78,7 +78,7 @@ const SignUp = () => {
           />
           <Spacer size={0.75} axis='vertical' />
           <Container alignItems='center'>
-            <p className={styles.subtitle}>О пользователе</p>
+            <p className={styles.subtitle}>Данные</p>
             <div className={styles.seperator} />
           </Container>
           <Input

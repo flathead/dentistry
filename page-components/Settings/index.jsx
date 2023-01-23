@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Wrapper as Wrap } from '@/components/Layout';
-import AdminMenu from '../Dashboard/AdminMenu';
 import styles from './Settings.module.css';
 
 const EmailVerify = ({ user }) => {
@@ -29,7 +28,7 @@ const EmailVerify = ({ user }) => {
     <Container className={styles.note}>
       <Container flex={1}>
         <p>
-          <strong>Заметка:</strong> <span>Ваш Email</span> (
+          <strong>Внимание:</strong> <span>Ваш Email</span> (
           <span className={styles.link}>{user.email}</span>) не подтверждён.
         </p>
       </Container>
@@ -207,8 +206,6 @@ export const Settings = () => {
     <Wrap>
       {data?.user ? (
         <>
-          <AdminMenu />
-          <Spacer size={2} axis='vertical' />
           <EmailVerify user={data.user} />
           <AboutYou user={data.user} mutate={mutate} />
           <Auth user={data.user} />

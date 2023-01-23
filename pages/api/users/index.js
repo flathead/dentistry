@@ -18,13 +18,13 @@ const handler = nc(ncOpts);
 handler.get(async (req, res) => {
   const db = await getMongoDb();
 
-  const services = await findUsers(
+  const users = await findUsers(
     db,
     req.query.before ? new Date(req.query.before) : undefined,
     req.query.limit ? parseInt(req.query.limit, 10) : undefined
   );
 
-  res.json({ services });
+  res.json({ users });
 });
 
 handler.post(
@@ -69,7 +69,7 @@ handler.post(
       bio: '',
       name,
       username,
-      role: '',
+      role: 'admin',
     });
     req.logIn(user, (err) => {
       if (err) throw err;

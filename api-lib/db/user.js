@@ -68,15 +68,7 @@ export async function updateUserById(db, id, data) {
 
 export async function insertUser(
   db,
-  {
-    email,
-    originalPassword,
-    bio = '',
-    role = 'admin',
-    name,
-    profilePicture,
-    username,
-  }
+  { email, originalPassword, bio = '', role, name, profilePicture, username }
 ) {
   const user = {
     emailVerified: false,

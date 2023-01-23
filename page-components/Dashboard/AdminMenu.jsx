@@ -7,7 +7,7 @@ import {
   Grid,
   Percent,
   Server,
-  Settings,
+  //Settings,
   Users,
 } from 'react-feather';
 import styles from './AdminMenu.module.scss';
@@ -57,12 +57,12 @@ export const adminLinks = [
     name: 'Пользователи',
     icon: <Users size={18} />,
   }, */
-  {
+  /* {
     id: 'admin-7',
     url: '/admin/settings',
     name: 'Настройки',
     icon: <Settings size={18} />,
-  },
+  }, */
 ];
 
 const AdminMenu = () => {

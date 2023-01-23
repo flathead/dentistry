@@ -6,7 +6,6 @@
 }
 
 .main {
-  max-width: 400px;
   width: 100%;
   position: relative;
   display: flex;
@@ -18,9 +17,8 @@
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 700;
-  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 500;
 }
 
 .submit {
