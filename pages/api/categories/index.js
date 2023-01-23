@@ -1,11 +1,17 @@
 import { ValidateProps } from '@/api-lib/constants';
-import { findCategories, insertCategory } from '@/api-lib/db/any';
+import {
+  deleteCategory,
+  findCategories,
+  insertCategory,
+  patchCategory,
+} from '@/api-lib/db/any';
 import { auths, validateBody } from '@/api-lib/middlewares';
 import { getMongoDb } from '@/api-lib/mongodb';
 import { ncOpts } from '@/api-lib/nc';
 import nc from 'next-connect';
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
+import bodyParser from 'body-parser';
 
 const handler = nc(ncOpts);
 const upload = multer({ dest: '/tmp' });
@@ -74,6 +80,51 @@ handler.post(
     return res.json({ category });
   }
 );
+
+handler.patch(
+  upload.single('preview'),
+
+  async (req, res) => {
+    if (!req.body) {
+      console.log('Отсутствует тело запроса.');
+      res.status(500);
+      return;
+    }
+    const db = await getMongoDb();
+
+    let photo;
+    if (req.file) {
+      const image = await cloudinary.uploader.upload(req.file.path);
+      photo = image.secure_url;
+    }
+
+    const service = await patchCategory(db, {
+      id: req.body.itemId,
+      slug: req.body.slug,
+      title: req.body.title,
+      short: req.body.short,
+      description: req.body.description,
+      price: req.body.price,
+      preview:
+        photo ||
+        'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg',
+    });
+
+    return res.json({ service });
+  }
+);
+
+handler.delete(bodyParser.json(), async (req, res) => {
+  if (!req.body) {
+    console.log('Отсутствует тело запроса.');
+  }
+  const db = await getMongoDb();
+
+  const del = await deleteCategory(db, {
+    itemId: req.body.itemId,
+  });
+  return res.json({ del });
+});
 
 export const config = {
   api: {
