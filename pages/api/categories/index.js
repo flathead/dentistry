@@ -89,9 +89,9 @@ handler.patch(
     }
 
     cloudinary.config({
-      cloud_name: 'dv3q1dxpi',
-      api_key: '664497938628891',
-      api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
+      cloud_name: process.env.CLOUDINARY_CLOUD,
+      api_key: process.env.CLOUDINARY_KEY,
+      api_secret: process.env.CLOUDINARY_SECRET,
     });
 
     const db = await getMongoDb();
