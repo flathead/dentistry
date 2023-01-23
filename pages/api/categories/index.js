@@ -45,7 +45,6 @@ handler.post(
       title: ValidateProps.category.title,
       short: ValidateProps.category.short,
       description: ValidateProps.category.description,
-      preview: ValidateProps.category.preview,
       price: ValidateProps.category.price,
     },
     required: ['title'],
@@ -72,9 +71,7 @@ handler.post(
       short: req.body.short,
       description: req.body.description,
       price: req.body.price,
-      preview:
-        photo ||
-        'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg',
+      preview: photo,
     });
 
     return res.json({ category });

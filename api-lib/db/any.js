@@ -314,7 +314,6 @@ export async function findServices(db, before, limit = 100) {
 // ANCHOR Category (insert)
 export async function insertCategory(
   db,
-  categoryId,
   { slug, title, short, description, price, preview, creatorId }
 ) {
   const category = {
