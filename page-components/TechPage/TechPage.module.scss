@@ -7,8 +7,7 @@
   border-radius: 2rem;
 }
 .about {
-  column-width: 48%;
-  column-count: 2;
+  columns: 2;
   column-gap: 4%;
   margin-top: 2rem;
   position: relative;
@@ -42,5 +41,3 @@
     }
   }
 }
-
-

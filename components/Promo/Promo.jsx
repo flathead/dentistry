@@ -1,5 +1,6 @@
 import { usePromoPages } from '@/lib/promo';
 import clsx from 'clsx';
+import moment from 'moment';
 import Image from 'next/image';
 import Countdown from 'react-countdown';
 import { ButtonDent } from '../Button/Button';
@@ -65,9 +66,12 @@ const Promo = ({ homepage }) => {
 
   return (
     <>
-      <Title size={2} template={'pageTitle'}>
-        Специальные предложения
-      </Title>
+      {homepage ? (
+        <Title size={2} template={'pageTitle'}>
+          Специальные предложения
+        </Title>
+      ) : null}
+
       {promos.length >= 1 ? (
         promos.map((promo) => (
           <div
@@ -106,9 +110,7 @@ const Promo = ({ homepage }) => {
                 {promo.subtitle}
               </p>
               <Countdown
-                date={new Date(
-                  String(promo.date + ', ' + promo.time)
-                ).toISOString()}
+                date={moment(`${promo.date} ${promo.time}`).toISOString()}
                 renderer={renderer}
               />
               <ButtonDent color='blue' modal>
