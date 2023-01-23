@@ -24,7 +24,7 @@ handler.get(async (req, res) => {
     db,
     req.query.before ? new Date(req.query.before) : undefined,
     req.query.by,
-    req.query.limit ? parseInt(req.query.limit, 10) : undefined
+    req.query.limit ? parseInt(req.query.limit, 100) : undefined
   );
 
   res.json({ categories });

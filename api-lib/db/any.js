@@ -78,13 +78,12 @@ export async function findAny(db, collection, before, by, limit = 10) {
 
 // SECTION Find Data
 // ANCHOR Category (find)
-export async function findCategories(db, before, by, limit = 100) {
+export async function findCategories(db, before, limit = 100) {
   return db
     .collection('categories')
     .aggregate([
       {
         $match: {
-          ...(by && { creatorId: new ObjectId(by) }),
           ...(before && { createdAt: { $lt: before } }),
         },
       },
