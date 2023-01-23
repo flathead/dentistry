@@ -65,6 +65,5 @@ typings/
 package-lock.json
 yarn.lock
 
-.vercel
-
 .nogit.*
+.vercel

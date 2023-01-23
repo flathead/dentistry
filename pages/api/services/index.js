@@ -14,11 +14,24 @@ import { v2 as cloudinary } from 'cloudinary';
 const handler = nc(ncOpts);
 const upload = multer({ dest: '/tmp' });
 
-cloudinary.config({
-  cloud_name: 'dv3q1dxpi',
-  api_key: '664497938628891',
-  api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
-});
+if (process.env.NEXT_PUBLIC_CLOUDINARY_URL) {
+  const {
+    hostname: cloud_name,
+    username: api_key,
+    password: api_secret,
+  } = new URL(process.env.NEXT_PUBLIC_CLOUDINARY_URL);
+
+  cloudinary.config({
+    cloud_name,
+    api_key,
+    api_secret,
+  });
+}
+// cloudinary.config({
+//   cloud_name: process.env.CLOUDINARY_CLOUD || 'dv3q1dxpi',
+//   api_key: process.env.CLOUDINARY_KEY || '664497938628891',
+//   api_secret: process.env.CLOUDINARY_SECRET || 's-T0UNfzEnXRt8THXuGxM6vHHnU',
+// });
 
 handler.get(async (req, res) => {
   const db = await getMongoDb();

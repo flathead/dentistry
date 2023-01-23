@@ -13,14 +13,27 @@ import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import bodyParser from 'body-parser';
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD,
-  api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET,
-});
-
-const handler = nc(ncOpts);
 const upload = multer({ dest: '/tmp' });
+const handler = nc(ncOpts);
+
+if (process.env.NEXT_PUBLIC_CLOUDINARY_URL) {
+  const {
+    hostname: cloud_name,
+    username: api_key,
+    password: api_secret,
+  } = new URL(process.env.NEXT_PUBLIC_CLOUDINARY_URL);
+
+  cloudinary.config({
+    cloud_name,
+    api_key,
+    api_secret,
+  });
+}
+// cloudinary.config({
+//   cloud_name: process.env.CLOUDINARY_CLOUD || 'dv3q1dxpi',
+//   api_key: process.env.CLOUDINARY_KEY || '664497938628891',
+//   api_secret: process.env.CLOUDINARY_SECRET || 's-T0UNfzEnXRt8THXuGxM6vHHnU',
+// });
 
 handler.get(async (req, res) => {
   const db = await getMongoDb();
