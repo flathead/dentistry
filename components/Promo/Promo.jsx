@@ -1,10 +1,12 @@
 import { usePromoPages } from '@/lib/promo';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Countdown from 'react-countdown';
 import { ButtonDent } from '../Button/Button';
+import { Title } from '../Title';
 import styles from './Promo.module.scss';
 
-const Promo = () => {
+const Promo = ({ homepage }) => {
   const { data } = usePromoPages();
   const promos = data
     ? data.reduce((acc, val) => [...acc, ...val.promos], [])
@@ -28,7 +30,9 @@ const Promo = () => {
       return (
         <div className={styles.timer}>
           <p className={styles.timerWarning}>До конца акции осталось:</p>
-          <div className={styles.numbers}>
+          <div
+            className={clsx(styles.numbers, homepage && styles.homepageNumbers)}
+          >
             <span>
               {String(days).padStart(2, '0')}
               <span className={styles.label}>
@@ -61,21 +65,46 @@ const Promo = () => {
 
   return (
     <>
+      <Title size={2} template={'pageTitle'}>
+        Специальные предложения
+      </Title>
       {promos.length >= 1 ? (
         promos.map((promo) => (
-          <div key={promo._id} className={styles.promoContainer}>
-            <span className={styles.tape}>АКЦИЯ</span>
-            <div className={styles.promoPicture}>
-              <Image
-                src={promo.preview}
-                alt='Промо-изображение'
-                width={400}
-                height={400}
-              />
-            </div>
+          <div
+            key={promo._id}
+            className={clsx(
+              styles.promoContainer,
+              homepage && styles.homepageContainer
+            )}
+          >
+            {!homepage ? <span className={styles.tape}>АКЦИЯ</span> : null}
+            {!homepage ? (
+              <div className={styles.promoPicture}>
+                <Image
+                  src={promo.preview}
+                  alt='Промо-изображение'
+                  width={400}
+                  height={400}
+                />
+              </div>
+            ) : null}
             <div className={styles.promoContent}>
-              <p className={styles.promoTitle}>{promo.title}</p>
-              <p className={styles.promoSubtitle}>{promo.subtitle}</p>
+              <p
+                className={clsx(
+                  styles.promoTitle,
+                  homepage && styles.homepageTitle
+                )}
+              >
+                {promo.title}
+              </p>
+              <p
+                className={clsx(
+                  styles.promoSubtitle,
+                  homepage && styles.homepageSubtitle
+                )}
+              >
+                {promo.subtitle}
+              </p>
               <Countdown
                 date={new Date(
                   String(promo.date + ', ' + promo.time)
@@ -90,13 +119,17 @@ const Promo = () => {
         ))
       ) : (
         <div className={styles.promoEmpty}>
-          <p className={styles.emptyTitle}>
-            В данный момент не проводятся акции.
-          </p>
-          <p className={styles.emptySubtitle}>
-            Следите за обновлениями на данной странице и в наших{' '}
-            <a href='#socials'>соцсетях</a>!
-          </p>
+          {!homepage ? (
+            <>
+              <p className={styles.emptyTitle}>
+                В данный момент не проводятся акции.
+              </p>
+              <p className={styles.emptySubtitle}>
+                Следите за обновлениями на данной странице и в наших{' '}
+                <a href='#socials'>соцсетях</a>!
+              </p>
+            </>
+          ) : null}
         </div>
       )}
     </>

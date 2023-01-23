@@ -22,6 +22,7 @@ import { Doctors } from '@/components/Doctors';
 import MapComponent from '@/components/Map/Map';
 import { Consultation } from '@/components/Consultation';
 import { ModalWindow } from '@/components/ModalWindow';
+import { Promo } from '@/components/Promo';
 
 const Index = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -563,6 +564,12 @@ const Index = () => {
           </div>
         </div>
       </Container>
+
+      <Spacer size={4} />
+
+      <Wrapper>
+        <Promo homepage />
+      </Wrapper>
 
       <Spacer size={4} />
 

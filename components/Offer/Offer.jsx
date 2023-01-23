@@ -164,13 +164,15 @@ const Offer = ({
           </div>
           <div className={styles.benefits}>
             <div className={styles.benefit}>
-              <p className={styles.benefitNumber}>9000+</p>
-              <p className={styles.benefitDescription}>Довольных клиентов</p>
+              <p className={styles.benefitNumber}>4.7</p>
+              <p className={styles.benefitDescription}>
+                Рейтинг огранизации в Яндекс
+              </p>
             </div>
             <div className={styles.benefit}>
-              <p className={styles.benefitNumber}>4,7</p>
+              <p className={styles.benefitNumber}>99.9%</p>
               <p className={styles.benefitDescription}>
-                Рейтинг организации в Яндексе
+                Пациенты рекомендуют нашу стоматологию
               </p>
             </div>
             <div className={styles.benefit}>

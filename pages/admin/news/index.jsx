@@ -2,13 +2,13 @@ import { HeadSEO, Spacer, Wrapper } from '@/components/Layout';
 import { useCurrentUser } from '@/lib/user';
 import { Login } from '@/page-components/Auth';
 import AdminMenu from '@/page-components/Dashboard/AdminMenu';
-import AddNews from './AddNews';
+import { AdminNews } from '@/page-components/Dashboard/AdminNews';
 
 const AdminNewsComponent = () => {
   return (
     <>
       <HeadSEO title={'Новости'} />
-      <AddNews />
+      <AdminNews />
     </>
   );
 };

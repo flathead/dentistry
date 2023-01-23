@@ -45,18 +45,15 @@ const AddNews = () => {
         const translite = tr(nameRef.current.value);
         const slug = slugify(translite);
 
-        let formData = new FormData();
-        formData.append('slug', slug);
-        formData.append('title', nameRef.current.value);
-        formData.append('content', contentRef.current.value);
+        const form = new FormData();
+        form.append('slug', slug);
+        form.append('title', nameRef.current.value);
+        form.append('content', contentRef.current.value);
 
-        console.log(
-          `${nameRef.current.value}, ${contentRef.current.value}, ${slug}`
-        );
-
-        await fetcher(`/api/news`, {
+        console.log(slug + ', ' + nameRef.current.value);
+        await fetcher('/api/news', {
           method: 'POST',
-          body: formData,
+          body: form,
         });
 
         toast.success('Вы успешно добавили новость!');

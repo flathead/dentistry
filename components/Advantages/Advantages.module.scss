@@ -98,6 +98,15 @@
 
     .triggerButton {
       position: absolute;
+      appearance: none;
+      outline: none;
+      border: none;
+      &:focus-visible,
+      &:focus,
+      &:focus-within {
+        border: none;
+        outline: none;
+      }
       @media (max-width: 960px) {
         position: relative;
         left: unset !important;

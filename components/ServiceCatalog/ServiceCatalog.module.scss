@@ -160,3 +160,9 @@ nav.menu {
 .hidden {
   display: none !important;
 }
+
+.mobileBtn {
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}

@@ -11,19 +11,18 @@ const handler = nc(ncOpts);
 handler.get(async (req, res) => {
   const db = await getMongoDb();
 
-  const categories = await findNews(
+  const news = await findNews(
     db,
     req.query.before ? new Date(req.query.before) : undefined,
     req.query.by,
     req.query.limit ? parseInt(req.query.limit, 10) : undefined
   );
 
-  res.json({ categories });
+  res.json({ news });
 });
 
 handler.post(
   ...auths,
-  bodyParser.json(),
   validateBody({
     type: 'object',
     properties: {
@@ -31,12 +30,14 @@ handler.post(
       title: ValidateProps.news.title,
       content: ValidateProps.news.content,
     },
-    required: ['title', 'content'],
-    additionalProperties: false,
+    required: ['title'],
+    additionalProperties: true,
   }),
   async (req, res) => {
-    if (!req.user) {
-      return res.status(401).end();
+    if (!req.body) {
+      console.log('React говно.');
+    } else {
+      console.log('Ну да, тело тут, а ты нахуй иди.');
     }
 
     const db = await getMongoDb();
