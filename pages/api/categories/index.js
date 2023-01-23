@@ -16,12 +16,6 @@ import bodyParser from 'body-parser';
 const handler = nc(ncOpts);
 const upload = multer({ dest: '/tmp' });
 
-cloudinary.config({
-  cloud_name: 'dv3q1dxpi',
-  api_key: '664497938628891',
-  api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
-});
-
 handler.get(async (req, res) => {
   const db = await getMongoDb();
 
@@ -55,6 +49,12 @@ handler.post(
       return res.status(401).end();
     }
 
+    cloudinary.config({
+      cloud_name: 'dv3q1dxpi',
+      api_key: '664497938628891',
+      api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
+    });
+
     const db = await getMongoDb();
 
     let photo;
@@ -87,6 +87,13 @@ handler.patch(
       res.status(500);
       return;
     }
+
+    cloudinary.config({
+      cloud_name: 'dv3q1dxpi',
+      api_key: '664497938628891',
+      api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
+    });
+
     const db = await getMongoDb();
 
     let photo;
