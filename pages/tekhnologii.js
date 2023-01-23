@@ -4,7 +4,10 @@ import { TechPage } from '@/page-components/TechPage';
 const Tech = () => {
   return (
     <>
-      <HeadSEO title={'Технологии нашей клиники'} />
+      <HeadSEO
+        title={'Технологии нашей клиники'}
+        canonicalUrl={'https://dent-71.ru/tekhnologii'}
+      />
       <TechPage />
     </>
   );

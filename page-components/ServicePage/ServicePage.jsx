@@ -61,23 +61,23 @@ const ServicePage = () => {
             <div className={styles.offer}>{first.preview}</div>
           ) : null}
           <div className={styles.anchors}>
-            {services[0].description && services[0].description.length > 6 ? (
+            {first.description && first.description.length > 6 ? (
               <a href='#description'>Услуга</a>
             ) : null}
-            {services[0].price && services[0].price.length > 6 ? (
+            {first.price && first.price.length > 6 ? (
               <a href='#price'>Цена</a>
             ) : null}
             <a href='#doctors'>Врачи</a>
             <a href='#reviews'>Отзывы</a>
             <a href='#callme'>Записаться на приём</a>
           </div>
-          {services[0].description && services[0].description.length > 6 ? (
+          {first.description && first.description.length > 6 ? (
             <div id='description' className={styles.description}>
               {HtmlParser(first.description)}
             </div>
           ) : null}
           <Spacer size={2} />
-          {services[0].price && services[0].price.length > 6 ? (
+          {first && first.length > 6 ? (
             <>
               <div id='price' className={styles.price}>
                 <p className={styles.subTitle}>Цена</p>

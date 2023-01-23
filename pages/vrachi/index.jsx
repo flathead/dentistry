@@ -13,6 +13,7 @@ const Staff = () => {
         ogTwitterImage={
           'https://res.cloudinary.com/dv3q1dxpi/image/upload/ar_1:1,c_fill,g_auto,h_1000,w_1000/v1670692655/about(team)/IMG_2995_kiripv.jpg'
         }
+        canonicalUrl={'https://dent-71.ru/vrachi'}
       />
       <StaffPage />
     </>

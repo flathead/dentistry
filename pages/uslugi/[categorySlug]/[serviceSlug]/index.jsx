@@ -1,7 +1,7 @@
 import { findServiceBySlug } from '@/api-lib/db/service';
 import { getMongoDb } from '@/api-lib/mongodb';
 import { Doctors } from '@/components/Doctors';
-import { Spacer, Wrapper } from '@/components/Layout';
+import { HeadSEO, Spacer, Wrapper } from '@/components/Layout';
 import { LoadingDots } from '@/components/LoadingDots';
 import { MapComponent } from '@/components/Map';
 import { ServiceCatalog } from '@/components/ServiceCatalog';
@@ -39,6 +39,13 @@ export default function Service({ service }) {
 
   return (
     <>
+      <HeadSEO
+        title={service.title}
+        description={service.description}
+        ogImageUrl={service.preview ? service.preview : null}
+        ogTwitterImage={service.preview ? service.preview : null}
+        canonicalUrl={`https://dent-71.ru/uslugi/${service.categorySlug}/${service.slug}`}
+      />
       <div className={styles.layout}>
         <ServiceCatalog />
         <div className={styles.content}>

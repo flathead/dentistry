@@ -96,6 +96,7 @@
             border-radius: 0.6rem;
             background: var(--dent-dark);
             color: #fff;
+            white-space: nowrap;
             &::after {
               content: ' руб.';
             }

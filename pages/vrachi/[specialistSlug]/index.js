@@ -14,6 +14,7 @@ export default function DoctorPage({ doctor }) {
         description={`${doctor.name}: ${doctor.speciality} в Стоматологии на Демонстрации со стажем более чем ${doctor.experience}!`}
         ogImageUrl={doctor.photo}
         ogTwitterImage={doctor.photo}
+        canonicalUrl={`https://dent-71.ru/vrachi/${doctor.slug}`}
       />
       <Doctor doctor={doctor} />
     </>

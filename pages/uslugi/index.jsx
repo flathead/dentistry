@@ -9,6 +9,7 @@ const Uslugi = () => {
         description={
           'Ознакомьтесь с перечнем наших услуг. Наша цель - сделать стоматологию доступной и качественной!'
         }
+        canonicalUrl={'https://dent-71.ru/uslugi'}
       />
       <ServicePage />
     </>
