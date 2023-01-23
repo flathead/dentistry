@@ -13,6 +13,7 @@ import clsx from 'clsx';
 import { ModalWindow } from '../ModalWindow';
 import { useRouter } from 'next/router';
 import { SocialButton } from '../SocialButton';
+import siteMetadata from 'data/siteMetadata';
 
 /* const UserMenu = ({ user, mutate }) => {
   const menuRef = useRef();
@@ -65,12 +66,12 @@ import { SocialButton } from '../SocialButton';
 export const links = [
   {
     id: 1,
-    url: '/',
+    url: siteMetadata.siteUrl,
     name: 'О клинике',
   },
   {
     id: 2,
-    url: '/uslugi/',
+    url: '/uslugi',
     name: 'Услуги',
   },
   {
@@ -108,17 +109,36 @@ export const links = [
 const Nav = ({ top }) => {
   const router = useRouter();
 
+  const [location, setLocation] = useState(null);
+
   const [open, setOpen] = useState(false);
   const [isLoaded, setIsLoading] = useState(false);
   const [visible, setVisibility] = useState(false);
   useEffect(() => {
     setIsLoading(true);
-  }, [isLoaded]);
+    setInterval(() => {
+      setLocation(window.location.pathname);
+    }, 1000);
+  }, [isLoaded, location]);
 
   const menuHandler = () => {
     setVisibility(visible === false ? true : false);
+    visible !== true
+      ? (document.body.style.overflow = 'hidden')
+      : (document.body.style.overflow = 'auto');
   };
-  const modalHandler = () => {
+
+  const hideHandler = () => {
+    document.body.style.overflow = 'auto';
+  };
+
+  const linkHandler = () => {
+    document.body.style.overflow = 'auto';
+    setVisibility(false);
+  };
+
+  const modalHandler = (e) => {
+    e.preventDefault();
     setOpen(true);
     setOpen([]);
   };
@@ -136,15 +156,17 @@ const Nav = ({ top }) => {
           >
             <div className={styles.logoWrapper}>
               {/* TODO Сделать нормальную кнопку */}
-              <button
+              <ButtonDent
+                color={'mobile'}
+                menuOpen={visible}
                 className={clsx(styles.mobileBtn, visible && styles.btnOpened)}
                 onClick={menuHandler}
               >
                 <span></span>
                 <span></span>
                 <span></span>
-              </button>
-              <Link href='/' className={styles.logo}>
+              </ButtonDent>
+              <Link onClick={hideHandler} href='/' className={styles.logo}>
                 {isLoaded ? (
                   <Image
                     src='/logo_2x.webp'
@@ -267,26 +289,30 @@ const Nav = ({ top }) => {
           </Container>
         </Wrapper>
 
-        <Container
-          column
-          className={clsx(
-            styles.mobileMenu,
-            visible && styles.mobileMenuOpened
-          )}
-        >
-          <nav>
-            {links.map((link, key) => (
-              <Link
-                key={key}
-                className={styles.navLink}
-                href={link.url}
-                onClick={() => setVisibility(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </Container>
+        {visible ? (
+          <div
+            className={clsx(
+              styles.mobileMenu,
+              visible && styles.mobileMenuOpened
+            )}
+          >
+            <nav>
+              {links.map((link, key) => (
+                <Link
+                  key={key}
+                  className={clsx(
+                    styles.navLink,
+                    location.includes(link.url) && styles.active
+                  )}
+                  href={link.url}
+                  onClick={linkHandler}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        ) : null}
 
         <ModalWindow open={open} />
       </header>
@@ -296,11 +322,11 @@ const Nav = ({ top }) => {
           size={26}
           src={'https://vk.com/familystomtula'}
         />
-        <SocialButton
+        {/* <SocialButton
           social={'telegram'}
           size={26}
           src={'https://t.me/+79534301668'}
-        />
+        /> */}
         <SocialButton
           social={'whatsapp'}
           size={26}

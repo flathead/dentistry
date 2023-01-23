@@ -113,6 +113,16 @@ const ContactPage = () => {
                   37-08-5
                 </Text>
               </Collapse>
+              <Collapse
+                title='Прокуратура Тульской области'
+                arrowIcon={<Shield />}
+              >
+                <Text>
+                  Адрес: Тула, просп. Ленина, 55 тел.:{' '}
+                  <a href='tel:+7 (4872) 36-43-07'>+7 (4872) 36-43-07</a>,{' '}
+                  <a href='tel:+7 (4872) 36-06-99'>+7 (4872) 36-06-99</a>
+                </Text>
+              </Collapse>
             </Collapse.Group>
           </Grid>
         </Container>

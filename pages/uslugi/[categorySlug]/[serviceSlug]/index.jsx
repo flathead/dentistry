@@ -10,7 +10,9 @@ import ReviewList from '@/page-components/Reviews/ReviewList';
 import Image from 'next/image';
 import HtmlParser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
+import * as Icon from 'react-feather';
 import styles from '../Service.module.scss';
+import Link from 'next/link';
 
 export default function Service({ service }) {
   let serv = {};
@@ -170,12 +172,36 @@ export default function Service({ service }) {
         </div>
       </div>
       <Wrapper>
-        {/* <div>
-            <Title size={2} template='pageTitle'>
-              Деятельность клиники подтверждена официальной лицензией
-            </Title>
-			<Spacer size={4} />
-          </div> */}
+        <div>
+          <Title size={2} template='pageTitle'>
+            Деятельность клиники подтверждена официальной лицензией
+          </Title>
+          <Link
+            href={'/files/ОГРН.pdf'}
+            download
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1ch',
+              fontWeight: 700,
+            }}
+          >
+            <Icon.Link size={16} /> ОГРН (скачать PDF)
+          </Link>
+          <Link
+            href={'/files/сайт.docx'}
+            download
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1ch',
+              fontWeight: 700,
+            }}
+          >
+            <Icon.Link size={16} /> Сайт (скачать DOCX)
+          </Link>
+          <Spacer size={4} />
+        </div>
         <Spacer size={4} />
         <Title size={2} template='pageTitle'>
           <b>Контактная</b> информация

@@ -2,10 +2,14 @@ import { Doctors } from '@/components/Doctors';
 import { Container, Spacer, Wrapper } from '@/components/Layout';
 import { LoadingDots } from '@/components/LoadingDots';
 import { MapComponent } from '@/components/Map';
+import { ModalWindow } from '@/components/ModalWindow';
 import { ServiceCatalog } from '@/components/ServiceCatalog';
 import { Title } from '@/components/Title';
 import { useServicePages } from '@/lib/service';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import * as Icon from 'react-feather';
 import HtmlParser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
 import ReviewList from '../Reviews/ReviewList';
@@ -18,17 +22,15 @@ const ServicePage = () => {
     : [];
 
   let first = {};
-  let preview = false;
 
   try {
     services[0];
     first.name = services[0].name;
     if (
       services[0].preview &&
-      preview !==
+      services[0].preview !==
         'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg'
     ) {
-      preview = true;
       first.preview = (
         <Image
           className={styles.preview}
@@ -49,15 +51,31 @@ const ServicePage = () => {
     first.price = <LoadingDots />;
   }
 
+  const [open, setOpen] = useState();
+  const callmeHandle = (e) => {
+    e.preventDefault();
+    setOpen(true);
+    setOpen([]);
+  };
+
+  let preview;
+  try {
+    preview = services[0].preview;
+  } catch (error) {
+    preview = '';
+  }
+
   return (
     <>
+      <ModalWindow open={open} />
       <Container className={styles.layout}>
         <ServiceCatalog />
         <div className={styles.content}>
           <Title size={1} className={styles.serviceTitle} center>
             {first.name}
           </Title>
-          {preview === true ? (
+          {preview !==
+          'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg' ? (
             <div className={styles.offer}>{first.preview}</div>
           ) : null}
           <div className={styles.anchors}>
@@ -69,7 +87,9 @@ const ServicePage = () => {
             ) : null}
             <a href='#doctors'>Врачи</a>
             <a href='#reviews'>Отзывы</a>
-            <a href='#callme'>Записаться на приём</a>
+            <a href onClick={callmeHandle}>
+              Записаться на приём
+            </a>
           </div>
           {first.description && first.description.length > 6 ? (
             <div id='description' className={styles.description}>
@@ -174,12 +194,36 @@ const ServicePage = () => {
         </div>
       </Container>
       <Wrapper>
-        {/* <div>
-            <Title size={2} template='pageTitle'>
-              Деятельность клиники подтверждена официальной лицензией
-            </Title>
-			<Spacer size={4} />
-          </div> */}
+        <div>
+          <Title size={2} template='pageTitle'>
+            Деятельность клиники подтверждена официальной лицензией
+          </Title>
+          <Link
+            href={'/files/ОГРН.pdf'}
+            download
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1ch',
+              fontWeight: 700,
+            }}
+          >
+            <Icon.Link size={16} /> ОГРН (скачать PDF)
+          </Link>
+          <Link
+            href={'/files/сайт.docx'}
+            download
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1ch',
+              fontWeight: 700,
+            }}
+          >
+            <Icon.Link size={16} /> Сайт (скачать DOCX)
+          </Link>
+          <Spacer size={4} />
+        </div>
         <Spacer size={4} />
         <Title size={2} template='pageTitle'>
           <b>Контактная</b> информация

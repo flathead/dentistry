@@ -8,29 +8,29 @@ import Offer from '../../components/Offer/Offer';
 import { Title } from '@/components/Title';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay, FreeMode, Navigation, Thumbs } from 'swiper';
+import { FreeMode, Navigation, Thumbs } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 
-import { ButtonDent } from '@/components/Button/Button';
+// import { ButtonDent } from '@/components/Button/Button';
 import { Advantages } from '@/components/Advantages';
 import { Fancybox } from '@/components/Fancybox';
 import { Doctors } from '@/components/Doctors';
 import MapComponent from '@/components/Map/Map';
 import { Consultation } from '@/components/Consultation';
-import { ModalWindow } from '@/components/ModalWindow';
+// import { ModalWindow } from '@/components/ModalWindow';
 import { Promo } from '@/components/Promo';
 
 const Index = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [open, setOpen] = useState(false);
-  const modalHandler = () => {
-    setOpen(true);
-    setOpen([]);
-  };
+  //   const [open, setOpen] = useState(false);
+  //   const modalHandler = () => {
+  //     setOpen(true);
+  //     setOpen([]);
+  //   };
 
   const aboutPictures = [
     {
@@ -135,19 +135,19 @@ const Index = () => {
 
   return (
     <>
-      <ModalWindow open={open} />
+      {/* <ModalWindow open={open} /> */}
       <Container fullwidth justifyContent={'space-between'}>
         <Offer
           template={'homepage'}
           title={
             <>
-              <b>Лечим зубы</b> без боли и с гарантией на <i>результат</i>
+              <b>Красивая улыбка</b> наша профессия
             </>
           }
           subtitle={
             <>
-              Запишись на бесплатную консультацию и получи подробный{' '}
-              <strong>план лечения зубов.</strong>
+              Запишись на бесплатную консультацию и получи{' '}
+              <b>подробный план лечения зубов</b>.
             </>
           }
         />
@@ -155,7 +155,7 @@ const Index = () => {
 
       <Spacer size={4} />
 
-      <Wrapper>
+      {/* <Wrapper>
         <Title size={2} template='pageTitle'>
           Новости
         </Title>
@@ -351,7 +351,7 @@ const Index = () => {
         </Swiper>
       </Container>
 
-      <Spacer size={4} />
+      <Spacer size={4} /> */}
 
       <Container>
         <Wrapper>

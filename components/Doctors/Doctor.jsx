@@ -66,6 +66,7 @@ const Doctor = ({ doctor }) => {
     <>
       <Offer
         template='doctor'
+        doctor={doctor}
         title={
           <>
             <b>Бережное лечение</b> зубов с гарантией на <i>результат</i>

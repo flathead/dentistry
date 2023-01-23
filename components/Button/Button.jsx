@@ -72,6 +72,7 @@ export const ButtonDent = ({
   ref,
   target,
   modal,
+  menuOpen,
 }) => {
   const [open, setOpen] = useState(false);
   const modalHandler = () => {
@@ -117,7 +118,10 @@ export const ButtonDent = ({
                 ? styles.dentBlue
                 : color == 'dark'
                 ? styles.dentDark
-                : '',
+                : color == 'mobile'
+                ? styles.mobileBtn
+                : null,
+              menuOpen && styles.btnOpened,
               type && styles[type],
               size && styles[size],
               //styles[variant],
@@ -128,7 +132,7 @@ export const ButtonDent = ({
             disabled={loading || disabled}
           >
             {loading && <LoadingDots className={styles.loading} />}
-            <span>{children}</span>
+            {color !== 'mobile' ? <span>{children}</span> : <>{children}</>}
           </button>
         </>
       )}

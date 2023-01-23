@@ -36,6 +36,8 @@ const AddService = () => {
   const specialityRef = useRef(); // Специальность
   const descriptionRef = useRef(); // Образование
   const experienceRef = useRef(); // Опыт
+  const offerTitleRef = useRef();
+  const offerSubtitleRef = useRef();
 
   const [isLoading, setIsLoading] = useState(false);
   const [descriptionState, setDescriptionState] = useState(() =>
@@ -59,6 +61,7 @@ const AddService = () => {
         formData.append('experience', experienceRef.current.value);
         formData.append('speciality', specialityRef.current.value);
         if (previewRef.current.files && previewRef.current.files[0]) {
+          console.log('Фото выбрано!');
           formData.append('photo', previewRef.current.files[0]);
         }
         if (certRef.current.files) {
@@ -68,6 +71,8 @@ const AddService = () => {
           }
         }
         formData.append('education', descriptionRef.current.value);
+        formData.append('offerTitle', offerTitleRef.current.value);
+        formData.append('offerSubtitle', offerSubtitleRef.current.value);
 
         await fetcher('/api/doctors', {
           method: 'POST',
@@ -208,6 +213,26 @@ const AddService = () => {
                 convertToRaw(descriptionState.getCurrentContent())
               )}
             />
+          </div>
+          <div className={styles.inputGroup}>
+            <div className={styles.photoGroup}>
+              <div className={styles.inputColumn}>
+                <Input
+                  ref={offerTitleRef}
+                  type={'text'}
+                  label={'Заголовок оффера'}
+                  placeholder='Заполните поле'
+                />
+              </div>
+              <div className={styles.inputColumn}>
+                <Input
+                  ref={offerSubtitleRef}
+                  type={'text'}
+                  label={'Подзаголовок оффера'}
+                  placeholder='Заполните поле'
+                />
+              </div>
+            </div>
           </div>
 
           <Button type='success' loading={isLoading}>

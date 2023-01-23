@@ -81,12 +81,18 @@ handler.post(
       const tempPhoto = await cloudinary.uploader.upload(
         req.files.photo[0].path
       );
-      const docsImages = req.files.docs;
-      for (let i = 0; i < docsImages.length; i++) {
-        const tempDoc = await cloudinary.uploader.upload(docsImages[i].path);
-        docs.push(tempDoc.secure_url);
-      }
       photo = tempPhoto.secure_url;
+      if (req.files.docs) {
+        const docsImages = req.files.docs;
+        for (let i = 0; i < docsImages.length; i++) {
+          const tempDoc = await cloudinary.uploader.upload(docsImages[i].path);
+          docs.push(tempDoc.secure_url);
+        }
+      } else {
+        docs = '';
+      }
+    } else {
+      photo = '';
     }
 
     const specialist = await insertSpecialist(db, {
@@ -96,7 +102,9 @@ handler.post(
       speciality: req.body.speciality,
       education: req.body.education || '',
       experience: req.body.experience || '',
-      docs: docs,
+      offerTitle: req.body.offerTitle,
+      offerSubtitle: req.body.offerSubtitle,
+      docs: docs || '',
       photo:
         photo ||
         'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670793409/empty_user_vbttq2.jpg',

@@ -19,7 +19,9 @@ const ServiceCatalog = () => {
 
   const [location, setLocation] = useState();
   useEffect(() => {
-    setLocation(window.location.pathname);
+    setInterval(() => {
+      setLocation(window.location.pathname);
+    }, 1000);
   }, [location]);
 
   const [open, setOpen] = useState(false);

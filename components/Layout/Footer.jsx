@@ -103,11 +103,11 @@ const Footer = () => {
                 size={26}
                 src={'https://vk.com/familystomtula'}
               />
-              <SocialButton
+              {/* <SocialButton
                 social={'telegram'}
                 size={26}
                 src={'https://t.me/+79534301668'}
-              />
+              /> */}
               <SocialButton
                 social={'whatsapp'}
                 size={26}

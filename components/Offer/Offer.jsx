@@ -10,6 +10,7 @@ import styles from './Offer.module.scss';
 
 const Offer = ({
   template,
+  doctor,
   className,
   title,
   subtitle,
@@ -73,9 +74,17 @@ const Offer = ({
             )}
           >
             <div>
-              <p className={styles.inactiveBtn}>Стоматология</p>
-              <Title size={1}>{title}</Title>
-              <p className={styles.subtitle}>{subtitle}</p>
+              <p className={styles.inactiveBtn}>
+                {doctor ? doctor.speciality : 'Стоматология'}
+              </p>
+              <Title size={1}>
+                {doctor && doctor.offerTitle ? doctor.offerTitle : title}
+              </Title>
+              <p className={styles.subtitle}>
+                {doctor && doctor.offerSubtitle
+                  ? doctor.offerSubtitle
+                  : subtitle}
+              </p>
               {template === 'homepage' ? (
                 <div className={styles.cta}>
                   <Input
@@ -162,26 +171,28 @@ const Offer = ({
               />
             ) : null}
           </div>
-          <div className={styles.benefits}>
-            <div className={styles.benefit}>
-              <p className={styles.benefitNumber}>4.7</p>
-              <p className={styles.benefitDescription}>
-                Рейтинг огранизации в Яндекс
-              </p>
+          {template !== 'doctor' ? (
+            <div className={styles.benefits}>
+              <div className={styles.benefit}>
+                <p className={styles.benefitNumber}>4.7</p>
+                <p className={styles.benefitDescription}>
+                  Рейтинг огранизации в Яндекс
+                </p>
+              </div>
+              <div className={styles.benefit}>
+                <p className={styles.benefitNumber}>99.9%</p>
+                <p className={styles.benefitDescription}>
+                  Пациенты рекомендуют нашу стоматологию
+                </p>
+              </div>
+              <div className={styles.benefit}>
+                <p className={styles.benefitNumber}>10 лет</p>
+                <p className={styles.benefitDescription}>
+                  Средний стаж наших специалистов
+                </p>
+              </div>
             </div>
-            <div className={styles.benefit}>
-              <p className={styles.benefitNumber}>99.9%</p>
-              <p className={styles.benefitDescription}>
-                Пациенты рекомендуют нашу стоматологию
-              </p>
-            </div>
-            <div className={styles.benefit}>
-              <p className={styles.benefitNumber}>10 лет</p>
-              <p className={styles.benefitDescription}>
-                Средний стаж наших специалистов
-              </p>
-            </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </>
