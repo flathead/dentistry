@@ -58,7 +58,7 @@ handler.post(
     const db = await getMongoDb();
 
     let photo;
-    if (req.file) {
+    if (req.file || req.files) {
       console.log('Изображение найдено!');
       const image = await cloudinary.uploader.upload(req.file.path);
       photo = image.secure_url;
