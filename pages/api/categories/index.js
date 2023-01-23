@@ -14,7 +14,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import bodyParser from 'body-parser';
 
 const handler = nc(ncOpts);
-const upload = multer({ dest: '/tmp' });
+const upload = multer({ dest: '/temp' });
 
 cloudinary.config({
   cloud_name: 'dv3q1dxpi',
