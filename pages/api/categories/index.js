@@ -13,6 +13,12 @@ import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import bodyParser from 'body-parser';
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
 const handler = nc(ncOpts);
 const upload = multer({ dest: '/tmp' });
 
@@ -49,12 +55,6 @@ handler.post(
       return res.status(401).end();
     }
 
-    cloudinary.config({
-      cloud_name: 'dv3q1dxpi',
-      api_key: '664497938628891',
-      api_secret: 's-T0UNfzEnXRt8THXuGxM6vHHnU',
-    });
-
     const db = await getMongoDb();
 
     let photo;
@@ -87,12 +87,6 @@ handler.patch(
       res.status(500);
       return;
     }
-
-    cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD,
-      api_key: process.env.CLOUDINARY_KEY,
-      api_secret: process.env.CLOUDINARY_SECRET,
-    });
 
     const db = await getMongoDb();
 
