@@ -83,8 +83,8 @@ const Doctor = ({ doctor }) => {
         alt={doctor.name}
         imageTitle={doctor.name}
       /> */}
-      <Container fullwidth className={styles.offer}>
 	  <Spacer size={2} />
+      <Container fullwidth className={styles.offer}>
         <Wrapper> 
           <h2 className={styles.offerTitle}>
             <span className={styles.blue}>Запишитесь</span> на бесплатную
