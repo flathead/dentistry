@@ -49,13 +49,15 @@ export default function Service({ service }) {
 
   return (
     <>
+	<ModalWindow open={open} />
+
       <HeadSEO
         title={service.title}
         ogImageUrl={service.preview ? service.preview : null}
         ogTwitterImage={service.preview ? service.preview : null}
         canonicalUrl={`https://dent-71.ru/uslugi/${service.categorySlug}/${service.slug}`}
       />
-	  <ModalWindow open={open}/>
+
       <div className={styles.layout}>
         <ServiceCatalog />
         <div className={styles.content}>

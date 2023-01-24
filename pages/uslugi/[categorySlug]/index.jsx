@@ -49,13 +49,15 @@ const [open, setOpen] = useState();
 
   return (
     <>
+		<ModalWindow open={open} />
+
       <HeadSEO
         title={categ.title}
         ogImageUrl={category.preview ? category.preview : null}
         ogTwitterImage={category.preview ? category.preview : null}
         canonicalUrl={`https://dent-71.ru/uslugi/${category.slug}`}
       />
-	  <ModalWindow open={open}/>
+	  
       <div className={styles.layout}>
         <ServiceCatalog />
         <div className={styles.content}>
