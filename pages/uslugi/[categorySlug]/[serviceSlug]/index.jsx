@@ -39,6 +39,13 @@ export default function Service({ service }) {
     serv.price = <LoadingDots />;
   }
 
+  const [open, setOpen] = useState();
+  const callmeHandle = (e) => {
+    e.preventDefault();
+    setOpen(true);
+    setOpen([]);
+  };
+
   return (
     <>
       <HeadSEO
@@ -67,7 +74,9 @@ export default function Service({ service }) {
             ) : null}
             <a href='#doctors'>Врачи</a>
             <a href='#reviews'>Отзывы</a>
-            <a href='#callme'>Записаться на приём</a>
+            <a href onClick={callmeHandle}>
+              Записаться на приём
+            </a>
           </div>
           {service.description && String(service.description).length >= 6 ? (
             <div id='description' className={styles.description}>
