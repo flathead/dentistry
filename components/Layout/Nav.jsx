@@ -145,7 +145,7 @@ const Nav = ({ top }) => {
   return (
     <>
       <header
-        className={styles.mainNavigation}
+        className={clsx(styles.mainNavigation, visible && styles.menuOpened)}
         style={{ height: top >= 20 ? 60 + 'px' : 100 + 'px' }}
       >
         <Wrapper className={styles.wrapper}>
