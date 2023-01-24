@@ -13,6 +13,7 @@ import HtmlParser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
 import styles from '../../../page-components/ServicePage/ServicePage.module.scss';
 import * as Icon from 'react-feather';
+import { ModalWindow } from '@/components/ModalWindow';
 
 export default function Service({ category }) {
   let categ = {};
@@ -39,14 +40,24 @@ export default function Service({ category }) {
     categ.price = <LoadingDots />;
   }
 
+const [open, setOpen] = useState();
+  const callmeHandle = (e) => {
+    e.preventDefault();
+    setOpen(true);
+    setOpen([]);
+  };
+
   return (
     <>
+		<ModalWindow open={open} />
+
       <HeadSEO
         title={categ.title}
         ogImageUrl={category.preview ? category.preview : null}
         ogTwitterImage={category.preview ? category.preview : null}
         canonicalUrl={`https://dent-71.ru/uslugi/${category.slug}`}
       />
+	  
       <div className={styles.layout}>
         <ServiceCatalog />
         <div className={styles.content}>
@@ -70,7 +81,9 @@ export default function Service({ category }) {
             ) : null}
             <a href='#doctors'>Врачи</a>
             <a href='#reviews'>Отзывы</a>
-            <a href='#callme'>Записаться на приём</a>
+            <a href onClick={callmeHandle}>
+              Записаться на приём
+            </a>
           </div>
           {categ.description && categ.description.length > 6 ? (
             <div id='description' className={styles.description}>

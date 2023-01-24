@@ -5,9 +5,10 @@ import { useMemo, useRef } from 'react';
 import { Phone, User } from 'react-feather';
 import HtmlParser from 'react-html-parser';
 import { ButtonDent } from '../Button/Button';
+import { Consultation } from '../Consultation';
 import { Container, Spacer, Wrapper } from '../Layout';
 import { MapComponent } from '../Map';
-import { Offer } from '../Offer';
+// import { Offer } from '../Offer';
 import { Title } from '../Title';
 import styles from './Doctor.module.scss';
 
@@ -64,7 +65,7 @@ const Doctor = ({ doctor }) => {
 
   return (
     <>
-      <Offer
+      {/* <Offer
         template='doctor'
         doctor={doctor}
         title={
@@ -81,31 +82,10 @@ const Doctor = ({ doctor }) => {
         image={doctor.photo}
         alt={doctor.name}
         imageTitle={doctor.name}
-      />
-
-      <Spacer size={4} />
-
-      <div className={styles.information}>
-        <Image
-          className={styles.teeth}
-          src='https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672045959/1619494083_30-phonoteka_org-p-stomatolog-fon-33-PhotoRoom-transformed_1_dp40vj.png'
-          alt=''
-          width={180}
-          height={220}
-        />
-        <h2 className={styles.name}>{doctor.name}</h2>
-        {doctorInfo.map((infoItem, i) => (
-          <div key={'infoblock-' + i++} className={styles.informationRow}>
-            <p className={styles.rowName}>{infoItem.key}</p>
-            <p className={styles.rowContent}>{infoItem.content}</p>
-          </div>
-        ))}
-      </div>
-
-      <Spacer size={4} />
-
+      /> */}
+	  <Spacer size={2} />
       <Container fullwidth className={styles.offer}>
-        <Wrapper>
+        <Wrapper> 
           <h2 className={styles.offerTitle}>
             <span className={styles.blue}>Запишитесь</span> на бесплатную
             консультацию и получите{' '}
@@ -211,6 +191,29 @@ const Doctor = ({ doctor }) => {
           <Spacer size={4} />
         </Wrapper>
       </Container>
+
+      <Spacer size={4} />
+
+      <div className={styles.information}>
+        <Image
+          className={styles.teeth}
+          src='https://res.cloudinary.com/dv3q1dxpi/image/upload/v1672045959/1619494083_30-phonoteka_org-p-stomatolog-fon-33-PhotoRoom-transformed_1_dp40vj.png'
+          alt=''
+          width={180}
+          height={220}
+        />
+        <h2 className={styles.name}>{doctor.name}</h2>
+        {doctorInfo.map((infoItem, i) => (
+          <div key={'infoblock-' + i++} className={styles.informationRow}>
+            <p className={styles.rowName}>{infoItem.key}</p>
+            <p className={styles.rowContent}>{infoItem.content}</p>
+          </div>
+        ))}
+      </div>
+
+      <Spacer size={4} />
+
+      <Consultation />
 
       <Spacer size={4} />
 

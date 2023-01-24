@@ -20,6 +20,8 @@ import { usePromoPages } from '@/lib/promo';
 import { usePortfolioPages } from '@/lib/portfolio';
 import { useSpecPages } from '@/lib/post';
 import { Wysiwyg } from '../Wysiwyg';
+import { useCategoryPages } from '@/lib/category';
+import { useReviewPages } from '@/lib/review';
 
 const UpdateModal = ({
   id,
