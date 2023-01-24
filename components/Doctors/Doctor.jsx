@@ -211,11 +211,11 @@ const Doctor = ({ doctor }) => {
         ))}
       </div>
 
-      <Spacer size={2} />
+      <Spacer size={4} />
 
       <Consultation />
 
-      <Spacer size={2} />
+      <Spacer size={4} />
 
       <Wrapper>
         <Title size={2} template='pageTitle'>
