@@ -84,7 +84,8 @@ const Doctor = ({ doctor }) => {
         imageTitle={doctor.name}
       /> */}
       <Container fullwidth className={styles.offer}>
-        <Wrapper>
+	  <Spacer size={2} />
+        <Wrapper> 
           <h2 className={styles.offerTitle}>
             <span className={styles.blue}>Запишитесь</span> на бесплатную
             консультацию и получите{' '}
