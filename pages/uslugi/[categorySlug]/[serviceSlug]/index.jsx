@@ -13,6 +13,7 @@ import Skeleton from 'react-loading-skeleton';
 import * as Icon from 'react-feather';
 import styles from '../Service.module.scss';
 import Link from 'next/link';
+import { ModalWindow } from '@/components/ModalWindow';
 
 export default function Service({ service }) {
   let serv = {};
@@ -54,6 +55,7 @@ export default function Service({ service }) {
         ogTwitterImage={service.preview ? service.preview : null}
         canonicalUrl={`https://dent-71.ru/uslugi/${service.categorySlug}/${service.slug}`}
       />
+	  <ModalWindow open={open}/>
       <div className={styles.layout}>
         <ServiceCatalog />
         <div className={styles.content}>

@@ -13,6 +13,7 @@ import HtmlParser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
 import styles from '../../../page-components/ServicePage/ServicePage.module.scss';
 import * as Icon from 'react-feather';
+import { ModalWindow } from '@/components/ModalWindow';
 
 export default function Service({ category }) {
   let categ = {};
@@ -45,7 +46,7 @@ const [open, setOpen] = useState();
     setOpen(true);
     setOpen([]);
   };
-  
+
   return (
     <>
       <HeadSEO
@@ -54,6 +55,7 @@ const [open, setOpen] = useState();
         ogTwitterImage={category.preview ? category.preview : null}
         canonicalUrl={`https://dent-71.ru/uslugi/${category.slug}`}
       />
+	  <ModalWindow open={open}/>
       <div className={styles.layout}>
         <ServiceCatalog />
         <div className={styles.content}>
