@@ -38,32 +38,6 @@ const UpdateModal = ({
   template,
   open,
 }) => {
-	const categoryData = useCategoryPages().data;
-	const serviceData = useServicePages().data;
-	const promoData = usePromoPages().data;
-	const portfolioData = usePortfolioPages().data;
-	const doctorData = useSpecPages().data;
-	const reviewData = useReviewPages().data;
-
-	const categories = categoryData
-    ? categoryData.reduce((acc, val) => [...acc, ...val.categories], [])
-    : [];
-	const services = serviceData
-    ? serviceData.reduce((acc, val) => [...acc, ...val.services], [])
-    : [];
-	const promos = promoData
-    ? promoData.reduce((acc, val) => [...acc, ...val.promos], [])
-    : [];
-  const works = portfolioData
-    ? portfolioData.reduce((acc, val) => [...acc, ...val.works], [])
-    : [];
-	const doctors = doctorData
-    ? doctorData.reduce((acc, val) => [...acc, ...val.doctors], [])
-    : [];
-	const reviews = reviewData
-    ? reviewData.reduce((acc, val) => [...acc, ...val.reviews], [])
-    : [];
-
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     setVisible(!open ? false : true);
@@ -72,7 +46,7 @@ const UpdateModal = ({
     setVisible(false);
   };
 
-  const nameRef = useRef(template === 'doctor' ? doctors[id].name : null);
+  const nameRef = useRef();
   const categoryRef = useRef();
   const previewRef = useRef();
   const oldPreviewRef = useRef();
