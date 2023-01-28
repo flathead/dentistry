@@ -179,11 +179,7 @@ const ServicePage = () => {
               </div>
             </div>
           </div>
-          <Spacer size={2} />
-          <div id='doctors'>
-            <p className={styles.subTitle}>Наши врачи</p>
-            <Doctors two />
-          </div>
+
           <Spacer size={4} />
           <div id='reviews'>
             <Title size={2} template='pageTitle' center>
@@ -193,11 +189,23 @@ const ServicePage = () => {
           </div>
         </div>
       </Container>
+
       <Wrapper>
-        <div>
+        <Spacer size={2} />
+
+        <div id='doctors'>
           <Title size={2} template='pageTitle'>
-            Деятельность клиники подтверждена официальной лицензией
+            Наши врачи
           </Title>
+          <Doctors />
+        </div>
+
+        <Spacer size={4} />
+
+        <div>
+          <p className={styles.subTitle}>
+            Деятельность клиники подтверждена официальной лицензией
+          </p>
           <Link
             href={'/files/ОГРН.pdf'}
             download

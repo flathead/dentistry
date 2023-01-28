@@ -6,6 +6,7 @@ import { LoadingDots } from '@/components/LoadingDots';
 import { MapComponent } from '@/components/Map';
 import { ServiceCatalog } from '@/components/ServiceCatalog';
 import { Title } from '@/components/Title';
+import { useState } from 'react';
 import ReviewList from '@/page-components/Reviews/ReviewList';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -40,7 +41,7 @@ export default function Service({ category }) {
     categ.price = <LoadingDots />;
   }
 
-const [open, setOpen] = useState();
+  const [open, setOpen] = useState();
   const callmeHandle = (e) => {
     e.preventDefault();
     setOpen(true);
@@ -49,7 +50,7 @@ const [open, setOpen] = useState();
 
   return (
     <>
-		<ModalWindow open={open} />
+      <ModalWindow open={open} />
 
       <HeadSEO
         title={categ.title}
@@ -57,7 +58,7 @@ const [open, setOpen] = useState();
         ogTwitterImage={category.preview ? category.preview : null}
         canonicalUrl={`https://dent-71.ru/uslugi/${category.slug}`}
       />
-	  
+
       <div className={styles.layout}>
         <ServiceCatalog />
         <div className={styles.content}>
@@ -174,11 +175,7 @@ const [open, setOpen] = useState();
             </div>
           </div>
           <Spacer size={2} />
-          <div id='doctors'>
-            <p className={styles.subTitle}>Наши врачи</p>
-            <Doctors two />
-          </div>
-          <Spacer size={4} />
+
           <div id='reviews'>
             <Title size={2} template='pageTitle' center>
               Отзывы
@@ -188,10 +185,21 @@ const [open, setOpen] = useState();
         </div>
       </div>
       <Wrapper>
-        <div>
+        <Spacer size={2} />
+
+        <div id='doctors'>
           <Title size={2} template='pageTitle'>
-            Деятельность клиники подтверждена официальной лицензией
+            Наши врачи
           </Title>
+          <Doctors />
+        </div>
+
+        <Spacer size={4} />
+
+        <div>
+          <p className={styles.subTitle}>
+            Деятельность клиники подтверждена официальной лицензией
+          </p>
           <Link
             href={'/files/ОГРН.pdf'}
             download

@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { ModalWindow } from '../ModalWindow';
 import { Container } from '../Layout';
 
-const Doctors = ({ two }) => {
+const Doctors = ({ servicepage }) => {
   const [open, setOpen] = useState(false);
   const modalHandler = () => {
     setOpen(true);
@@ -20,10 +20,10 @@ const Doctors = ({ two }) => {
   };
   const count = {
     min: 1,
-    mobile: two ? 1 : 2,
-    tablet: two ? 1 : 3,
-    full: two ? 2 : 4,
-    max: two ? 3 : 4,
+    mobile: servicepage ? 1 : 2,
+    tablet: servicepage ? 1 : 3,
+    full: servicepage ? 2 : 4,
+    max: servicepage ? 3 : 4,
   };
   const { data } = useSpecPages();
   const specialists = data
@@ -62,30 +62,32 @@ const Doctors = ({ two }) => {
           {specialists.map((specialist) => (
             <SwiperSlide key={specialist._id}>
               <div className={styles.card}>
-                <Link
-                  href='/vrachi/[specialistSlug]'
-                  as={`/vrachi/${specialist.slug}`}
-                >
-                  <div className={styles.preview}>
-                    <Image
-                      src={specialist.photo}
-                      alt={'Фотография специалиста'}
-                      height={400}
-                      width={400}
-                      quality={90}
-                    />
-                    <p className={styles.experience}>
-                      Стаж: {specialist.experience}
-                    </p>
-                  </div>
-                </Link>
-                <Link
-                  href='/vrachi/[specialistSlug]'
-                  as={`/vrachi/${specialist.slug}`}
-                >
-                  <p className={styles.doctorName}>{specialist.name}</p>
-                </Link>
-                <p className={styles.doctorSpec}>{specialist.speciality}</p>
+                <div>
+                  <Link
+                    href='/vrachi/[specialistSlug]'
+                    as={`/vrachi/${specialist.slug}`}
+                  >
+                    <div className={styles.preview}>
+                      <Image
+                        src={specialist.photo}
+                        alt={'Фотография специалиста'}
+                        height={400}
+                        width={400}
+                        quality={90}
+                      />
+                      <p className={styles.experience}>
+                        Стаж: {specialist.experience}
+                      </p>
+                    </div>
+                  </Link>
+                  <Link
+                    href='/vrachi/[specialistSlug]'
+                    as={`/vrachi/${specialist.slug}`}
+                  >
+                    <p className={styles.doctorName}>{specialist.name}</p>
+                  </Link>
+                  <p className={styles.doctorSpec}>{specialist.speciality}</p>
+                </div>
                 <div className={styles.docSliderButtons}>
                   <Link
                     className={styles.aboutSpec}

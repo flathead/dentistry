@@ -14,6 +14,7 @@ import * as Icon from 'react-feather';
 import styles from '../Service.module.scss';
 import Link from 'next/link';
 import { ModalWindow } from '@/components/ModalWindow';
+import { useState } from 'react';
 
 export default function Service({ service }) {
   let serv = {};
@@ -49,7 +50,7 @@ export default function Service({ service }) {
 
   return (
     <>
-	<ModalWindow open={open} />
+      <ModalWindow open={open} />
 
       <HeadSEO
         title={service.title}
@@ -170,11 +171,7 @@ export default function Service({ service }) {
               </div>
             </div>
           </div>
-          <Spacer size={2} />
-          <div id='doctors'>
-            <p className={styles.subTitle}>Наши врачи</p>
-            <Doctors two />
-          </div>
+
           <Spacer size={4} />
           <div id='reviews'>
             <Title size={2} template='pageTitle' center>
@@ -185,10 +182,22 @@ export default function Service({ service }) {
         </div>
       </div>
       <Wrapper>
-        <div>
+        <Spacer size={2} />
+
+        <div id='doctors'>
           <Title size={2} template='pageTitle'>
-            Деятельность клиники подтверждена официальной лицензией
+            Наши врачи
           </Title>
+          <Doctors />
+        </div>
+
+        <Spacer size={4} />
+
+        <div>
+          <p className={styles.subTitle}>
+            Деятельность клиники подтверждена официальной лицензией
+          </p>
+
           <Link
             href={'/files/ОГРН.pdf'}
             download
