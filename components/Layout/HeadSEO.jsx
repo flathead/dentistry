@@ -13,6 +13,7 @@ const HeadSEO = ({
   return (
     <Head>
       <title>{title || 'Стоматология на Демонстрации'}</title>
+
       <meta name='viewport' content='width=device-width, initial-scale=1' />
       <meta
         name='description'

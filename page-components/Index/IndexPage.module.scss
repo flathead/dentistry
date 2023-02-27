@@ -55,7 +55,7 @@
   }
   .aboutContent {
     p {
-      font-size: 1.4rem;
+      //font-size: 1.4rem;
       @media (max-width: 560px) {
         font-size: 1rem;
       }
@@ -63,8 +63,11 @@
   }
   .aboutSliders {
     display: grid;
-    grid-template: 1fr 80px;
+    grid-template: max-content 80px / 1fr;
     gap: 1rem;
+    position: sticky;
+    top: 5rem;
+    height: max-content;
     .aboutMainSlider {
       width: 100%;
       max-width: 540px;

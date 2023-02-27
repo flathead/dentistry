@@ -150,7 +150,7 @@ const Offer = ({
             ) : template === 'staff' ? (
               <Image
                 src={
-                  'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1670692655/about%28team%29/IMG_2995_kiripv.jpg'
+                  'https://res.cloudinary.com/dv3q1dxpi/image/upload/v1676555905/VSS_6632_p93iwg.jpg'
                 }
                 alt='Врачи клиники'
                 quality={85}

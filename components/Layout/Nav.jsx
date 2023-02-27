@@ -71,37 +71,37 @@ export const links = [
   },
   {
     id: 2,
-    url: '/uslugi',
+    url: `${siteMetadata.siteUrl}/uslugi`,
     name: 'Услуги',
   },
   {
     id: 3,
-    url: '/vrachi',
+    url: `${siteMetadata.siteUrl}/vrachi`,
     name: 'Врачи',
   },
   {
     id: 4,
-    url: '/aktsii',
+    url: `${siteMetadata.siteUrl}/aktsii`,
     name: 'Акции',
   },
   {
     id: 5,
-    url: '/tekhnologii',
+    url: `${siteMetadata.siteUrl}/tekhnologii`,
     name: 'Технологии',
   },
   {
     id: 6,
-    url: '/raboty',
+    url: `${siteMetadata.siteUrl}/raboty`,
     name: 'Работы',
   },
   {
     id: 7,
-    url: '/otzyvy',
+    url: `${siteMetadata.siteUrl}/otzyvy`,
     name: 'Отзывы',
   },
   {
     id: 8,
-    url: '/kontakty',
+    url: `${siteMetadata.siteUrl}/kontakty`,
     name: 'Контакты',
   },
 ];
@@ -235,6 +235,8 @@ const Nav = ({ top }) => {
                     </Container>
                   </Container>
                   <nav
+                    itemscope
+                    itemtype='http://schema.org/SiteNavigationElement'
                     className={clsx(
                       styles.nav,
                       links.length <= 4 && styles.navSmall
@@ -243,6 +245,7 @@ const Nav = ({ top }) => {
                     {links.map((link, key) => (
                       <Link
                         key={key}
+                        itemprop='url'
                         className={clsx(
                           styles.navLink,
                           router.pathname === link.url && styles.navLinkActive
@@ -263,7 +266,7 @@ const Nav = ({ top }) => {
                             : null
                         }
                       >
-                        {link.name}
+                        <span itemprop='name'>{link.name}</span>
                       </Link>
                     ))}
                   </nav>
@@ -296,10 +299,11 @@ const Nav = ({ top }) => {
               visible && styles.mobileMenuOpened
             )}
           >
-            <nav>
+            <nav itemscope itemtype='http://schema.org/SiteNavigationElement'>
               {links.map((link, key) => (
                 <Link
                   key={key}
+                  itemprop='url'
                   className={clsx(
                     styles.navLink,
                     location.includes(link.url) && styles.active
@@ -307,7 +311,7 @@ const Nav = ({ top }) => {
                   href={link.url}
                   onClick={linkHandler}
                 >
-                  {link.name}
+                  <span itemprop='name'>{link.name}</span>
                 </Link>
               ))}
             </nav>
